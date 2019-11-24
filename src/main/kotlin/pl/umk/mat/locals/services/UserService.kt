@@ -45,7 +45,8 @@ class UserService(
         val newUser = userRepository.save(User(
                 username = registerRequest.username,
                 password = bCryptPasswordEncoder.encode(registerRequest.password),
-                role = "guest"
+                role = "guest",
+                email = registerRequest.email
         ))
 
         return createAuthResponse(newUser)
