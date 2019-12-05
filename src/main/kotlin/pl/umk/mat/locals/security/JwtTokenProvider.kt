@@ -1,7 +1,6 @@
 package pl.umk.mat.locals.security
 
 
-
 import com.auth0.jwt.JWT
 import com.auth0.jwt.algorithms.Algorithm
 
@@ -18,11 +17,19 @@ class JwtTokenProvider(
 ) {
     private final val lastTokenReleaseClaim = "lastTokenRelease"
 
-    fun createToken(username: String, userId: Long, lastTokenRelease: Date): String {
+    fun createToken(email: String, userId: Long): String {
         return JWT.create()
-                .withSubject(username)
+                .withSubject(email)
                 .withClaim("userId", userId)
-                .withClaim(lastTokenReleaseClaim, lastTokenRelease)
+                .withClaim(lastTokenReleaseClaim, Date())
+                .sign(Algorithm.HMAC512(config.secretKey))
+    }
+
+    fun createTokenForTemporaryUser(googleId: String, userId: Long): String {
+        return JWT.create()
+                .withSubject(googleId)
+                .withClaim("userId", userId)
+                .withClaim(lastTokenReleaseClaim, Date())
                 .sign(Algorithm.HMAC512(config.secretKey))
     }
 
@@ -32,7 +39,13 @@ class JwtTokenProvider(
                 .verify(token)
     }
 
-    fun getUsernameFromTokenPayload(payload: DecodedJWT): String {
+    fun getTokenPayloadFromTokenForTemporaryUser(token: String): DecodedJWT {
+        return JWT.require(Algorithm.HMAC512(config.secretKey))
+                .build()
+                .verify(token)
+    }
+
+    fun getEmailFromTokenPayload(payload: DecodedJWT): String {
         return payload.subject
     }
 }

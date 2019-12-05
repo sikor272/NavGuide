@@ -8,12 +8,14 @@ data class User(
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         val id: Long = 0,
 
-        val username: String,
+        val password: String? = null,
 
-        val password: String,
+        val role: Role,
 
-        val role: String,
+        val email: String,
 
-        val email: String
+        val googleId:String? = null,
+
+        val confirmedEmail:Boolean = false
 
 )

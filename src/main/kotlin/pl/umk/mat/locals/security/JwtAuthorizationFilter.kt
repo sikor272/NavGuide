@@ -3,11 +3,9 @@ package pl.umk.mat.locals.security
 import com.auth0.jwt.exceptions.TokenExpiredException
 
 import org.springframework.security.core.context.SecurityContextHolder
-import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.security.core.userdetails.UsernameNotFoundException
 import org.springframework.stereotype.Component
 import org.springframework.web.filter.OncePerRequestFilter
-import pl.umk.mat.locals.exceptions.UserAuthException
 import pl.umk.mat.locals.services.UserDetailsServiceImpl
 
 import javax.servlet.FilterChain
@@ -35,7 +33,7 @@ class JwtAuthorizationFilter(
                 return
             }
 
-            val username = jwtTokenProvider.getUsernameFromTokenPayload(tokenPayload)
+            val username = jwtTokenProvider.getEmailFromTokenPayload(tokenPayload)
 
             val userDetails = try {
                 userDetailsService.loadUserByUsername(username)

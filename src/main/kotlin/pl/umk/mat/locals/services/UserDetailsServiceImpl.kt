@@ -13,7 +13,7 @@ class UserDetailsServiceImpl(
         @Lazy private val userService: UserService
 ) : UserDetailsService {
     override fun loadUserByUsername(username: String): UserDetails {
-        return userService.findUserByUsername(username)?.let {
+        return userService.findUserByEmail(username)?.let {
             UserPrincipal(it)
         } ?: throw UsernameNotFoundException(username)
     }

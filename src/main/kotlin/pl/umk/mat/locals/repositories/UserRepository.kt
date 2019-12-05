@@ -6,5 +6,6 @@ import pl.umk.mat.locals.models.User
 
 @Repository
 interface UserRepository : CrudRepository<User, Long> {
-    fun findUserByUsername(username: String): User?
+    fun findUserByEmail(email: String): User?
+    fun findUserByGoogleId(googleID: String): User?
 }

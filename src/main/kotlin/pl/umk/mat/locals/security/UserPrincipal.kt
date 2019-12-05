@@ -11,7 +11,7 @@ class UserPrincipal(
 ) : UserDetails {
 
     override fun getAuthorities(): MutableCollection<out GrantedAuthority> {
-        return arrayListOf(SimpleGrantedAuthority(user.role))
+        return arrayListOf(SimpleGrantedAuthority(user.role.name))
     }
 
     override fun isEnabled(): Boolean {
@@ -19,14 +19,14 @@ class UserPrincipal(
     }
 
     override fun getUsername(): String {
-        return user.username
+        return user.email
     }
 
     override fun isCredentialsNonExpired(): Boolean {
         return true
     }
 
-    override fun getPassword(): String {
+    override fun getPassword(): String? {
         return user.password
     }
 

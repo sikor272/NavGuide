@@ -27,6 +27,8 @@ dependencies {
     implementation("io.jsonwebtoken:jjwt")
     implementation("com.auth0:java-jwt:3.3.0")
 
+    implementation("com.google.api-client:google-api-client:1.30.5")
+
     runtimeOnly("mysql:mysql-connector-java")
     testImplementation("org.springframework.boot:spring-boot-starter-test") {
         exclude(group = "org.junit.vintage", module = "junit-vintage-engine")
