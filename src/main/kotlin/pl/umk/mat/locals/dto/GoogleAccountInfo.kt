@@ -4,6 +4,6 @@ data class GoogleAccountInfo(
         val email: String,
         val firstName: String,
         val lastName: String,
-        val locale: String,
+        val country: String,
         val authorizationToken: String
 )

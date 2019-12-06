@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter
 import org.springframework.security.config.http.SessionCreationPolicy
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
+import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter
 import pl.umk.mat.locals.security.JwtAuthorizationFilter
 import pl.umk.mat.locals.services.UserDetailsServiceImpl
@@ -18,7 +19,7 @@ import pl.umk.mat.locals.services.UserDetailsServiceImpl
 @EnableWebSecurity
 class WebSecurityConfig(
         @Lazy private val userDetailsService: UserDetailsServiceImpl,
-        @Lazy private val bCryptPasswordEncoder: BCryptPasswordEncoder,
+        @Lazy private val passwordEncoder: PasswordEncoder,
         private val jwtAuthorizationFilter: JwtAuthorizationFilter
 ) : WebSecurityConfigurerAdapter() {
 
@@ -28,13 +29,13 @@ class WebSecurityConfig(
     }
 
     @Bean
-    fun bCryptPasswordEncoder(): BCryptPasswordEncoder {
+    fun passwordEncoder(): PasswordEncoder {
         return BCryptPasswordEncoder()
     }
 
 
     override fun configure(auth: AuthenticationManagerBuilder) {
-        auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder)
+        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder)
     }
 
     override fun configure(http: HttpSecurity) {
@@ -42,6 +43,7 @@ class WebSecurityConfig(
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 
         http.authorizeRequests()
+                .antMatchers("/profile/**").authenticated()
                 .anyRequest().permitAll()
 
         http.addFilterBefore(jwtAuthorizationFilter, UsernamePasswordAuthenticationFilter::class.java)

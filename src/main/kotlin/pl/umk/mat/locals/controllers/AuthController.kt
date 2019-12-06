@@ -52,4 +52,22 @@ class AuthController(
     ): AuthResponse {
         return userService.googleLogin(googleCode)
     }
+
+    @PostMapping("/confirm")
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    fun confirmEmailAddress(){
+        // TODO
+    }
+
+    @PostMapping("/reset")
+    @ResponseStatus(HttpStatus.OK)
+    fun resetPasswordRequest(){
+        // TODO
+    }
+
+    @PostMapping("/reset/confirm")
+    @ResponseStatus(HttpStatus.OK)
+    fun confirmResetPassword(){
+        // TODO
+    }
 }

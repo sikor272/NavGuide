@@ -1,5 +1,6 @@
 package pl.umk.mat.locals.models
 
+import java.util.*
 import javax.persistence.*
 
 
@@ -17,5 +18,7 @@ data class TemporaryUser(
 
         val country: String,
 
-        val email: String
+        val email: String,
+
+        val createdAt: Date = Date()
 )

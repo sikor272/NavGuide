@@ -7,7 +7,7 @@ import pl.umk.mat.locals.models.User
 
 
 class UserPrincipal(
-        private val user: User
+         val user: User
 ) : UserDetails {
 
     override fun getAuthorities(): MutableCollection<out GrantedAuthority> {
