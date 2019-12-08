@@ -9,5 +9,8 @@ spring:
     url: jdbc:mysql://127.0.0.1:3306/locals?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
     username: business
     password: business
+  rabbitmq:
+    username: root
+    password: kotNaPlecach
 locals:
   exapleConfigurationString: qwqweqw

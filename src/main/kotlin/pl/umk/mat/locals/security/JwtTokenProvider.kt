@@ -17,11 +17,11 @@ class JwtTokenProvider(
 ) {
     private final val lastTokenReleaseClaim = "lastTokenRelease"
 
-    fun createToken(email: String, userId: Long): String {
+    fun createToken(email: String, userId: Long, uniqueToken: Int): String {
         return JWT.create()
                 .withSubject(email)
                 .withClaim("userId", userId)
-                .withClaim(lastTokenReleaseClaim, Date())
+                .withClaim(lastTokenReleaseClaim, uniqueToken)
                 .sign(Algorithm.HMAC512(config.secretKey))
     }
 
@@ -29,7 +29,6 @@ class JwtTokenProvider(
         return JWT.create()
                 .withSubject(googleId)
                 .withClaim("userId", userId)
-                .withClaim(lastTokenReleaseClaim, Date())
                 .sign(Algorithm.HMAC512(config.secretKey))
     }
 
@@ -47,5 +46,9 @@ class JwtTokenProvider(
 
     fun getEmailFromTokenPayload(payload: DecodedJWT): String {
         return payload.subject
+    }
+
+    fun getUniqueTokenFromPayload(payload: DecodedJWT): Int {
+        return payload.claims[lastTokenReleaseClaim]?.asInt() ?: throw UserAuthException("Bad token.")
     }
 }

@@ -6,6 +6,7 @@ import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.security.core.userdetails.UsernameNotFoundException
 import org.springframework.stereotype.Component
 import org.springframework.web.filter.OncePerRequestFilter
+import pl.umk.mat.locals.exceptions.UserAuthException
 import pl.umk.mat.locals.services.UserDetailsServiceImpl
 
 import javax.servlet.FilterChain
@@ -33,14 +34,18 @@ class JwtAuthorizationFilter(
                 return
             }
 
-            val username = jwtTokenProvider.getEmailFromTokenPayload(tokenPayload)
+            val email = jwtTokenProvider.getEmailFromTokenPayload(tokenPayload)
 
             val userDetails = try {
-                userDetailsService.loadUserByUsername(username)
+                userDetailsService.loadUserByUsername(email)
             } catch (e: UsernameNotFoundException) {
                 response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "User not found.")
                 return
             } as UserPrincipal
+
+            if(userDetails.user.tokenUniqueId != jwtTokenProvider.getUniqueTokenFromPayload(tokenPayload)){
+                response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Token expired.")
+            }
 
             val authentication = TokenBasedAuthentication(userDetails, token)
             SecurityContextHolder.getContext().authentication = authentication

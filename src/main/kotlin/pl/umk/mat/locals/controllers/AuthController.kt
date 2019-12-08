@@ -55,19 +55,25 @@ class AuthController(
 
     @PostMapping("/confirm")
     @ResponseStatus(HttpStatus.ACCEPTED)
-    fun confirmEmailAddress(){
-        // TODO
+    fun confirmEmailAddress(
+            @RequestBody @Valid emailConfirmationCode: EmailConfirmationCode
+    ){
+        userService.confirmEmail(emailConfirmationCode)
     }
 
     @PostMapping("/reset")
     @ResponseStatus(HttpStatus.OK)
-    fun resetPasswordRequest(){
-        // TODO
+    fun resetPasswordRequest(
+            @RequestBody @Valid passwordResetRequest: PasswordResetRequest
+    ){
+        userService.resetPasswordRequest(passwordResetRequest)
     }
 
     @PostMapping("/reset/confirm")
     @ResponseStatus(HttpStatus.OK)
-    fun confirmResetPassword(){
-        // TODO
+    fun confirmResetPassword(
+            @RequestBody @Valid confirmPasswordReset: ConfirmPasswordReset
+    ){
+        userService.confirmResetPassword(confirmPasswordReset)
     }
 }

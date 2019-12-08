@@ -17,6 +17,7 @@ import pl.umk.mat.locals.models.User
 import pl.umk.mat.locals.repositories.TemporaryUserRepository
 import pl.umk.mat.locals.repositories.UserRepository
 import pl.umk.mat.locals.security.JwtTokenProvider
+import java.lang.RuntimeException
 import javax.security.auth.message.AuthException
 
 import javax.transaction.Transactional
@@ -28,7 +29,8 @@ class UserService(
         private val passwordEncoder: PasswordEncoder,
         private val authenticationManager: AuthenticationManager,
         private val jwtTokenProvider: JwtTokenProvider,
-        private val temporaryUserRepository: TemporaryUserRepository
+        private val temporaryUserRepository: TemporaryUserRepository,
+        private val emailService: EmailService
 ) {
 
     fun localLogin(loginRequest: LoginRequest): AuthResponse {
@@ -56,7 +58,7 @@ class UserService(
                 lastName = registerRequest.lastName,
                 country = registerRequest.country
         ))
-
+        sendVerificationMail(newUser)
         return createAuthResponse(newUser)
     }
 
@@ -80,7 +82,7 @@ class UserService(
         ))
 
         temporaryUserRepository.deleteById(temporaryUserId)
-
+        sendVerificationMail(newUser)
         return createAuthResponse(newUser)
     }
 
@@ -119,7 +121,7 @@ class UserService(
     }
 
     private fun createAuthResponse(user: User): AuthResponse {
-        return AuthResponse(jwtTokenProvider.createToken(user.email, user.id))
+        return AuthResponse(jwtTokenProvider.createToken(user.email, user.id, user.tokenUniqueId))
     }
 
     fun findUserByEmail(email: String): User? {
@@ -150,5 +152,52 @@ class UserService(
 
     fun getSelfUserInfo(user: User): UserSelfInfo {
         return UserSelfInfo(user)
+    }
+
+    fun confirmEmail(emailConfirmationCode: EmailConfirmationCode) {
+        val user = userRepository.findUserByEmail(emailConfirmationCode.email) ?: throw UserAuthException("User with this email doesnt exist.")
+        if (user.emailConfirmationCode == emailConfirmationCode.code) {
+            userRepository.save(
+                    user.copy(
+                            emailConfirmationCode = null
+                    )
+            )
+        } else {
+            throw UserAuthException("Bad confirmation code.")
+        }
+    }
+
+    fun resetPasswordRequest(passwordResetRequest: PasswordResetRequest) {
+        val user = userRepository.findUserByEmail(passwordResetRequest.email) ?: throw UserAuthException("User with this email doesnt exist.")
+        userRepository.save(
+                user.copy(
+                        passwordResetCode = (1..5).map { kotlin.random.Random.nextInt(0, 10) }.map { "1234567890"[it] }.joinToString()
+                )
+        )
+        emailService.sendPasswordResetRequestMail(user.email, user.passwordResetCode ?: throw UserAuthException("Cannot send email."))
+    }
+
+    fun confirmResetPassword(confirmPasswordReset: ConfirmPasswordReset) {
+        val user = userRepository.findUserByEmail(confirmPasswordReset.email) ?: throw UserAuthException("User with this email doesnt exist.")
+        val availableLetters = "qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM0123654789"
+        val password = (1..10).map { kotlin.random.Random.nextInt(0, availableLetters.length) }.map { availableLetters[it] }.joinToString()
+        userRepository.save(
+                user.copy(
+                        password = passwordEncoder.encode(password)
+                )
+        )
+        emailService.sendNewPassword(user.email, password)
+    }
+
+    fun logoutFromAll(user: User) {
+        userRepository.save(
+                user.copy(
+                        tokenUniqueId = kotlin.random.Random.nextInt(100000, 1000000000)
+                )
+        )
+    }
+
+    fun sendVerificationMail(user: User) {
+        emailService.sendEmailConfirmation(user.email, user.emailConfirmationCode ?: throw UserAuthException("Cannot send confirmation email."))
     }
 }

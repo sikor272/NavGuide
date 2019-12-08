@@ -25,11 +25,27 @@ class ProfileController(
     }
 
     @GetMapping
+    @ResponseStatus(HttpStatus.OK)
     fun whoAmI(
             @AuthenticationPrincipal principal: UserPrincipal
     ): UserSelfInfo {
         return userService.getSelfUserInfo(principal.user)
     }
 
-    //TODO zmiana hasła / zmiana danych / 
+    @PostMapping("/resend")
+    @ResponseStatus(HttpStatus.OK)
+    fun resentValidationMail(
+            @AuthenticationPrincipal principal: UserPrincipal
+    ) {
+        userService.sendVerificationMail(principal.user)
+    }
+
+    @PostMapping("/logout")
+    @ResponseStatus(HttpStatus.OK)
+    fun logoutFromAll(
+            @AuthenticationPrincipal principal: UserPrincipal
+    ) {
+        userService.logoutFromAll(principal.user)
+    }
+
 }

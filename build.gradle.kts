@@ -26,7 +26,6 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     implementation("io.jsonwebtoken:jjwt:0.9.1")
     implementation("com.auth0:java-jwt:3.3.0")
-
     implementation("com.google.api-client:google-api-client:1.30.5")
 
     runtimeOnly("mysql:mysql-connector-java")
