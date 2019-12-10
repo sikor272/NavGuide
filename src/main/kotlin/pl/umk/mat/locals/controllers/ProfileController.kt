@@ -34,7 +34,7 @@ class ProfileController(
 
     @PostMapping("/resend")
     @ResponseStatus(HttpStatus.OK)
-    fun resentValidationMail(
+    fun resendValidationMail(
             @AuthenticationPrincipal principal: UserPrincipal
     ) {
         userService.sendVerificationMail(principal.user)
