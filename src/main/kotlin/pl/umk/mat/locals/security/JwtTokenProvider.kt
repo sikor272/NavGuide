@@ -3,13 +3,10 @@ package pl.umk.mat.locals.security
 
 import com.auth0.jwt.JWT
 import com.auth0.jwt.algorithms.Algorithm
-
 import com.auth0.jwt.interfaces.DecodedJWT
 import org.springframework.stereotype.Component
 import pl.umk.mat.locals.config.Config
 import pl.umk.mat.locals.exceptions.UserAuthException
-
-import java.util.*
 
 @Component
 class JwtTokenProvider(

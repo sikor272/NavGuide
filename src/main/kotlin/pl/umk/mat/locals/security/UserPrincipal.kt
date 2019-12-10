@@ -4,10 +4,11 @@ import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.authority.SimpleGrantedAuthority
 import org.springframework.security.core.userdetails.UserDetails
 import pl.umk.mat.locals.models.User
+import java.util.*
 
 
 class UserPrincipal(
-         val user: User
+        val user: User
 ) : UserDetails {
 
     override fun getAuthorities(): MutableCollection<out GrantedAuthority> {
@@ -35,6 +36,6 @@ class UserPrincipal(
     }
 
     override fun isAccountNonLocked(): Boolean {
-        return true
+        return user.ban?.before(Date()) ?: true
     }
 }

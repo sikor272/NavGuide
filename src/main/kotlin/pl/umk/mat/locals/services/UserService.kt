@@ -2,7 +2,6 @@ package pl.umk.mat.locals.services
 
 import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeTokenRequest
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken
-
 import com.google.api.client.http.javanet.NetHttpTransport
 import com.google.api.client.json.jackson2.JacksonFactory
 import org.springframework.security.authentication.AuthenticationManager
@@ -17,9 +16,7 @@ import pl.umk.mat.locals.models.User
 import pl.umk.mat.locals.repositories.TemporaryUserRepository
 import pl.umk.mat.locals.repositories.UserRepository
 import pl.umk.mat.locals.security.JwtTokenProvider
-import java.lang.RuntimeException
 import javax.security.auth.message.AuthException
-
 import javax.transaction.Transactional
 
 

@@ -1,14 +1,11 @@
 package pl.umk.mat.locals.security
 
 import com.auth0.jwt.exceptions.TokenExpiredException
-
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.security.core.userdetails.UsernameNotFoundException
 import org.springframework.stereotype.Component
 import org.springframework.web.filter.OncePerRequestFilter
-import pl.umk.mat.locals.exceptions.UserAuthException
 import pl.umk.mat.locals.services.UserDetailsServiceImpl
-
 import javax.servlet.FilterChain
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
@@ -43,9 +40,14 @@ class JwtAuthorizationFilter(
                 return
             } as UserPrincipal
 
-            if(userDetails.user.tokenUniqueId != jwtTokenProvider.getUniqueTokenFromPayload(tokenPayload)){
+            if (userDetails.user.tokenUniqueId != jwtTokenProvider.getUniqueTokenFromPayload(tokenPayload)) {
                 response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Token expired.")
             }
+
+            if (!userDetails.isAccountNonLocked) {
+                response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Your account is locked.")
+            }
+
 
             val authentication = TokenBasedAuthentication(userDetails, token)
             SecurityContextHolder.getContext().authentication = authentication

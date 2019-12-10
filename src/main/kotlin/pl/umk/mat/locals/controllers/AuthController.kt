@@ -57,7 +57,7 @@ class AuthController(
     @ResponseStatus(HttpStatus.ACCEPTED)
     fun confirmEmailAddress(
             @RequestBody @Valid emailConfirmationCode: EmailConfirmationCode
-    ){
+    ) {
         userService.confirmEmail(emailConfirmationCode)
     }
 
@@ -65,7 +65,7 @@ class AuthController(
     @ResponseStatus(HttpStatus.OK)
     fun resetPasswordRequest(
             @RequestBody @Valid passwordResetRequest: PasswordResetRequest
-    ){
+    ) {
         userService.resetPasswordRequest(passwordResetRequest)
     }
 
@@ -73,7 +73,7 @@ class AuthController(
     @ResponseStatus(HttpStatus.OK)
     fun confirmResetPassword(
             @RequestBody @Valid confirmPasswordReset: ConfirmPasswordReset
-    ){
+    ) {
         userService.confirmResetPassword(confirmPasswordReset)
     }
 }
