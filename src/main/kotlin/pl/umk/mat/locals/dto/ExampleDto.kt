@@ -8,8 +8,8 @@ data class ExampleDto(
 
         @ExampleValidator
         val exampleString: String
-){
-    constructor(example: Example):this(
+) {
+    constructor(example: Example) : this(
             id = example.id,
             exampleString = example.exampleField
     )

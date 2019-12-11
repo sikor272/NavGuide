@@ -6,5 +6,6 @@ import org.springframework.context.annotation.Configuration
 @Configuration
 @ConfigurationProperties("locals")
 data class Config(
-        var exampleConfigurationString: String = "test"
+        var exampleConfigurationString: String = "test",
+        var secretKey: String = "kotNaPlecach"
 )
