@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Lazy
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
+import org.springframework.security.config.annotation.web.builders.WebSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter
 import org.springframework.security.config.http.SessionCreationPolicy
@@ -13,6 +14,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter
 import pl.umk.mat.locals.security.JwtAuthorizationFilter
+import pl.umk.mat.locals.security.JwtTokenProvider
 import pl.umk.mat.locals.services.UserDetailsServiceImpl
 
 @Configuration
@@ -20,7 +22,7 @@ import pl.umk.mat.locals.services.UserDetailsServiceImpl
 class WebSecurityConfig(
         @Lazy private val userDetailsService: UserDetailsServiceImpl,
         @Lazy private val passwordEncoder: PasswordEncoder,
-        private val jwtAuthorizationFilter: JwtAuthorizationFilter
+        private val jwtTokenProvider: JwtTokenProvider
 ) : WebSecurityConfigurerAdapter() {
 
     @Bean
@@ -38,6 +40,10 @@ class WebSecurityConfig(
         auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder)
     }
 
+    override fun configure(web: WebSecurity) {
+        web.ignoring().antMatchers("/auth/google/register/confirm")
+    }
+
     override fun configure(http: HttpSecurity) {
         http.csrf().disable()
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
@@ -46,7 +52,6 @@ class WebSecurityConfig(
                 .antMatchers("/profile/**").authenticated()
                 .anyRequest().permitAll()
 
-        http.addFilterBefore(jwtAuthorizationFilter, UsernamePasswordAuthenticationFilter::class.java)
+        http.addFilterBefore(JwtAuthorizationFilter(jwtTokenProvider, userDetailsService), UsernamePasswordAuthenticationFilter::class.java)
     }
-
 }
