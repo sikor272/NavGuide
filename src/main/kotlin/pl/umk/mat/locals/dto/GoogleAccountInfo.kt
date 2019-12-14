@@ -16,6 +16,6 @@ data class GoogleAccountInfo(
 
         @field:ApiModelProperty(notes = "It's exactly what you expect.")
         val country: String,
-        @field:ApiModelProperty(notes = "This token will be used to authorization.")
+        @field:ApiModelProperty(notes = "This token will be use to authorization.")
         val authorizationToken: String
 )
