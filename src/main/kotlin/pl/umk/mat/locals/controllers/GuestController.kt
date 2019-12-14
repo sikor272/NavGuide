@@ -2,21 +2,22 @@ package pl.umk.mat.locals.controllers
 
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
-import pl.umk.mat.locals.dto.GuestTripResponse
+import pl.umk.mat.locals.dto.GuestOfferDto
 import pl.umk.mat.locals.services.GuestService
 
 @RestController
-@RequestMapping("/guests/")
+@RequestMapping("/guest")
 class GuestController (
     private val guestService: GuestService
 )   {
-    @GetMapping("/trips")
+    @GetMapping("/offer")
     @ResponseStatus(HttpStatus.OK)
-    fun getAllTrips(
+    fun getAllOffers(
             @RequestParam lat : Float,
-            @RequestParam lon : Float
-    ): List<GuestTripResponse>{
-        return guestService.getAllTripsByLocalization(lat, lon)
+            @RequestParam lon : Float,
+            @RequestParam radius : Long
+    ): List<GuestOfferDto>{
+        return guestService.getAllOffersByLocalization(lat, lon, radius)
     }
 }
 

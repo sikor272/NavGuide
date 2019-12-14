@@ -1,21 +1,19 @@
 package pl.umk.mat.locals.services
 
 import org.springframework.stereotype.Service
-import pl.umk.mat.locals.dto.GuestTripResponse
-import pl.umk.mat.locals.repositories.TripRepository
+import pl.umk.mat.locals.dto.GuestOfferDto
+import pl.umk.mat.locals.repositories.OfferRepository
 
 @Service
 
 class GuestService(
-    private val tripRepository: TripRepository
+    private val offerRepository: OfferRepository
 
 ){
-    fun getAllTripsByLocalization(lat: Float, lon: Float): List<GuestTripResponse> {
-        return tripRepository.findAllTripsByPoint(lat, lon).asSequence()
+    fun getAllOffersByLocalization(lat: Float, lon: Float, radius: Long): List<GuestOfferDto> {
+        return offerRepository.findAllOffersByPoint(lat, lon, radius).asSequence()
                 .map {
-                    GuestTripResponse(
-                            name = it.name
-                    )
+                    GuestOfferDto(it)
                 }.toList()
     }
 
