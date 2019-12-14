@@ -6,6 +6,6 @@ import io.swagger.annotations.ApiModelProperty
 
 @ApiModel(value = "Auth response")
 data class AuthResponse(
-        @field:ApiModelProperty(notes = "This token will be used to authorization.")
+        @field:ApiModelProperty(notes = "This token will be use to authorization.")
         val token: String
 )
