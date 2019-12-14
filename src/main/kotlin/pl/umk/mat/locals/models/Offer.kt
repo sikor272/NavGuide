@@ -1,5 +1,6 @@
 package pl.umk.mat.locals.models
 
+import java.util.*
 import javax.persistence.*
 
 
@@ -12,11 +13,11 @@ data class Offer(
         val lat : Float,
         val lon : Float,
         val radius : Float,
-        val begin : String,
-        val end : String,
+        val begin : Date,
+        val end : Date,
         val maxPeople : Long,
         val price : Float,
-        val priceType: Long,
+        val priceType: PriceType = PriceType.PerGroup,
         val inSearch: Long = 0,
         @ManyToMany(fetch = FetchType.LAZY)
         @JoinTable(name = "offer_tags",
