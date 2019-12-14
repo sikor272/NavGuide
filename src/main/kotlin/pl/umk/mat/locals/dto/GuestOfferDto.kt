@@ -8,7 +8,7 @@ data class GuestOfferDto(
         val lat: Float,
         val lon: Float,
         val inSearch : Long,
-        val price : Long,
+        val price : Float,
         val priceType : PriceType,
         val tags: List<TagDto>
 ) {
