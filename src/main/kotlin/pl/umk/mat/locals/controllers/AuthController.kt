@@ -1,5 +1,7 @@
 package pl.umk.mat.locals.controllers
 
+import io.swagger.annotations.Api
+import io.swagger.annotations.ApiOperation
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
 import pl.umk.mat.locals.dto.*
@@ -8,10 +10,12 @@ import javax.validation.Valid
 
 @RestController
 @RequestMapping("/auth")
+@Api(tags = ["Authentication Controller"], description = "This controller provide login/register logic.")
 class AuthController(
         private val userService: UserService
 ) {
 
+    @ApiOperation("Login with password.")
     @PostMapping("/local/login")
     @ResponseStatus(HttpStatus.OK)
     fun localLogin(
@@ -20,6 +24,7 @@ class AuthController(
         return userService.localLogin(loginRequest)
     }
 
+    @ApiOperation("Register with password.")
     @PostMapping("/local/register")
     @ResponseStatus(HttpStatus.CREATED)
     fun localRegister(
@@ -28,6 +33,7 @@ class AuthController(
         return userService.localRegister(registerRequest)
     }
 
+    @ApiOperation("Register with Google.")
     @PostMapping("/google/register")
     @ResponseStatus(HttpStatus.OK)
     fun googleRegister(
@@ -36,6 +42,7 @@ class AuthController(
         return userService.googleRegister(googleCode)
     }
 
+    @ApiOperation("Confirm Google registration.")
     @PostMapping("/google/register/confirm")
     @ResponseStatus(HttpStatus.CREATED)
     fun googleConfirmRegister(
@@ -45,6 +52,7 @@ class AuthController(
         return userService.googleConfirmRegister(confirmGoogleAccount, token)
     }
 
+    @ApiOperation("Login with Google.")
     @PostMapping("/google/login")
     @ResponseStatus(HttpStatus.OK)
     fun googleLogin(
@@ -53,6 +61,7 @@ class AuthController(
         return userService.googleLogin(googleCode)
     }
 
+    @ApiOperation(value = "Confirm email address.")
     @PostMapping("/confirm")
     @ResponseStatus(HttpStatus.ACCEPTED)
     fun confirmEmailAddress(
@@ -61,6 +70,7 @@ class AuthController(
         userService.confirmEmail(emailConfirmationCode)
     }
 
+    @ApiOperation("Send password reset code.")
     @PostMapping("/reset")
     @ResponseStatus(HttpStatus.OK)
     fun resetPasswordRequest(
@@ -69,6 +79,7 @@ class AuthController(
         userService.resetPasswordRequest(passwordResetRequest)
     }
 
+    @ApiOperation("Confirm password reset code.")
     @PostMapping("/reset/confirm")
     @ResponseStatus(HttpStatus.OK)
     fun confirmResetPassword(
