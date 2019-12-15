@@ -37,7 +37,7 @@ class UserService(
     }
 
     fun googleLogin(googleCode: GoogleCode): AuthResponse {
-        val googleAccountInfo = getGoogleAccountInfo(googleCode.code, googleCode.requestUrl)
+        val googleAccountInfo = getGoogleAccountInfo(googleCode.code, googleCode.request)
         val user = userRepository.findUserByGoogleId(googleAccountInfo.subject) ?: throw UserAuthException("User not found.")
         return createAuthResponse(user)
     }
@@ -86,7 +86,7 @@ class UserService(
 
     @Transactional
     fun googleRegister(googleCode: GoogleCode): GoogleAccountInfo {
-        val payload = getGoogleAccountInfo(googleCode.code, googleCode.requestUrl)
+        val payload = getGoogleAccountInfo(googleCode.code, googleCode.request)
 
         if (userRepository.existsUserByGoogleId(payload.subject))
             throw ResourceAlreadyExistException("User with this GoogleId already exist.")
@@ -105,7 +105,7 @@ class UserService(
 
     @Transactional
     fun connectGoogleAccount(googleCode: GoogleCode, user: User) {
-        val payload = getGoogleAccountInfo(googleCode.code, googleCode.requestUrl)
+        val payload = getGoogleAccountInfo(googleCode.code, googleCode.request)
 
         if (userRepository.existsUserByGoogleId(payload.subject))
             throw ResourceAlreadyExistException("User with this GoogleId already exist.")

@@ -9,5 +9,5 @@ data class GoogleCode(
         val code: String,
 
         @field:ApiModelProperty("Url")
-        val requestUrl: String
+        val request: String
 )
