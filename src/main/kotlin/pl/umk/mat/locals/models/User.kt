@@ -34,7 +34,7 @@ data class User(
         @UniqueElements
         val facebookId: String? = null,
 
-        val emailConfirmationCode: String? = (1..5).map { kotlin.random.Random.nextInt(0, 10) }.map { "1234567890"[it] }.joinToString(),
+        val emailConfirmationCode: String? = (1..5).map { kotlin.random.Random.nextInt(0, 10) }.map { "1234567890"[it] }.joinToString(""),
 
         val ban: Date? = null,
 

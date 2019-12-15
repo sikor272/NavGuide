@@ -6,17 +6,17 @@ import pl.umk.mat.locals.dto.GuestOfferDto
 import pl.umk.mat.locals.services.GuestService
 
 @RestController
-@RequestMapping("/guest")
-class GuestController (
-    private val guestService: GuestService
-)   {
-    @GetMapping("/offer")
+@RequestMapping("/guests")
+class GuestController(
+        private val guestService: GuestService
+) {
+    @GetMapping("/offers")
     @ResponseStatus(HttpStatus.OK)
     fun getAllOffers(
-            @RequestParam lat : Float,
-            @RequestParam lon : Float,
-            @RequestParam radius : Long
-    ): List<GuestOfferDto>{
+            @RequestParam lat: Float,
+            @RequestParam lon: Float,
+            @RequestParam radius: Long
+    ): List<GuestOfferDto> {
         return guestService.getAllOffersByLocalization(lat, lon, radius)
     }
 }
