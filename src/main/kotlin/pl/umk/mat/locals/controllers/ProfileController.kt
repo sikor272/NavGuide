@@ -19,7 +19,7 @@ class ProfileController(
         private val userService: UserService
 ) {
 
-    @ApiOperation(value = "Connect account created using the password to Google account.", authorizations = [Authorization("JWT Token" )])
+    @ApiOperation(value = "Connect account created using the password to Google account.", authorizations = [Authorization("JWT Token")])
     @PostMapping("/connect/google")
     @ResponseStatus(HttpStatus.OK)
     fun connectAccountToGoogle(
@@ -31,7 +31,7 @@ class ProfileController(
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    @ApiOperation("Get basic information about yourself.", authorizations = [Authorization("JWT Token" )])
+    @ApiOperation("Get basic information about yourself.", authorizations = [Authorization("JWT Token")])
     fun whoAmI(
             @AuthenticationPrincipal principal: UserPrincipal
     ): UserSelfInfo {
@@ -40,7 +40,7 @@ class ProfileController(
 
     @PostMapping("/resend")
     @ResponseStatus(HttpStatus.OK)
-    @ApiOperation("Resend email confirmation code.", authorizations = [Authorization("JWT Token" )])
+    @ApiOperation("Resend email confirmation code.", authorizations = [Authorization("JWT Token")])
     fun resendValidationMail(
             @AuthenticationPrincipal principal: UserPrincipal
     ) {
@@ -49,7 +49,7 @@ class ProfileController(
 
     @PostMapping("/logout")
     @ResponseStatus(HttpStatus.OK)
-    @ApiOperation("Logout from all devices.", authorizations = [Authorization("JWT Token" )])
+    @ApiOperation("Logout from all devices.", authorizations = [Authorization("JWT Token")])
     fun logoutFromAll(
             @AuthenticationPrincipal principal: UserPrincipal
     ) {

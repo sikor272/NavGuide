@@ -37,7 +37,7 @@ class UserService(
     }
 
     fun googleLogin(googleCode: GoogleCode): AuthResponse {
-        val googleAccountInfo = getGoogleAccountInfo(googleCode.code)
+        val googleAccountInfo = getGoogleAccountInfo(googleCode.code, googleCode.requestUrl)
         val user = userRepository.findUserByGoogleId(googleAccountInfo.subject) ?: throw UserAuthException("User not found.")
         return createAuthResponse(user)
     }
@@ -86,7 +86,7 @@ class UserService(
 
     @Transactional
     fun googleRegister(googleCode: GoogleCode): GoogleAccountInfo {
-        val payload = getGoogleAccountInfo(googleCode.code)
+        val payload = getGoogleAccountInfo(googleCode.code, googleCode.requestUrl)
 
         if (userRepository.existsUserByGoogleId(payload.subject))
             throw ResourceAlreadyExistException("User with this GoogleId already exist.")
@@ -105,7 +105,7 @@ class UserService(
 
     @Transactional
     fun connectGoogleAccount(googleCode: GoogleCode, user: User) {
-        val payload = getGoogleAccountInfo(googleCode.code)
+        val payload = getGoogleAccountInfo(googleCode.code, googleCode.requestUrl)
 
         if (userRepository.existsUserByGoogleId(payload.subject))
             throw ResourceAlreadyExistException("User with this GoogleId already exist.")
@@ -125,14 +125,14 @@ class UserService(
         return userRepository.findUserByEmail(email)
     }
 
-    private fun getGoogleAccountInfo(code: String): GoogleIdToken.Payload {
+    private fun getGoogleAccountInfo(code: String, requestUrl: String): GoogleIdToken.Payload {
         return GoogleAuthorizationCodeTokenRequest(
                 NetHttpTransport(),
                 JacksonFactory(),
                 "1095850462503-47vu62eqij6r2r8k1ucugo34gdc5dide.apps.googleusercontent.com",
                 "ERge9vjfR2Xks0C19Mz2xny9",
                 code,
-                "http://localhost:9615"
+                requestUrl
         ).execute().parseIdToken().payload ?: throw AuthException("Error receiving data from google.")
     }
 

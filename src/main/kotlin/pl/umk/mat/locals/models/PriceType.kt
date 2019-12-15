@@ -1,6 +1,6 @@
 package pl.umk.mat.locals.models
 
 enum class PriceType {
-    PerPerson,
-    PerGroup
+    PER_PERSON,
+    PER_GROUP
 }

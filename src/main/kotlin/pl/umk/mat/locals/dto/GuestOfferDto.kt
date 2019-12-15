@@ -1,4 +1,5 @@
 package pl.umk.mat.locals.dto
+
 import pl.umk.mat.locals.models.Offer
 import pl.umk.mat.locals.models.PriceType
 
@@ -7,9 +8,9 @@ data class GuestOfferDto(
         val name: String,
         val lat: Float,
         val lon: Float,
-        val inSearch : Long,
-        val price : Float,
-        val priceType : PriceType,
+        val inSearch: Long,
+        val price: Float,
+        val priceType: PriceType,
         val tags: List<TagDto>
 ) {
     constructor(offer: Offer) : this(
@@ -20,7 +21,7 @@ data class GuestOfferDto(
             inSearch = offer.inSearch,
             price = offer.price,
             priceType = offer.priceType,
-            tags = offer.tags.map{
+            tags = offer.tags.map {
                 TagDto(it)
             }
     )

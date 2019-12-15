@@ -6,5 +6,8 @@ import io.swagger.annotations.ApiModelProperty
 @ApiModel(value = "Google code")
 data class GoogleCode(
         @field:ApiModelProperty("One time code provided by Google.")
-        val code: String
+        val code: String,
+
+        @field:ApiModelProperty("Url")
+        val requestUrl: String
 )
