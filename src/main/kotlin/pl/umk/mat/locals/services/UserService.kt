@@ -13,6 +13,7 @@ import pl.umk.mat.locals.exceptions.ResourceAlreadyExistException
 import pl.umk.mat.locals.exceptions.UserAuthException
 import pl.umk.mat.locals.models.TemporaryUser
 import pl.umk.mat.locals.models.User
+import pl.umk.mat.locals.repositories.InterestRepository
 import pl.umk.mat.locals.repositories.TemporaryUserRepository
 import pl.umk.mat.locals.repositories.UserRepository
 import pl.umk.mat.locals.security.JwtTokenProvider
@@ -27,7 +28,8 @@ class UserService(
         private val authenticationManager: AuthenticationManager,
         private val jwtTokenProvider: JwtTokenProvider,
         private val temporaryUserRepository: TemporaryUserRepository,
-        private val emailService: EmailService
+        private val emailService: EmailService,
+        private val interestRepository: InterestRepository
 ) {
 
     fun localLogin(loginRequest: LoginRequest): AuthResponse {
@@ -38,7 +40,8 @@ class UserService(
 
     fun googleLogin(googleCode: GoogleCode): AuthResponse {
         val googleAccountInfo = getGoogleAccountInfo(googleCode.code, googleCode.request)
-        val user = userRepository.findUserByGoogleId(googleAccountInfo.subject) ?: throw UserAuthException("User not found.")
+        val user = userRepository.findUserByGoogleId(googleAccountInfo.subject)
+                ?: throw UserAuthException("User not found.")
         return createAuthResponse(user)
     }
 
@@ -53,7 +56,9 @@ class UserService(
                 email = registerRequest.email,
                 firstName = registerRequest.firstName,
                 lastName = registerRequest.lastName,
-                country = registerRequest.country
+                country = registerRequest.country,
+                telephone = registerRequest.telephone,
+                interests  = interestRepository.findAllById(registerRequest.interests).asSequence().toList()
         ))
         sendVerificationMail(newUser)
         return createAuthResponse(newUser)
@@ -75,7 +80,9 @@ class UserService(
                 firstName = confirmGoogleAccount.firstName,
                 lastName = confirmGoogleAccount.lastName,
                 country = confirmGoogleAccount.country,
-                googleId = jwtTokenPayload.subject
+                googleId = jwtTokenPayload.subject,
+                telephone = confirmGoogleAccount.telephone,
+                interests = interestRepository.findAllById(confirmGoogleAccount.interests).asSequence().toList()
         ))
 
         temporaryUserRepository.deleteById(temporaryUserId)
@@ -138,13 +145,14 @@ class UserService(
 
 
     private fun createTemporaryGoogleUserIfNotExist(googleTokenResponse: GoogleIdToken.Payload): TemporaryUser {
-        return temporaryUserRepository.findTemporaryUserByGoogleId(googleTokenResponse.subject) ?: temporaryUserRepository.save(TemporaryUser(
-                firstName = googleTokenResponse["given_name"] as String,
-                lastName = googleTokenResponse["family_name"] as String,
-                googleId = googleTokenResponse.subject,
-                country = googleTokenResponse["locale"] as String,
-                email = googleTokenResponse.email
-        ))
+        return temporaryUserRepository.findTemporaryUserByGoogleId(googleTokenResponse.subject)
+                ?: temporaryUserRepository.save(TemporaryUser(
+                        firstName = googleTokenResponse["given_name"] as String,
+                        lastName = googleTokenResponse["family_name"] as String,
+                        googleId = googleTokenResponse.subject,
+                        country = googleTokenResponse["locale"] as String,
+                        email = googleTokenResponse.email
+                ))
     }
 
     fun getSelfUserInfo(user: User): UserSelfInfo {
@@ -152,7 +160,8 @@ class UserService(
     }
 
     fun confirmEmail(emailConfirmationCode: EmailConfirmationCode) {
-        val user = userRepository.findUserByEmail(emailConfirmationCode.email) ?: throw UserAuthException("User with this email doesnt exist.")
+        val user = userRepository.findUserByEmail(emailConfirmationCode.email)
+                ?: throw UserAuthException("User with this email doesnt exist.")
         if (user.emailConfirmationCode == emailConfirmationCode.code) {
             userRepository.save(
                     user.copy(
@@ -165,17 +174,20 @@ class UserService(
     }
 
     fun resetPasswordRequest(passwordResetRequest: PasswordResetRequest) {
-        val user = userRepository.findUserByEmail(passwordResetRequest.email) ?: throw UserAuthException("User with this email doesnt exist.")
+        val user = userRepository.findUserByEmail(passwordResetRequest.email)
+                ?: throw UserAuthException("User with this email doesnt exist.")
         userRepository.save(
                 user.copy(
                         passwordResetCode = (1..5).map { kotlin.random.Random.nextInt(0, 10) }.map { "1234567890"[it] }.joinToString()
                 )
         )
-        emailService.sendPasswordResetRequestMail(user.email, user.passwordResetCode ?: throw UserAuthException("Cannot send email."))
+        emailService.sendPasswordResetRequestMail(user.email, user.passwordResetCode
+                ?: throw UserAuthException("Cannot send email."))
     }
 
     fun confirmResetPassword(confirmPasswordReset: ConfirmPasswordReset) {
-        val user = userRepository.findUserByEmail(confirmPasswordReset.email) ?: throw UserAuthException("User with this email doesnt exist.")
+        val user = userRepository.findUserByEmail(confirmPasswordReset.email)
+                ?: throw UserAuthException("User with this email doesnt exist.")
         val availableLetters = "qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM0123654789"
         val password = (1..10).map { kotlin.random.Random.nextInt(0, availableLetters.length) }.map { availableLetters[it] }.joinToString()
         userRepository.save(
@@ -195,6 +207,7 @@ class UserService(
     }
 
     fun sendVerificationMail(user: User) {
-        emailService.sendEmailConfirmation(user.email, user.emailConfirmationCode ?: throw UserAuthException("Cannot send confirmation email."))
+        emailService.sendEmailConfirmation(user.email, user.emailConfirmationCode
+                ?: throw UserAuthException("Cannot send confirmation email."))
     }
 }

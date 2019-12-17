@@ -23,5 +23,5 @@ data class Offer(
         @JoinTable(name = "offer_tags",
                 joinColumns = [JoinColumn(name = "offer_id")],
                 inverseJoinColumns = [JoinColumn(name = "tag_id")])
-        val tags: List<Tag>
+        val tags: List<Tag> = emptyList()
 )

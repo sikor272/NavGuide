@@ -2,10 +2,7 @@ package pl.umk.mat.locals.models
 
 import org.hibernate.validator.constraints.UniqueElements
 import java.util.*
-import javax.persistence.Entity
-import javax.persistence.GeneratedValue
-import javax.persistence.GenerationType
-import javax.persistence.Id
+import javax.persistence.*
 import javax.validation.constraints.Email
 
 @Entity
@@ -24,6 +21,8 @@ data class User(
 
         val role: Role = Role.TRAVELER,
 
+        val telephone: String,
+
         @UniqueElements
         @field:Email
         val email: String,
@@ -40,5 +39,11 @@ data class User(
 
         val passwordResetCode: String? = null,
 
-        val tokenUniqueId: Int = kotlin.random.Random.nextInt(100000, 1000000000)
+        val tokenUniqueId: Int = kotlin.random.Random.nextInt(100000, 1000000000),
+
+        @ManyToMany(fetch = FetchType.LAZY)
+        @JoinTable(name = "user_interests",
+                joinColumns = [JoinColumn(name = "user_id")],
+                inverseJoinColumns = [JoinColumn(name = "interest_id")])
+        val interests: List<Interest> = emptyList()
 )

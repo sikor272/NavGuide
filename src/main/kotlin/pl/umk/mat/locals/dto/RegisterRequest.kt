@@ -18,5 +18,8 @@ data class RegisterRequest(
         val lastName: String,
 
         @field:ApiModelProperty(notes = "It's exactly what you expect.")
-        val country: String
+        val country: String,
+        val telephone: String,
+        val interests: List<Long>
+
 )
