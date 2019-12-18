@@ -2,10 +2,7 @@ package pl.umk.mat.locals.models
 
 import org.hibernate.validator.constraints.UniqueElements
 import java.util.*
-import javax.persistence.Entity
-import javax.persistence.GeneratedValue
-import javax.persistence.GenerationType
-import javax.persistence.Id
+import javax.persistence.*
 import javax.validation.constraints.Email
 
 @Entity
@@ -24,6 +21,8 @@ data class User(
 
         val role: Role = Role.TRAVELER,
 
+        val telephone: String,
+
         @UniqueElements
         @field:Email
         val email: String,
@@ -40,5 +39,18 @@ data class User(
 
         val passwordResetCode: String? = null,
 
-        val tokenUniqueId: Int = kotlin.random.Random.nextInt(100000, 1000000000)
+        val tokenUniqueId: Int = kotlin.random.Random.nextInt(100000, 1000000000),
+
+        val experience: Experience = Experience.NOVICE,
+
+        val avatar: String = "https://images.unsplash.com/photo-1534480573933-6fad32e8bd38?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60",
+
+        @ManyToMany(fetch = FetchType.LAZY)
+        @JoinTable(name = "user_interests",
+                joinColumns = [JoinColumn(name = "user_id")],
+                inverseJoinColumns = [JoinColumn(name = "interest_id")])
+        val interests: List<Interest> = emptyList(),
+
+        @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+        val photos: List<Photo> = emptyList()
 )

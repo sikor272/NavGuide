@@ -2,6 +2,7 @@ package pl.umk.mat.locals.dto
 
 import io.swagger.annotations.ApiModel
 import io.swagger.annotations.ApiModelProperty
+import pl.umk.mat.locals.models.Experience
 
 @ApiModel(value = "Register with password request")
 data class RegisterRequest(
@@ -18,5 +19,9 @@ data class RegisterRequest(
         val lastName: String,
 
         @field:ApiModelProperty(notes = "It's exactly what you expect.")
-        val country: String
+        val country: String,
+        val telephone: String,
+        val experience: Experience,
+        val interests: List<Long>
+
 )
