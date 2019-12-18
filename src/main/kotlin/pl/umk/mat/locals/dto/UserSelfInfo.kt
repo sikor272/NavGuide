@@ -49,7 +49,7 @@ data class UserSelfInfo(
 
         val avatar: String,
 
-        val interests : List<InterestDto> = emptyList()
+        val interests: List<InterestDto> = emptyList()
 
 ) {
     constructor(user: User) : this(
@@ -68,7 +68,7 @@ data class UserSelfInfo(
             experience = user.experience,
             avatar = user.avatar,
             interests = user.interests.map {
-                    InterestDto(it)
+                InterestDto(it)
             }
     )
 }

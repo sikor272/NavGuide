@@ -59,7 +59,7 @@ class UserService(
                 country = registerRequest.country,
                 telephone = registerRequest.telephone,
                 experience = registerRequest.experience,
-                interests  = interestRepository.findAllById(registerRequest.interests).asSequence().toList()
+                interests = interestRepository.findAllById(registerRequest.interests).asSequence().toList()
         ))
         sendVerificationMail(newUser)
         return createAuthResponse(newUser)
@@ -127,7 +127,21 @@ class UserService(
     }
 
     private fun createAuthResponse(user: User): AuthResponse {
-        return AuthResponse(jwtTokenProvider.createToken(user.email, user.id, user.tokenUniqueId))
+        return AuthResponse(
+                token = jwtTokenProvider.createToken(user.email, user.id, user.tokenUniqueId),
+                firstName = user.firstName,
+                lastName = user.lastName,
+                country = user.lastName,
+                role = user.role,
+                email = user.email,
+                telephone = user.telephone,
+                experience = user.experience,
+                avatar = user.avatar,
+                interests = user.interests.map {
+                    InterestDto(it)
+                }
+
+        )
     }
 
     fun findUserByEmail(email: String): User? {
