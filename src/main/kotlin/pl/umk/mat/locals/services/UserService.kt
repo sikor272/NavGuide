@@ -58,6 +58,7 @@ class UserService(
                 lastName = registerRequest.lastName,
                 country = registerRequest.country,
                 telephone = registerRequest.telephone,
+                experience = registerRequest.experience,
                 interests  = interestRepository.findAllById(registerRequest.interests).asSequence().toList()
         ))
         sendVerificationMail(newUser)
@@ -82,6 +83,7 @@ class UserService(
                 country = confirmGoogleAccount.country,
                 googleId = jwtTokenPayload.subject,
                 telephone = confirmGoogleAccount.telephone,
+                experience = confirmGoogleAccount.experience,
                 interests = interestRepository.findAllById(confirmGoogleAccount.interests).asSequence().toList()
         ))
 

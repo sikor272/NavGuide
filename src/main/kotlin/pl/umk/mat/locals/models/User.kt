@@ -41,9 +41,16 @@ data class User(
 
         val tokenUniqueId: Int = kotlin.random.Random.nextInt(100000, 1000000000),
 
+        val experience: Experience = Experience.NOVICE,
+
+        val avatar: String = "https://images.unsplash.com/photo-1534480573933-6fad32e8bd38?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60",
+
         @ManyToMany(fetch = FetchType.LAZY)
         @JoinTable(name = "user_interests",
                 joinColumns = [JoinColumn(name = "user_id")],
                 inverseJoinColumns = [JoinColumn(name = "interest_id")])
-        val interests: List<Interest> = emptyList()
+        val interests: List<Interest> = emptyList(),
+
+        @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+        val photos: List<Photo> = emptyList()
 )

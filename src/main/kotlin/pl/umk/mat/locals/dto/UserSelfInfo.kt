@@ -2,6 +2,7 @@ package pl.umk.mat.locals.dto
 
 import io.swagger.annotations.ApiModel
 import io.swagger.annotations.ApiModelProperty
+import pl.umk.mat.locals.models.Experience
 import pl.umk.mat.locals.models.Interest
 import pl.umk.mat.locals.models.Role
 import pl.umk.mat.locals.models.User
@@ -42,6 +43,12 @@ data class UserSelfInfo(
         @field:ApiModelProperty(notes = "It's exactly what you expect.")
         val tokenUniqueId: Int,
 
+        val telephone: String,
+
+        val experience: Experience,
+
+        val avatar: String,
+
         val interests : List<InterestDto> = emptyList()
 
 ) {
@@ -57,6 +64,9 @@ data class UserSelfInfo(
             ban = user.ban,
             passwordResetCode = user.passwordResetCode,
             tokenUniqueId = user.tokenUniqueId,
+            telephone = user.telephone,
+            experience = user.experience,
+            avatar = user.avatar,
             interests = user.interests.map {
                     InterestDto(it)
             }
