@@ -6,4 +6,6 @@ import pl.umk.mat.locals.models.Tag
 
 
 @Repository
-interface TagRepository : CrudRepository<Tag, Long>
+interface TagRepository : CrudRepository<Tag, Long> {
+    fun findAllByNameIn(list: List<String>): List<Tag>
+}
