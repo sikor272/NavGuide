@@ -12,5 +12,6 @@ spring:
   rabbitmq:
     username: root
     password: kotNaPlecach
-locals:
-  exapleConfigurationString: qwqweqw
+  jackson:
+    mapper:
+      ACCEPT_CASE_INSENSITIVE_ENUMS: true

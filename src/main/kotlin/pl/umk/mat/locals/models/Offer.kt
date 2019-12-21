@@ -10,6 +10,7 @@ data class Offer(
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         val id: Long = 0,
         val name: String,
+        val city: String,
         val lat: Float,
         val lon: Float,
         val radius: Float,

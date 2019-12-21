@@ -12,12 +12,36 @@ class GuestController(
 ) {
     @GetMapping("/offers")
     @ResponseStatus(HttpStatus.OK)
-    fun getAllOffers(
+    fun getRandomOffers(
+
+    ): List<GuestOfferDto> {
+        return guestService.getRandomOffers()
+    }
+
+    @GetMapping("/offers/geo")
+    @ResponseStatus(HttpStatus.OK)
+    fun getAllOffersByGeoLocalization(
             @RequestParam lat: Float,
             @RequestParam lon: Float,
             @RequestParam radius: Long
     ): List<GuestOfferDto> {
-        return guestService.getAllOffersByLocalization(lat, lon, radius)
+        return guestService.getAllOffersByGeoLocalization(lat, lon, radius)
+    }
+
+    @GetMapping("/offers/city")
+    @ResponseStatus(HttpStatus.OK)
+    fun getAllOffersByCity(
+            @RequestParam city: String
+    ): List<GuestOfferDto> {
+        return guestService.getAllOffersByCity(city)
+    }
+
+    @GetMapping("/offers/tags")
+    @ResponseStatus(HttpStatus.OK)
+    fun getAllOffersByTags(
+            @RequestParam(name = "list") tags: List<String>
+    ): List<GuestOfferDto> {
+        return guestService.getAllOffersByTags(tags)
     }
 }
 
