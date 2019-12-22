@@ -36,7 +36,7 @@ class GuestController(
     @ApiOperation("Get all offers by city.")
     @ResponseStatus(HttpStatus.OK)
     fun getAllOffersByCity(
-            @RequestParam city: String
+            @RequestParam(value = "name") city: String
     ): List<GuestOfferDto> {
         return guestService.getAllOffersByCity(city)
     }
