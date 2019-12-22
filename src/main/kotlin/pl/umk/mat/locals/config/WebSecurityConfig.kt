@@ -42,6 +42,13 @@ class WebSecurityConfig(
 
     override fun configure(web: WebSecurity) {
         web.ignoring().antMatchers("/auth/**")
+                .and()
+                .ignoring().antMatchers("/v2/api-docs",
+                        "/configuration/ui",
+                        "/swagger-resources/**",
+                        "/configuration/security",
+                        "/swagger-ui.html",
+                        "/webjars/**");
     }
 
     override fun configure(http: HttpSecurity) {

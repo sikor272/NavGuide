@@ -18,7 +18,7 @@ data class UserSelfInfo(
         @field:ApiModelProperty(notes = "It's exactly what you expect.")
         val lastName: String,
 
-        @field:ApiModelProperty(notes = "It's exactly what you expect.")
+        @field:ApiModelProperty(notes = "Country code ISO 3166-1 alpha-2")
         val country: String,
 
         @field:ApiModelProperty(notes = "It's exactly what you expect.")
@@ -42,12 +42,16 @@ data class UserSelfInfo(
         @field:ApiModelProperty(notes = "It's exactly what you expect.")
         val tokenUniqueId: Int,
 
+        @field:ApiModelProperty(notes = "It's exactly what you expect.")
         val telephone: String,
 
+        @field:ApiModelProperty(notes = "It's exactly what you expect.")
         val experience: Experience,
 
+        @field:ApiModelProperty(notes = "It's exactly what you expect.")
         val avatar: String,
 
+        @field:ApiModelProperty(notes = "It's exactly what you expect.")
         val interests: List<InterestDto> = emptyList()
 
 ) {

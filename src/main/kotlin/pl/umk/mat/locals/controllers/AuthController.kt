@@ -2,6 +2,7 @@ package pl.umk.mat.locals.controllers
 
 import io.swagger.annotations.Api
 import io.swagger.annotations.ApiOperation
+import io.swagger.annotations.ApiParam
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
 import pl.umk.mat.locals.dto.*
@@ -47,7 +48,7 @@ class AuthController(
     @ResponseStatus(HttpStatus.CREATED)
     fun googleConfirmRegister(
             @RequestBody @Valid confirmGoogleAccount: ConfirmGoogleAccount,
-            @RequestHeader("Authorization") token: String
+            @RequestHeader("Authorization") @ApiParam("This token is obtained from `/auth/google/register` endpoint", required = true) token: String
     ): AuthResponse {
         return userService.googleConfirmRegister(confirmGoogleAccount, token)
     }
