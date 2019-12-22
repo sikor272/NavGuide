@@ -2,6 +2,7 @@ package pl.umk.mat.locals.controllers
 
 import io.swagger.annotations.Api
 import io.swagger.annotations.ApiOperation
+import io.swagger.annotations.ApiParam
 import io.swagger.annotations.Authorization
 import org.springframework.http.HttpStatus
 import org.springframework.security.core.annotation.AuthenticationPrincipal
@@ -14,7 +15,7 @@ import javax.validation.Valid
 
 @RestController
 @RequestMapping("/profile")
-@Api(tags = ["Profile Controller"], description = "This controller provide logic for authenticated users.")
+@Api(tags = ["Profile Controller"], description = "This controller provides logic for authenticated users to manage his account.")
 class ProfileController(
         private val userService: UserService
 ) {
