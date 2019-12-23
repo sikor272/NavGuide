@@ -11,8 +11,10 @@ import org.springframework.stereotype.Service
 import pl.umk.mat.locals.dto.*
 import pl.umk.mat.locals.exceptions.ResourceAlreadyExistException
 import pl.umk.mat.locals.exceptions.UserAuthException
+import pl.umk.mat.locals.models.GuideRequest
 import pl.umk.mat.locals.models.TemporaryUser
 import pl.umk.mat.locals.models.User
+import pl.umk.mat.locals.repositories.GuideRequestRepository
 import pl.umk.mat.locals.repositories.InterestRepository
 import pl.umk.mat.locals.repositories.TemporaryUserRepository
 import pl.umk.mat.locals.repositories.UserRepository
@@ -29,7 +31,8 @@ class UserService(
         private val jwtTokenProvider: JwtTokenProvider,
         private val temporaryUserRepository: TemporaryUserRepository,
         private val emailService: EmailService,
-        private val interestRepository: InterestRepository
+        private val interestRepository: InterestRepository,
+        private val guideRequestRepository: GuideRequestRepository
 ) {
 
     fun localLogin(loginRequest: LoginRequest): AuthResponse {
@@ -131,7 +134,7 @@ class UserService(
                 token = jwtTokenProvider.createToken(user.email, user.id, user.tokenUniqueId),
                 firstName = user.firstName,
                 lastName = user.lastName,
-                country = user.lastName,
+                country = user.country,
                 role = user.role,
                 email = user.email,
                 telephone = user.telephone,
@@ -225,5 +228,14 @@ class UserService(
     fun sendVerificationMail(user: User) {
         emailService.sendEmailConfirmation(user.email, user.emailConfirmationCode
                 ?: throw UserAuthException("Cannot send confirmation email."))
+    }
+
+    fun addRequestForGuide(user: User, guideRequest: GuideRequestDto) {
+        guideRequestRepository.save(GuideRequest(
+                user = user,
+                languages = guideRequest.languages,
+                experience = guideRequest.experience,
+                description = guideRequest.description
+        ))
     }
 }

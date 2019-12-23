@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus
 import org.springframework.security.core.annotation.AuthenticationPrincipal
 import org.springframework.web.bind.annotation.*
 import pl.umk.mat.locals.dto.GoogleCode
+import pl.umk.mat.locals.dto.GuideRequestDto
 import pl.umk.mat.locals.dto.UserSelfInfo
 import pl.umk.mat.locals.security.UserPrincipal
 import pl.umk.mat.locals.services.UserService
@@ -56,4 +57,13 @@ class ProfileController(
         userService.logoutFromAll(principal.user)
     }
 
+    @PostMapping("/guide")
+    @ResponseStatus(HttpStatus.OK)
+    @ApiOperation("Add request to become a guide.", authorizations = [Authorization("JWT Token")])
+    fun addRequestForGuide(
+            @AuthenticationPrincipal principal: UserPrincipal,
+            @RequestBody @Valid guideRequest: GuideRequestDto
+    ) {
+        userService.addRequestForGuide(principal.user, guideRequest)
+    }
 }
