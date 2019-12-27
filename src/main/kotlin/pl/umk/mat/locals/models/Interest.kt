@@ -7,6 +7,7 @@ data class Interest(
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         val id: Long = 0,
+
         val name: String,
 
         @ManyToMany(mappedBy = "interests", fetch = FetchType.LAZY)

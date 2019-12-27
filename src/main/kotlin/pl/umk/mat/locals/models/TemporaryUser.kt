@@ -19,7 +19,7 @@ data class TemporaryUser(
 
         val googleId: String,
 
-        val country: String,
+        val country: Country,
 
         val email: String,
 

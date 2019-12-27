@@ -15,10 +15,12 @@ data class User(
 
         val lastName: String,
 
-        val country: String,
+        @Enumerated(EnumType.STRING)
+        val country: Country,
 
         val password: String? = null,
 
+        @Enumerated(EnumType.STRING)
         val role: Role = Role.TRAVELER,
 
         val telephone: String,
@@ -41,6 +43,7 @@ data class User(
 
         val tokenUniqueId: Int = kotlin.random.Random.nextInt(100000, 1000000000),
 
+        @Enumerated(EnumType.STRING)
         val experience: Experience = Experience.NOVICE,
 
         val avatar: String = "https://images.unsplash.com/photo-1534480573933-6fad32e8bd38?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60",
