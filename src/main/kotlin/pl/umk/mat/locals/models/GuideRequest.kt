@@ -11,18 +11,23 @@ data class GuideRequest(
 
         val createdAt: Date = Date(),
 
-        val isAccepted: Boolean = false,
-
         @ElementCollection
-        val languages: List<String>,
+        @Enumerated(EnumType.STRING)
+        val languages: List<Language>,
 
+        @Enumerated(EnumType.STRING)
         val experience: Experience,
 
         val description: String,
+
+        val message: String? = null,
+
+        @Enumerated(EnumType.STRING)
+        val status: GuideRequestStatus = GuideRequestStatus.PENDING,
 
         @OneToOne(fetch = FetchType.LAZY)
         val user: User,
 
         @ManyToOne(fetch = FetchType.LAZY)
-        val acceptedBy: User? = null
+        val processedBy: User? = null
 )

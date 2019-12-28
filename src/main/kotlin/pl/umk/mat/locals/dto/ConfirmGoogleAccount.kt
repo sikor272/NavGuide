@@ -2,6 +2,7 @@ package pl.umk.mat.locals.dto
 
 import io.swagger.annotations.ApiModel
 import io.swagger.annotations.ApiModelProperty
+import pl.umk.mat.locals.models.Country
 import pl.umk.mat.locals.models.Experience
 import pl.umk.mat.locals.validators.annotations.Telephone
 import javax.validation.constraints.Email
@@ -23,7 +24,7 @@ data class ConfirmGoogleAccount(
         val lastName: String,
 
         @field:ApiModelProperty(notes = "Country code ISO 3166-1 alpha-2")
-        val country: String,
+        val country: Country,
 
         @field:ApiModelProperty(notes = "It's exactly what you expect.")
         @field:Telephone

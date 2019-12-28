@@ -2,6 +2,7 @@ package pl.umk.mat.locals.dto
 
 import io.swagger.annotations.ApiModel
 import io.swagger.annotations.ApiModelProperty
+import pl.umk.mat.locals.models.Country
 
 @ApiModel(value = "Google account info")
 data class GoogleAccountInfo(
@@ -15,7 +16,7 @@ data class GoogleAccountInfo(
         val lastName: String,
 
         @field:ApiModelProperty(notes = "Country code ISO 3166-1 alpha-2")
-        val country: String,
+        val country: Country,
 
         @field:ApiModelProperty(notes = "This token will be use to authorization.")
         val authorizationToken: String

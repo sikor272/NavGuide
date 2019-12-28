@@ -2,6 +2,7 @@ package pl.umk.mat.locals.dto
 
 import io.swagger.annotations.ApiModel
 import io.swagger.annotations.ApiModelProperty
+import pl.umk.mat.locals.models.Country
 import org.hibernate.validator.constraints.Length
 import pl.umk.mat.locals.models.Experience
 import pl.umk.mat.locals.validators.annotations.Telephone
@@ -23,7 +24,7 @@ data class RegisterRequest(
         @field:NotBlank(message = "Last name cannot be empty!")
         val lastName: String,
         @field:ApiModelProperty(notes = "Country code ISO 3166-1 alpha-2")
-        val country: String,
+        val country: Country,
         @field:ApiModelProperty(notes = "It's exactly what you expect.")
         @field:Telephone
         val telephone: String,

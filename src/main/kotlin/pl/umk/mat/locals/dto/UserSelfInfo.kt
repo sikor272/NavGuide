@@ -2,6 +2,7 @@ package pl.umk.mat.locals.dto
 
 import io.swagger.annotations.ApiModel
 import io.swagger.annotations.ApiModelProperty
+import pl.umk.mat.locals.models.Country
 import pl.umk.mat.locals.models.Experience
 import pl.umk.mat.locals.models.Role
 import pl.umk.mat.locals.models.User
@@ -19,7 +20,7 @@ data class UserSelfInfo(
         val lastName: String,
 
         @field:ApiModelProperty(notes = "Country code ISO 3166-1 alpha-2")
-        val country: String,
+        val country: Country,
 
         @field:ApiModelProperty(notes = "It's exactly what you expect.")
         val role: Role,
@@ -59,7 +60,7 @@ data class UserSelfInfo(
             id = user.id,
             firstName = user.firstName,
             lastName = user.lastName,
-            country = user.lastName,
+            country = user.country,
             role = user.role,
             email = user.email,
             googleId = user.googleId,

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service
 import pl.umk.mat.locals.dto.*
 import pl.umk.mat.locals.exceptions.ResourceAlreadyExistException
 import pl.umk.mat.locals.exceptions.UserAuthException
+import pl.umk.mat.locals.models.Country
 import pl.umk.mat.locals.models.GuideRequest
 import pl.umk.mat.locals.models.TemporaryUser
 import pl.umk.mat.locals.models.User
@@ -169,7 +170,7 @@ class UserService(
                         firstName = googleTokenResponse["given_name"] as String,
                         lastName = googleTokenResponse["family_name"] as String,
                         googleId = googleTokenResponse.subject,
-                        country = googleTokenResponse["locale"] as String,
+                        country = Country.valueOf((googleTokenResponse["locale"] as String).toUpperCase()),
                         email = googleTokenResponse.email
                 ))
     }
@@ -197,7 +198,7 @@ class UserService(
                 ?: throw UserAuthException("User with this email doesnt exist.")
         userRepository.save(
                 user.copy(
-                        passwordResetCode = (1..5).map { kotlin.random.Random.nextInt(0, 10) }.map { "1234567890"[it] }.joinToString()
+                        passwordResetCode = (1..5).map { kotlin.random.Random.nextInt(0, 10) }.map { "1234567890"[it] }.joinToString("")
                 )
         )
         emailService.sendPasswordResetRequestMail(user.email, user.passwordResetCode
@@ -208,7 +209,7 @@ class UserService(
         val user = userRepository.findUserByEmail(confirmPasswordReset.email)
                 ?: throw UserAuthException("User with this email doesnt exist.")
         val availableLetters = "qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM0123654789"
-        val password = (1..10).map { kotlin.random.Random.nextInt(0, availableLetters.length) }.map { availableLetters[it] }.joinToString()
+        val password = (1..10).map { kotlin.random.Random.nextInt(0, availableLetters.length) }.map { availableLetters[it] }.joinToString("")
         userRepository.save(
                 user.copy(
                         password = passwordEncoder.encode(password)
@@ -237,5 +238,11 @@ class UserService(
                 experience = guideRequest.experience,
                 description = guideRequest.description
         ))
+    }
+
+    fun getAllGuideApplication(user: User): List<SelfGuideRequest> {
+        return guideRequestRepository.getAllByUser(user).map {
+            SelfGuideRequest(it)
+        }
     }
 }
