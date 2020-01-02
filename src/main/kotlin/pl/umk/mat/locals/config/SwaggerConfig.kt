@@ -32,6 +32,7 @@ class SwaggerConfig {
                 .globalResponseMessage(RequestMethod.POST, defaultResponseMessage())
                 .globalResponseMessage(RequestMethod.DELETE, defaultResponseMessage())
                 .globalResponseMessage(RequestMethod.PUT, defaultResponseMessage())
+                .globalResponseMessage(RequestMethod.PATCH, defaultResponseMessage())
                 .securitySchemes(listOf(apiKey()))
 
     }

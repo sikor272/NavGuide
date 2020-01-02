@@ -279,4 +279,32 @@ class UserService(
                 StandardCopyOption.REPLACE_EXISTING
         )
     }
+
+    @Transactional
+    fun updateProfile(user: User, newUserData: NewUserData) {
+        userRepository.save(
+                user.copy(
+                        email = newUserData.email,
+                        firstName = newUserData.firstName,
+                        lastName = newUserData.lastName,
+                        country = newUserData.country,
+                        telephone = newUserData.telephone,
+                        experience = newUserData.experience,
+                        interests = interestRepository.findAllById(newUserData.interests).asSequence().toList()
+                )
+        )
+    }
+
+    @Transactional
+    fun changeUserPassword(user: User, changePassword: ChangePassword) {
+
+        if (!(user.password == null && changePassword.oldPassword == null) || !passwordEncoder.matches(changePassword.oldPassword, user.password))
+            throw UserAuthException("Wrong password.")
+
+        userRepository.save(
+                user.copy(
+                        password = passwordEncoder.encode(changePassword.newPassword)
+                )
+        )
+    }
 }

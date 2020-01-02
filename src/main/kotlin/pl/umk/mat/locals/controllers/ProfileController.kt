@@ -7,10 +7,7 @@ import org.springframework.http.HttpStatus
 import org.springframework.security.core.annotation.AuthenticationPrincipal
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.multipart.MultipartFile
-import pl.umk.mat.locals.dto.GoogleCode
-import pl.umk.mat.locals.dto.GuideRequestDto
-import pl.umk.mat.locals.dto.SelfGuideRequest
-import pl.umk.mat.locals.dto.UserSelfInfo
+import pl.umk.mat.locals.dto.*
 import pl.umk.mat.locals.security.UserPrincipal
 import pl.umk.mat.locals.services.UserService
 import javax.validation.Valid
@@ -40,6 +37,24 @@ class ProfileController(
             @AuthenticationPrincipal principal: UserPrincipal
     ): UserSelfInfo {
         return userService.getSelfUserInfo(principal.user)
+    }
+
+    @PutMapping
+    @ApiOperation("Change user data.", authorizations = [Authorization("JWT Token")])
+    fun updateProfile(
+            @RequestBody @Valid newUserData: NewUserData,
+            @AuthenticationPrincipal principal: UserPrincipal
+    ) {
+        userService.updateProfile(principal.user, newUserData)
+    }
+
+    @PatchMapping
+    @ApiOperation("Change user password.", authorizations = [Authorization("JWT Token")])
+    fun changeUserPassword(
+            @RequestBody @Valid changePassword: ChangePassword,
+            @AuthenticationPrincipal principal: UserPrincipal
+    ) {
+        userService.changeUserPassword(principal.user, changePassword)
     }
 
     @PostMapping("/resend")
