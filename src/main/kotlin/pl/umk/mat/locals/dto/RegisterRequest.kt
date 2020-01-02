@@ -2,8 +2,8 @@ package pl.umk.mat.locals.dto
 
 import io.swagger.annotations.ApiModel
 import io.swagger.annotations.ApiModelProperty
-import pl.umk.mat.locals.models.Country
 import org.hibernate.validator.constraints.Length
+import pl.umk.mat.locals.models.Country
 import pl.umk.mat.locals.models.Experience
 import pl.umk.mat.locals.validators.annotations.Telephone
 import javax.validation.constraints.Email
