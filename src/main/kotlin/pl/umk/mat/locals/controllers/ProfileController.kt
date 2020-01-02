@@ -48,7 +48,7 @@ class ProfileController(
         userService.updateProfile(principal.user, newUserData)
     }
 
-    @PatchMapping
+    @PatchMapping("/password")
     @ApiOperation("Change user password.", authorizations = [Authorization("JWT Token")])
     fun changeUserPassword(
             @RequestBody @Valid changePassword: ChangePassword,
