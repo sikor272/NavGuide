@@ -8,7 +8,10 @@ import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
+import org.springframework.web.multipart.MultipartFile
+import pl.umk.mat.locals.config.Config
 import pl.umk.mat.locals.dto.*
+import pl.umk.mat.locals.exceptions.BadRequest
 import pl.umk.mat.locals.exceptions.ResourceAlreadyExistException
 import pl.umk.mat.locals.exceptions.UserAuthException
 import pl.umk.mat.locals.models.Country
@@ -20,6 +23,10 @@ import pl.umk.mat.locals.repositories.InterestRepository
 import pl.umk.mat.locals.repositories.TemporaryUserRepository
 import pl.umk.mat.locals.repositories.UserRepository
 import pl.umk.mat.locals.security.JwtTokenProvider
+import java.io.File
+import java.nio.file.Files
+import java.nio.file.Path
+import java.nio.file.StandardCopyOption
 import javax.security.auth.message.AuthException
 import javax.transaction.Transactional
 
@@ -33,7 +40,8 @@ class UserService(
         private val temporaryUserRepository: TemporaryUserRepository,
         private val emailService: EmailService,
         private val interestRepository: InterestRepository,
-        private val guideRequestRepository: GuideRequestRepository
+        private val guideRequestRepository: GuideRequestRepository,
+        private val config: Config
 ) {
 
     fun localLogin(loginRequest: LoginRequest): AuthResponse {
@@ -244,5 +252,31 @@ class UserService(
         return guideRequestRepository.getAllByUser(user).map {
             SelfGuideRequest(it)
         }
+    }
+
+    @Transactional
+    fun setUserAvatar(file: MultipartFile, user: User) {
+        val fileExtension = file.originalFilename?.substringAfterLast(".")?.toLowerCase() ?: throw BadRequest("Incorrect file extension.")
+        if (fileExtension == file.originalFilename) throw BadRequest("Incorrect file extension.")
+        if (!"jpg|jpeg".toRegex().matches(fileExtension)) throw BadRequest("Incorrect file type (only jpg, jpeg supported).")
+
+        val filename = "avatar_${user.firstName.toLowerCase()}_${user.lastName.toLowerCase()}_${System.currentTimeMillis()}.$fileExtension"
+
+        val filePatch = config.imageDir + filename
+        if (File(filePatch).exists()) throw RuntimeException("File exist try later.")
+
+        File(config.imageDir + user.avatar.substringAfterLast("/")).delete()
+
+        userRepository.save(
+                user.copy(
+                        avatar = config.imageServerUrl + filename
+                )
+        )
+
+        Files.copy(
+                file.inputStream,
+                Path.of(filePatch),
+                StandardCopyOption.REPLACE_EXISTING
+        )
     }
 }
