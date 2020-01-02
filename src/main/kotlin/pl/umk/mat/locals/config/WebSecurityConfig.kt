@@ -57,6 +57,7 @@ class WebSecurityConfig(
 
         http.authorizeRequests()
                 .antMatchers("/profile/**").authenticated()
+                .antMatchers("/admin/**").authenticated()
                 .anyRequest().permitAll()
 
         http.addFilterBefore(JwtAuthorizationFilter(jwtTokenProvider, userDetailsService), UsernamePasswordAuthenticationFilter::class.java)

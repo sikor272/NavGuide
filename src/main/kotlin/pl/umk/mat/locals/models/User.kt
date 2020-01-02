@@ -51,9 +51,14 @@ data class User(
         @ManyToMany(fetch = FetchType.EAGER)
         @JoinTable(name = "user_interests",
                 joinColumns = [JoinColumn(name = "user_id")],
-                inverseJoinColumns = [JoinColumn(name = "interest_id")])
+                inverseJoinColumns = [JoinColumn(name = "interest_id")]
+        )
         val interests: List<Interest> = emptyList(),
 
         @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
-        val photos: List<Photo> = emptyList()
+        val photos: List<Photo> = emptyList(),
+
+
+        @OneToOne
+        val guideProfile: GuideProfile? = null
 )

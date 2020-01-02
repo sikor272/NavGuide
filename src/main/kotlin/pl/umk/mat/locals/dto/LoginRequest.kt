@@ -11,6 +11,6 @@ data class LoginRequest(
         @field:Email
         val email: String,
         @field:ApiModelProperty(notes = "It's exactly what you expect.")
-        @field:Length( min = 8, max = 32, message = "wrong password")
+        @field:Length(min = 8, max = 32, message = "wrong password")
         val password: String
 )
