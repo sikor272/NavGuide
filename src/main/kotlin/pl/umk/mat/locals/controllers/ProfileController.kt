@@ -6,13 +6,12 @@ import io.swagger.annotations.Authorization
 import org.springframework.http.HttpStatus
 import org.springframework.security.core.annotation.AuthenticationPrincipal
 import org.springframework.web.bind.annotation.*
-import pl.umk.mat.locals.dto.GoogleCode
-import pl.umk.mat.locals.dto.GuideRequestDto
-import pl.umk.mat.locals.dto.SelfGuideRequest
-import pl.umk.mat.locals.dto.UserSelfInfo
+import org.springframework.web.multipart.MultipartFile
+import pl.umk.mat.locals.dto.*
 import pl.umk.mat.locals.security.UserPrincipal
 import pl.umk.mat.locals.services.UserService
 import javax.validation.Valid
+
 
 @RestController
 @RequestMapping("/profile")
@@ -38,6 +37,24 @@ class ProfileController(
             @AuthenticationPrincipal principal: UserPrincipal
     ): UserSelfInfo {
         return userService.getSelfUserInfo(principal.user)
+    }
+
+    @PutMapping
+    @ApiOperation("Change user data.", authorizations = [Authorization("JWT Token")])
+    fun updateProfile(
+            @RequestBody @Valid newUserData: NewUserData,
+            @AuthenticationPrincipal principal: UserPrincipal
+    ) {
+        userService.updateProfile(principal.user, newUserData)
+    }
+
+    @PatchMapping("/password")
+    @ApiOperation("Change user password.", authorizations = [Authorization("JWT Token")])
+    fun changeUserPassword(
+            @RequestBody @Valid changePassword: ChangePassword,
+            @AuthenticationPrincipal principal: UserPrincipal
+    ) {
+        userService.changeUserPassword(principal.user, changePassword)
     }
 
     @PostMapping("/resend")
@@ -75,5 +92,15 @@ class ProfileController(
             @AuthenticationPrincipal principal: UserPrincipal
     ): List<SelfGuideRequest> {
         return userService.getAllGuideApplication(principal.user)
+    }
+
+    @PostMapping("/avatar")
+    @ResponseStatus(HttpStatus.OK)
+    @ApiOperation("Set user avatar.", authorizations = [Authorization("JWT Token")])
+    fun setUserAvatar(
+            @RequestParam file: MultipartFile,
+            @AuthenticationPrincipal principal: UserPrincipal
+    ) {
+        userService.setUserAvatar(file, principal.user)
     }
 }
