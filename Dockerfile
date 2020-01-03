@@ -1,4 +1,4 @@
-FROM gradle AS build
+FROM gradle:jdk13 AS build
 COPY . /build
 WORKDIR /build
 RUN gradle assemble
