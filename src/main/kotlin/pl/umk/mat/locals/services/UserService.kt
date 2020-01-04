@@ -256,7 +256,8 @@ class UserService(
 
     @Transactional
     fun setUserAvatar(file: MultipartFile, user: User) {
-        val fileExtension = file.originalFilename?.substringAfterLast(".")?.toLowerCase() ?: throw BadRequest("Incorrect file extension.")
+        val fileExtension = file.originalFilename?.substringAfterLast(".")?.toLowerCase()
+                ?: throw BadRequest("Incorrect file extension.")
         if (fileExtension == file.originalFilename) throw BadRequest("Incorrect file extension.")
         if (!"jpg|jpeg".toRegex().matches(fileExtension)) throw BadRequest("Incorrect file type (only jpg, jpeg supported).")
 

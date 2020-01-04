@@ -27,7 +27,8 @@ class AdministratorService(
 
     @Transactional
     fun acceptGuideRequest(id: Long, changeGuideRequestStatus: ChangeGuideRequestStatus) {
-        val guideRequest = guideRequestRepository.findByIdOrNull(id) ?: throw ResourceNotFoundException("Guide request not found.")
+        val guideRequest = guideRequestRepository.findByIdOrNull(id)
+                ?: throw ResourceNotFoundException("Guide request not found.")
         userRepository.save(
                 guideRequest.user.copy(
                         role = Role.GUIDE
@@ -52,7 +53,8 @@ class AdministratorService(
 
     @Transactional
     fun rejectGuideRequest(id: Long, changeGuideRequestStatus: ChangeGuideRequestStatus) {
-        val guideRequest = guideRequestRepository.findByIdOrNull(id) ?: throw ResourceNotFoundException("Guide request not found.")
+        val guideRequest = guideRequestRepository.findByIdOrNull(id)
+                ?: throw ResourceNotFoundException("Guide request not found.")
         guideRequestRepository.save(
                 guideRequest.copy(
                         status = GuideRequestStatus.REJECTED,
