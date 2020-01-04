@@ -12,7 +12,7 @@ class GuestService(
         private val tagRepository: TagRepository
 
 ) {
-    fun getAllOffersByGeoLocalization(lat: Float, lon: Float, radius: Long): List<GuestOfferDto> {
+    fun getAllOffersByGeoLocalization(lat: Double, lon: Double, radius: Long): List<GuestOfferDto> {
         return offerRepository.saveAll(offerRepository.findAllOffersByPoint(lat, lon, radius).map {
             it.copy(
                     inSearch = it.inSearch + 1

@@ -14,9 +14,9 @@ data class GuestOfferDto(
         @field:ApiModelProperty(notes = "It's exactly what you expect.")
         val city: String,
         @field:ApiModelProperty(notes = "It's exactly what you expect.")
-        val lat: Float,
+        val lat: Double,
         @field:ApiModelProperty(notes = "It's exactly what you expect.")
-        val lon: Float,
+        val lon: Double,
         @field:ApiModelProperty(notes = "It's exactly what you expect.")
         val price: Float,
         @field:ApiModelProperty(notes = "It's exactly what you expect.")

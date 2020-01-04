@@ -44,8 +44,8 @@ class ProfileController(
     fun updateProfile(
             @RequestBody @Valid newUserData: NewUserData,
             @AuthenticationPrincipal principal: UserPrincipal
-    ) {
-        userService.updateProfile(principal.user, newUserData)
+    ): UserSelfInfo {
+        return userService.updateProfile(principal.user, newUserData)
     }
 
     @PatchMapping("/password")

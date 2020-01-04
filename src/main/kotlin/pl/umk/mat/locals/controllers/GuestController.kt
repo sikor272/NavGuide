@@ -25,8 +25,8 @@ class GuestController(
     @ResponseStatus(HttpStatus.OK)
     @ApiOperation("Get all offers by geolocation and radius.")
     fun getAllOffersByGeoLocalization(
-            @RequestParam @ApiParam("latitude", example = "1") lat: Float,
-            @RequestParam @ApiParam("longitude", example = "1") lon: Float,
+            @RequestParam @ApiParam("latitude", example = "1") lat: Double,
+            @RequestParam @ApiParam("longitude", example = "1") lon: Double,
             @RequestParam @ApiParam("radius in meter", example = "12") radius: Long
     ): List<GuestOfferDto> {
         return guestService.getAllOffersByGeoLocalization(lat, lon, radius)
