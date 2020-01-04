@@ -71,7 +71,8 @@ class UserService(
                 country = registerRequest.country,
                 telephone = registerRequest.telephone,
                 experience = registerRequest.experience,
-                interests = interestRepository.findAllById(registerRequest.interests).asSequence().toList()
+                interests = interestRepository.findAllById(registerRequest.interests).asSequence().toList(),
+                gender = registerRequest.gender
         ))
         sendVerificationMail(newUser)
         return createAuthResponse(newUser)
@@ -96,7 +97,8 @@ class UserService(
                 googleId = jwtTokenPayload.subject,
                 telephone = confirmGoogleAccount.telephone,
                 experience = confirmGoogleAccount.experience,
-                interests = interestRepository.findAllById(confirmGoogleAccount.interests).asSequence().toList()
+                interests = interestRepository.findAllById(confirmGoogleAccount.interests).asSequence().toList(),
+                gender = confirmGoogleAccount.gender
         ))
 
         temporaryUserRepository.deleteById(temporaryUserId)
@@ -281,8 +283,8 @@ class UserService(
     }
 
     @Transactional
-    fun updateProfile(user: User, newUserData: NewUserData) {
-        userRepository.save(
+    fun updateProfile(user: User, newUserData: NewUserData): UserSelfInfo {
+        return UserSelfInfo(userRepository.save(
                 user.copy(
                         email = newUserData.email,
                         firstName = newUserData.firstName,
@@ -291,7 +293,7 @@ class UserService(
                         telephone = newUserData.telephone,
                         experience = newUserData.experience,
                         interests = interestRepository.findAllById(newUserData.interests).asSequence().toList()
-                )
+                ))
         )
     }
 

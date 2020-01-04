@@ -2,10 +2,7 @@ package pl.umk.mat.locals.dto
 
 import io.swagger.annotations.ApiModel
 import io.swagger.annotations.ApiModelProperty
-import pl.umk.mat.locals.models.Country
-import pl.umk.mat.locals.models.Experience
-import pl.umk.mat.locals.models.Role
-import pl.umk.mat.locals.models.User
+import pl.umk.mat.locals.models.*
 import java.util.*
 
 @ApiModel(value = "Self User Info")
@@ -53,7 +50,8 @@ data class UserSelfInfo(
         val avatar: String,
 
         @field:ApiModelProperty(notes = "It's exactly what you expect.")
-        val interests: List<InterestDto> = emptyList()
+        val interests: List<InterestDto> = emptyList(),
+        val gender: Gender
 
 ) {
     constructor(user: User) : this(
@@ -73,6 +71,7 @@ data class UserSelfInfo(
             avatar = user.avatar,
             interests = user.interests.map {
                 InterestDto(it)
-            }
+            },
+            gender = user.gender
     )
 }

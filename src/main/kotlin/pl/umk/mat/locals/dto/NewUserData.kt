@@ -3,6 +3,7 @@ package pl.umk.mat.locals.dto
 import io.swagger.annotations.ApiModelProperty
 import pl.umk.mat.locals.models.Country
 import pl.umk.mat.locals.models.Experience
+import pl.umk.mat.locals.models.Gender
 import pl.umk.mat.locals.validators.annotations.Telephone
 import javax.validation.constraints.Email
 import javax.validation.constraints.NotBlank
@@ -31,5 +32,7 @@ data class NewUserData(
         val experience: Experience,
 
         @field:ApiModelProperty(notes = "List of interest ID")
-        val interests: List<Long>
+        val interests: List<Long>,
+        val gender: Gender
+
 )

@@ -22,6 +22,9 @@ data class User(
 
         @Enumerated(EnumType.STRING)
         val role: Role = Role.TRAVELER,
+        
+        @Enumerated(EnumType.STRING)
+        val gender: Gender,
 
         val telephone: String,
 
