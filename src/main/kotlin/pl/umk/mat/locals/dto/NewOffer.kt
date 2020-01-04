@@ -1,10 +1,7 @@
 package pl.umk.mat.locals.dto
 
-import pl.umk.mat.locals.models.Offer
 import pl.umk.mat.locals.models.PriceType
-import pl.umk.mat.locals.models.Tag
 import java.util.*
-import javax.persistence.*
 
 data class NewOffer(
         val name: String,

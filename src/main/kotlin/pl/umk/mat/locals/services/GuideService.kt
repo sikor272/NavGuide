@@ -13,7 +13,6 @@ import pl.umk.mat.locals.repositories.TagRepository
 import java.io.File
 import java.nio.file.Files
 import java.nio.file.Path
-import java.nio.file.StandardCopyOption
 import javax.transaction.Transactional
 
 @Service
@@ -24,24 +23,27 @@ class GuideService(
 ) {
     @Transactional
     fun addNewOffer(file: List<MultipartFile>, offer: NewOffer, user: User) {
-        var index : Long = 0
+        var index: Long = 0
         val filename = file.map {
             val extension = it.originalFilename?.substringAfterLast(".")?.toLowerCase()
                     ?: throw BadRequest("Incorrect file extension.")
-            if(extension == it.originalFilename) throw BadRequest("Incorrect file extension.")
+            if (extension == it.originalFilename) throw BadRequest("Incorrect file extension.")
 
             if (!"jpg|jpeg|png".toRegex().matches(extension))
                 throw BadRequest("Incorrect file type (only jpg, jpeg, png supported).")
-
-            var patch : String
+            val availableLetters = "qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM0123654789"
+            var patch: String
             do {
-                patch = "offer_${user.firstName}_${offer.city}_$index.$extension"
-                index += 1
+                patch = "offer_" + (1..30).map {
+                    kotlin.random.Random.nextInt(0, availableLetters.length)
+                }.map {
+                    availableLetters[it]
+                }.joinToString("") + ".$extension"
             } while (File(config.imageDir + patch).exists())
             Files.copy(
                     it.inputStream,
-                    Path.of(config.imageDir + patch),
-                    StandardCopyOption.REPLACE_EXISTING
+                    Path.of(config.imageDir + patch)
+                    //StandardCopyOption.REPLACE_EXISTING
             )
             config.imageServerUrl + patch
         }
@@ -59,7 +61,7 @@ class GuideService(
                         price = offer.price,
                         priceType = offer.priceType,
                         tags = offer.tags.map { tagRepository.findByIdOrNull(it) ?: throw RuntimeException("") },
-                        photos =  filename
+                        photos = filename
                 )
         )
     }
