@@ -8,5 +8,6 @@ import org.springframework.context.annotation.Configuration
 data class Config(
         var secretKey: String = "kotNaPlecach",
         var imageDir: String = "src/main/resources/static/",
-        var imageServerUrl: String = "/"
+        var imageServerUrl: String = "/",
+        var imageRegex: String = "jpeg|jpg|png"
 )
