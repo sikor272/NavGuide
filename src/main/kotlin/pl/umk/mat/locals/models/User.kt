@@ -58,10 +58,6 @@ data class User(
         )
         val interests: List<Interest> = emptyList(),
 
-        @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
-        val photos: List<Photo> = emptyList(),
-
-
         @OneToOne
         val guideProfile: GuideProfile? = null
 )
