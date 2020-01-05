@@ -13,7 +13,7 @@ data class Offer(
         val city: String,
         val lat: Double,
         val lon: Double,
-        val radius: Float,
+        val radius: Long,
         val begin: Date,
         val end: Date,
         val maxPeople: Long,

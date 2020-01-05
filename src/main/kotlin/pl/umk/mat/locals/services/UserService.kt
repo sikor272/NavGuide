@@ -293,7 +293,8 @@ class UserService(
                         country = newUserData.country,
                         telephone = newUserData.telephone,
                         experience = newUserData.experience,
-                        interests = interestRepository.findAllById(newUserData.interests).asSequence().toList()
+                        interests = interestRepository.findAllById(newUserData.interests).asSequence().toList(),
+                        gender = newUserData.gender
                 ))
         )
     }
