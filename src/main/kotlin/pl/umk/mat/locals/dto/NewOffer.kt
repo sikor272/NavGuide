@@ -6,8 +6,8 @@ import java.util.*
 data class NewOffer(
         val name: String,
         val city: String,
-        val lat: Float,
-        val lon: Float,
+        val lat: Double,
+        val lon: Double,
         val radius: Float,
         val begin: Date,
         val end: Date,
