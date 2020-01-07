@@ -7,9 +7,7 @@ data class GuideProfileDto(
         val languages: List<Language>,
         val lastName: String,
         val firstName: String
-)
-
-{
+) {
     constructor(guideProfile: GuideProfile) : this(
 
             languages = guideProfile.languages,

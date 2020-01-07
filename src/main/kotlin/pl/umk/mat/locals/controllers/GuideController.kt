@@ -55,17 +55,16 @@ class GuideController(
     @ApiOperation("Get Guide profile", authorizations = [Authorization("JWT Token")])
     fun getGuideProfile(
             @PathVariable id: Long
-    ): GuideProfileDto{
+    ): GuideProfileDto {
         return guideService.getGuideProfile(id)
-
     }
 
     @GetMapping("/{id}/offers")
     @ResponseStatus(HttpStatus.OK)
     @ApiOperation("Get Guide offers", authorizations = [Authorization("JWT Token")])
     fun getGuideOffers(
-        @PathVariable id: Long
-    ) :List<OfferDto>{
+            @PathVariable id: Long
+    ): List<OfferDto> {
         return guideService.getGuideOffer(id)
     }
 }

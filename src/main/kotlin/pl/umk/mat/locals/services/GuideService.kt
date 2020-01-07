@@ -39,7 +39,7 @@ class GuideService(
                 throw BadRequest("Incorrect file type (only jpg, jpeg, png supported).")
 
             var patch: String
-            var counter: Int = 0
+            var counter = 0
             do {
                 counter += 1
                 patch = "offer_" + (1..30).map {
@@ -70,7 +70,7 @@ class GuideService(
                         maxPeople = offer.maxPeople,
                         price = offer.price,
                         priceType = offer.priceType,
-                        owner = user.guideProfile?: throw RuntimeException("Cannot find owner profile"),
+                        owner = user.guideProfile ?: throw RuntimeException("Cannot find owner profile"),
                         tags = offer.tags.map {
                             tagRepository.findByIdOrNull(it) ?: throw ResourceNotFoundException("Tags of id list do not exist")
                         },
