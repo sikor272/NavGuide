@@ -1,5 +1,6 @@
 package pl.umk.mat.locals.models
 
+import pl.umk.mat.locals.models.Enums.PriceType
 import java.util.*
 import javax.persistence.*
 

@@ -1,5 +1,6 @@
 package pl.umk.mat.locals.models
 
+import pl.umk.mat.locals.models.Enums.Country
 import java.util.*
 import javax.persistence.Entity
 import javax.persistence.GeneratedValue

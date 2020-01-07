@@ -7,7 +7,12 @@ import org.springframework.http.HttpStatus
 import org.springframework.security.core.annotation.AuthenticationPrincipal
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.multipart.MultipartFile
-import pl.umk.mat.locals.dto.*
+import pl.umk.mat.locals.dto.In.ChangePassword
+import pl.umk.mat.locals.dto.In.GoogleCode
+import pl.umk.mat.locals.dto.In.GuideRequestDto
+import pl.umk.mat.locals.dto.In.NewUserData
+import pl.umk.mat.locals.dto.Out.SelfGuideRequest
+import pl.umk.mat.locals.dto.Out.UserSelfInfo
 import pl.umk.mat.locals.security.UserPrincipal
 import pl.umk.mat.locals.services.UserService
 import javax.validation.Valid
@@ -75,6 +80,7 @@ class ProfileController(
         userService.logoutFromAll(principal.user)
     }
 
+    //ToDo
     @PostMapping("/guide")
     @ResponseStatus(HttpStatus.OK)
     @ApiOperation("Add request to become a guide.", authorizations = [Authorization("JWT Token")])
@@ -85,6 +91,7 @@ class ProfileController(
         userService.addRequestForGuide(principal.user, guideRequest)
     }
 
+    //ToDo
     @GetMapping("/guide")
     @ResponseStatus(HttpStatus.OK)
     @ApiOperation("Get all own guide requests.", authorizations = [Authorization("JWT Token")])

@@ -1,8 +1,8 @@
-package pl.umk.mat.locals.dto
+package pl.umk.mat.locals.dto.In
 
 import io.swagger.annotations.ApiModel
 import io.swagger.annotations.ApiModelProperty
-import pl.umk.mat.locals.models.Country
+import pl.umk.mat.locals.models.Enums.Country
 
 @ApiModel(value = "Google account info")
 data class GoogleAccountInfo(

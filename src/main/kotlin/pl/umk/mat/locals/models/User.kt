@@ -1,6 +1,10 @@
 package pl.umk.mat.locals.models
 
 import org.hibernate.validator.constraints.UniqueElements
+import pl.umk.mat.locals.models.Enums.Country
+import pl.umk.mat.locals.models.Enums.Experience
+import pl.umk.mat.locals.models.Enums.Gender
+import pl.umk.mat.locals.models.Enums.Role
 import java.util.*
 import javax.persistence.*
 import javax.validation.constraints.Email
@@ -22,7 +26,7 @@ data class User(
 
         @Enumerated(EnumType.STRING)
         val role: Role = Role.TRAVELER,
-        
+
         @Enumerated(EnumType.STRING)
         val gender: Gender,
 

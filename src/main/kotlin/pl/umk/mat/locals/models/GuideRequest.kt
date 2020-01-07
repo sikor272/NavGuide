@@ -1,5 +1,8 @@
 package pl.umk.mat.locals.models
 
+import pl.umk.mat.locals.models.Enums.Experience
+import pl.umk.mat.locals.models.Enums.GuideRequestStatus
+import pl.umk.mat.locals.models.Enums.Language
 import java.util.*
 import javax.persistence.*
 

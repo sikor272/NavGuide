@@ -3,9 +3,18 @@ package pl.umk.mat.locals.services
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
-import pl.umk.mat.locals.dto.*
+import pl.umk.mat.locals.dto.In.Ban
+import pl.umk.mat.locals.dto.In.ChangeGuideRequestStatus
+import pl.umk.mat.locals.dto.In.NewInterest
+import pl.umk.mat.locals.dto.In.NewTag
+import pl.umk.mat.locals.dto.Out.AdministratorGuideRequest
+import pl.umk.mat.locals.dto.Out.ComplainDto
 import pl.umk.mat.locals.exceptions.ResourceNotFoundException
-import pl.umk.mat.locals.models.*
+import pl.umk.mat.locals.models.Enums.GuideRequestStatus
+import pl.umk.mat.locals.models.Enums.Role
+import pl.umk.mat.locals.models.GuideProfile
+import pl.umk.mat.locals.models.Interest
+import pl.umk.mat.locals.models.Tag
 import pl.umk.mat.locals.repositories.*
 
 @Service

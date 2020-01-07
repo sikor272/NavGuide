@@ -5,7 +5,9 @@ import io.swagger.annotations.ApiOperation
 import io.swagger.annotations.Authorization
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
-import pl.umk.mat.locals.dto.*
+import pl.umk.mat.locals.dto.In.Ban
+import pl.umk.mat.locals.dto.In.ChangeGuideRequestStatus
+import pl.umk.mat.locals.dto.Out.AdministratorGuideRequest
 import pl.umk.mat.locals.services.AdministratorService
 
 
@@ -15,14 +17,14 @@ import pl.umk.mat.locals.services.AdministratorService
 class AdminController(
         private val administratorService: AdministratorService
 ) {
+    //ToDo
     @GetMapping("/guiderequests")
     @ApiOperation("Get all pending guide requests.", authorizations = [Authorization("JWT Token")])
     @ResponseStatus(HttpStatus.OK)
     fun getAllPendingGuideRequests(): List<AdministratorGuideRequest> {
         return administratorService.getAllPendingGuideRequests()
     }
-
-
+    //ToDo
     @PostMapping("/guiderequests/{id}")
     @ApiOperation("Accept guide request.", authorizations = [Authorization("JWT Token")])
     @ResponseStatus(HttpStatus.OK)
@@ -30,10 +32,9 @@ class AdminController(
             @PathVariable id: Long,
             @RequestBody changeGuideRequestStatus: ChangeGuideRequestStatus
     ) {
-        administratorService.acceptGuideRequest(id, changeGuideRequestStatus);
+        administratorService.acceptGuideRequest(id, changeGuideRequestStatus)
     }
-
-
+    //ToDo
     @DeleteMapping("/guiderequests/{id}")
     @ApiOperation("Reject guide request.", authorizations = [Authorization("JWT Token")])
     @ResponseStatus(HttpStatus.OK)
@@ -41,61 +42,7 @@ class AdminController(
             @PathVariable id: Long,
             @RequestBody changeGuideRequestStatus: ChangeGuideRequestStatus
     ) {
-        administratorService.rejectGuideRequest(id, changeGuideRequestStatus);
-    }
-
-
-    @PostMapping("/tags")
-    @ApiOperation("Add tag (used in offers).", authorizations = [Authorization("JWT Token")])
-    @ResponseStatus(HttpStatus.OK)
-    fun addNewTag(
-            @RequestBody newTag: NewTag
-    ) {
-        administratorService.addNewTag(newTag)
-    }
-
-
-    @DeleteMapping("/tags/{id}")
-    @ApiOperation("Remove tag (used in offers).", authorizations = [Authorization("JWT Token")])
-    fun deleteTag(
-            @PathVariable id: Long
-    ) {
-        administratorService.deleteTag(id)
-    }
-
-
-    @PostMapping("/interests")
-    @ApiOperation("Add interest.", authorizations = [Authorization("JWT Token")])
-    @ResponseStatus(HttpStatus.OK)
-    fun addNewInterest(
-            @RequestBody newInterest: NewInterest
-    ) {
-        administratorService.addNewInterest(newInterest)
-    }
-
-
-    @DeleteMapping("/interests/{id}")
-    @ApiOperation("Remove interest.", authorizations = [Authorization("JWT Token")])
-    fun deleteInterest(
-            @PathVariable id: Long
-    ) {
-        administratorService.deleteInterest(id)
-    }
-
-
-    @GetMapping("/complains")
-    @ApiOperation("Get all complains.", authorizations = [Authorization("JWT Token")])
-    fun getAllComplains(): List<ComplainDto> {
-        return administratorService.getAllComplains()
-    }
-
-
-    @DeleteMapping("/complains/{id}")
-    @ApiOperation("Delete complain.", authorizations = [Authorization("JWT Token")])
-    fun deleteComplain(
-            @PathVariable id: Long
-    ) {
-        administratorService.deleteComplain(id)
+        administratorService.rejectGuideRequest(id, changeGuideRequestStatus)
     }
 
     @PostMapping("/users/{id}/ban")

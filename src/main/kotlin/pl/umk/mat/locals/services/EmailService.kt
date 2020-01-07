@@ -9,14 +9,14 @@ class EmailService(
 ) {
 
     fun sendPasswordResetRequestMail(email: String, code: String) {
-
+        //ToDo
     }
 
     fun sendNewPassword(email: String, newPassword: String) {
-
+        //ToDo
     }
 
     fun sendEmailConfirmation(email: String, code: String) {
-
+        //ToDo
     }
 }

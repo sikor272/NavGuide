@@ -1,10 +1,11 @@
-package pl.umk.mat.locals.dto
+package pl.umk.mat.locals.dto.In
 
 import io.swagger.annotations.ApiModel
 import io.swagger.annotations.ApiModelProperty
-import pl.umk.mat.locals.models.Country
-import pl.umk.mat.locals.models.Experience
-import pl.umk.mat.locals.models.Role
+import pl.umk.mat.locals.dto.Out.InterestDto
+import pl.umk.mat.locals.models.Enums.Country
+import pl.umk.mat.locals.models.Enums.Experience
+import pl.umk.mat.locals.models.Enums.Role
 
 
 @ApiModel(value = "Auth response")

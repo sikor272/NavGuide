@@ -1,7 +1,7 @@
-package pl.umk.mat.locals.dto
+package pl.umk.mat.locals.dto.In
 
 import io.swagger.annotations.ApiModelProperty
-import pl.umk.mat.locals.models.PriceType
+import pl.umk.mat.locals.models.Enums.PriceType
 import java.util.*
 
 data class NewOffer(
@@ -9,7 +9,7 @@ data class NewOffer(
         val city: String,
         val lat: Double,
         val lon: Double,
-        @field:ApiModelProperty(notes = "meter.")
+        @field:ApiModelProperty(notes = "meter.", example = "1")
         val radius: Long,
         val begin: Date,
         val end: Date,

@@ -1,4 +1,4 @@
-package pl.umk.mat.locals.models
+package pl.umk.mat.locals.models.Enums
 
 enum class Experience {
     NOVICE,

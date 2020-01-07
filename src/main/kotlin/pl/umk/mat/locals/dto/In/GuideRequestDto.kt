@@ -1,7 +1,7 @@
-package pl.umk.mat.locals.dto
+package pl.umk.mat.locals.dto.In
 
-import pl.umk.mat.locals.models.Experience
-import pl.umk.mat.locals.models.Language
+import pl.umk.mat.locals.models.Enums.Experience
+import pl.umk.mat.locals.models.Enums.Language
 
 data class GuideRequestDto(
         val languages: List<Language>,
