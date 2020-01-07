@@ -5,7 +5,7 @@ import io.swagger.annotations.ApiOperation
 import io.swagger.annotations.ApiParam
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
-import pl.umk.mat.locals.dto.Out.GuestOfferDto
+import pl.umk.mat.locals.dto.out.GuestOfferDto
 import pl.umk.mat.locals.services.GuestService
 
 @RestController

@@ -1,8 +1,8 @@
-package pl.umk.mat.locals.dto.In
+package pl.umk.mat.locals.dto.`in`
 
 import io.swagger.annotations.ApiModel
 import io.swagger.annotations.ApiModelProperty
-import pl.umk.mat.locals.dto.Out.InterestDto
+import pl.umk.mat.locals.dto.out.InterestDto
 import pl.umk.mat.locals.models.Enums.Country
 import pl.umk.mat.locals.models.Enums.Experience
 import pl.umk.mat.locals.models.Enums.Role

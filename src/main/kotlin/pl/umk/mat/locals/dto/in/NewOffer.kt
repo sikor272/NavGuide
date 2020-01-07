@@ -1,4 +1,4 @@
-package pl.umk.mat.locals.dto.In
+package pl.umk.mat.locals.dto.`in`
 
 import io.swagger.annotations.ApiModelProperty
 import pl.umk.mat.locals.models.Enums.PriceType

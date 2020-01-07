@@ -1,4 +1,4 @@
-package pl.umk.mat.locals.dto.In
+package pl.umk.mat.locals.dto.`in`
 
 import pl.umk.mat.locals.models.Enums.Experience
 import pl.umk.mat.locals.models.Enums.Language

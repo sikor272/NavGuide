@@ -1,7 +1,7 @@
 package pl.umk.mat.locals.services
 
 import org.springframework.stereotype.Service
-import pl.umk.mat.locals.dto.Out.GuestOfferDto
+import pl.umk.mat.locals.dto.out.GuestOfferDto
 import pl.umk.mat.locals.repositories.OfferRepository
 import pl.umk.mat.locals.repositories.TagRepository
 

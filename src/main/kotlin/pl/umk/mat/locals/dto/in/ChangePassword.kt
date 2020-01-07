@@ -1,4 +1,4 @@
-package pl.umk.mat.locals.dto.In
+package pl.umk.mat.locals.dto.`in`
 
 import org.hibernate.validator.constraints.Length
 

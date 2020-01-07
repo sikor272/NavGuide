@@ -5,8 +5,8 @@ import io.swagger.annotations.ApiOperation
 import io.swagger.annotations.Authorization
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
-import pl.umk.mat.locals.dto.In.NewInterest
-import pl.umk.mat.locals.dto.Out.InterestDto
+import pl.umk.mat.locals.dto.`in`.NewInterest
+import pl.umk.mat.locals.dto.out.InterestDto
 import pl.umk.mat.locals.services.AdministratorService
 import pl.umk.mat.locals.services.InterestService
 

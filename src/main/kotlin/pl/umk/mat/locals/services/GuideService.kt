@@ -4,9 +4,9 @@ import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 import org.springframework.web.multipart.MultipartFile
 import pl.umk.mat.locals.config.Config
-import pl.umk.mat.locals.dto.In.NewOffer
-import pl.umk.mat.locals.dto.Out.GuideProfileDto
-import pl.umk.mat.locals.dto.Out.OfferDto
+import pl.umk.mat.locals.dto.`in`.NewOffer
+import pl.umk.mat.locals.dto.out.GuideProfileDto
+import pl.umk.mat.locals.dto.out.OfferDto
 import pl.umk.mat.locals.exceptions.BadRequest
 import pl.umk.mat.locals.exceptions.ResourceNotFoundException
 import pl.umk.mat.locals.models.Offer

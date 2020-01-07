@@ -6,8 +6,8 @@ import io.swagger.annotations.Authorization
 import org.springframework.http.HttpStatus
 import org.springframework.security.core.annotation.AuthenticationPrincipal
 import org.springframework.web.bind.annotation.*
-import pl.umk.mat.locals.dto.Out.GuideProfileDto
-import pl.umk.mat.locals.dto.Out.OfferDto
+import pl.umk.mat.locals.dto.out.GuideProfileDto
+import pl.umk.mat.locals.dto.out.OfferDto
 import pl.umk.mat.locals.security.UserPrincipal
 import pl.umk.mat.locals.services.GuideService
 

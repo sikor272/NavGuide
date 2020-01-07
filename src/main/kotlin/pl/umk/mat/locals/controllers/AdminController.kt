@@ -5,9 +5,9 @@ import io.swagger.annotations.ApiOperation
 import io.swagger.annotations.Authorization
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
-import pl.umk.mat.locals.dto.In.Ban
-import pl.umk.mat.locals.dto.In.ChangeGuideRequestStatus
-import pl.umk.mat.locals.dto.Out.AdministratorGuideRequest
+import pl.umk.mat.locals.dto.`in`.Ban
+import pl.umk.mat.locals.dto.`in`.ChangeGuideRequestStatus
+import pl.umk.mat.locals.dto.out.AdministratorGuideRequest
 import pl.umk.mat.locals.services.AdministratorService
 
 
