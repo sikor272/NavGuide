@@ -16,5 +16,8 @@ data class GuideProfile(
         val user: User,
 
         @OneToOne
-        val guideRequest: GuideRequest
+        val guideRequest: GuideRequest,
+
+        @OneToMany(fetch = FetchType.LAZY)
+        val offers: List<Offer> = emptyList()
 )

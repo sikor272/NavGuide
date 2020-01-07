@@ -5,8 +5,8 @@ import io.swagger.annotations.ApiModelProperty
 import pl.umk.mat.locals.models.Offer
 import pl.umk.mat.locals.models.PriceType
 
-@ApiModel(value = "Guest offer")
-data class GuestOfferDto(
+@ApiModel(value = "Offer")
+data class OfferDto(
         @field:ApiModelProperty(notes = "It's exactly what you expect.")
         val id: Long,
         @field:ApiModelProperty(notes = "It's exactly what you expect.")
