@@ -18,6 +18,8 @@ data class Offer(
         val end: Date,
         val maxPeople: Long,
         val price: Float,
+        @ManyToOne(fetch = FetchType.LAZY)
+        val owner: GuideProfile,
         @Enumerated(EnumType.STRING)
         val priceType: PriceType = PriceType.PER_GROUP,
         val inSearch: Long = 0,

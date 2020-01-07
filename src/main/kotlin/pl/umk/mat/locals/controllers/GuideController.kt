@@ -7,7 +7,9 @@ import org.springframework.http.HttpStatus
 import org.springframework.security.core.annotation.AuthenticationPrincipal
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.multipart.MultipartFile
+import pl.umk.mat.locals.dto.GuideProfileDto
 import pl.umk.mat.locals.dto.NewOffer
+import pl.umk.mat.locals.dto.OfferDto
 import pl.umk.mat.locals.security.UserPrincipal
 import pl.umk.mat.locals.services.GuideService
 
@@ -46,5 +48,24 @@ class GuideController(
             @AuthenticationPrincipal principal: UserPrincipal
     ) {
 
+    }
+
+    @GetMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    @ApiOperation("Get Guide profile", authorizations = [Authorization("JWT Token")])
+    fun getGuideProfile(
+            @PathVariable id: Long
+    ): GuideProfileDto{
+        return guideService.getGuideProfile(id)
+
+    }
+
+    @GetMapping("/{id}/offers")
+    @ResponseStatus(HttpStatus.OK)
+    @ApiOperation("Get Guide offers", authorizations = [Authorization("JWT Token")])
+    fun getGuideOffers(
+        @PathVariable id: Long
+    ) :List<OfferDto>{
+        return guideService.getGuideOffer(id)
     }
 }
