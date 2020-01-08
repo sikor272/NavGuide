@@ -2,8 +2,8 @@ package pl.umk.mat.locals.dto.out
 
 import io.swagger.annotations.ApiModel
 import io.swagger.annotations.ApiModelProperty
-import pl.umk.mat.locals.models.Enums.PriceType
 import pl.umk.mat.locals.models.Offer
+import pl.umk.mat.locals.models.enumerations.PriceType
 
 @ApiModel(value = "Offer")
 data class OfferDto(

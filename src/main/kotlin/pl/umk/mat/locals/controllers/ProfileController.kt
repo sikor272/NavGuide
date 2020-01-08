@@ -81,17 +81,6 @@ class ProfileController(
     }
 
     //ToDo
-    @PostMapping("/guide")
-    @ResponseStatus(HttpStatus.OK)
-    @ApiOperation("Add request to become a guide.", authorizations = [Authorization("JWT Token")])
-    fun addRequestForGuide(
-            @AuthenticationPrincipal principal: UserPrincipal,
-            @RequestBody @Valid guideRequest: GuideRequestDto
-    ) {
-        userService.addRequestForGuide(principal.user, guideRequest)
-    }
-
-    //ToDo
     @GetMapping("/guide")
     @ResponseStatus(HttpStatus.OK)
     @ApiOperation("Get all own guide requests.", authorizations = [Authorization("JWT Token")])

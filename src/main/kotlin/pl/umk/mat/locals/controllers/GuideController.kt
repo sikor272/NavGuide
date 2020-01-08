@@ -4,11 +4,9 @@ import io.swagger.annotations.Api
 import io.swagger.annotations.ApiOperation
 import io.swagger.annotations.Authorization
 import org.springframework.http.HttpStatus
-import org.springframework.security.core.annotation.AuthenticationPrincipal
 import org.springframework.web.bind.annotation.*
 import pl.umk.mat.locals.dto.out.GuideProfileDto
 import pl.umk.mat.locals.dto.out.OfferDto
-import pl.umk.mat.locals.security.UserPrincipal
 import pl.umk.mat.locals.services.GuideService
 
 
@@ -28,14 +26,16 @@ class GuideController(
         return guideService.getGuideProfile(id)
     }
 
-    @GetMapping("/offers")
-    @ResponseStatus(HttpStatus.OK)
-    @ApiOperation("Get all own offers.", authorizations = [Authorization("JWT Token")])
-    fun getAllOwnOffers(
-            @AuthenticationPrincipal principal: UserPrincipal
-    ): List<OfferDto> {
-        return guideService.getGuideOffer(principal.user.id)
-    }
+    /*
+        @GetMapping("/offers")
+        @ResponseStatus(HttpStatus.OK)
+        @ApiOperation("Get all own offers.", authorizations = [Authorization("JWT Token")])
+        fun getAllOwnOffers(
+                @AuthenticationPrincipal principal: UserPrincipal
+        ): List<OfferDto> {
+            return guideService.getGuideOffer(principal.user.id)
+        }
+        */
     @GetMapping("/{id}/offers")
     @ResponseStatus(HttpStatus.OK)
     @ApiOperation("Get Guide offers", authorizations = [Authorization("JWT Token")])
@@ -44,7 +44,7 @@ class GuideController(
     ): List<OfferDto> {
         return guideService.getGuideOffer(id)
     }
-
+/*
     @GetMapping("/clients")
     @ResponseStatus(HttpStatus.OK)
     @ApiOperation("Get all offers purchase requests.", authorizations = [Authorization("JWT Token")])
@@ -54,5 +54,5 @@ class GuideController(
         //ToDo
     }
 
-
+*/
 }

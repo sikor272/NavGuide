@@ -1,10 +1,10 @@
 package pl.umk.mat.locals.models
 
 import org.hibernate.validator.constraints.UniqueElements
-import pl.umk.mat.locals.models.Enums.Country
-import pl.umk.mat.locals.models.Enums.Experience
-import pl.umk.mat.locals.models.Enums.Gender
-import pl.umk.mat.locals.models.Enums.Role
+import pl.umk.mat.locals.models.enumerations.Country
+import pl.umk.mat.locals.models.enumerations.Experience
+import pl.umk.mat.locals.models.enumerations.Gender
+import pl.umk.mat.locals.models.enumerations.Role
 import java.util.*
 import javax.persistence.*
 import javax.validation.constraints.Email

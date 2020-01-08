@@ -2,9 +2,9 @@ package pl.umk.mat.locals.dto.`in`
 
 import io.swagger.annotations.ApiModel
 import io.swagger.annotations.ApiModelProperty
-import pl.umk.mat.locals.models.Enums.Country
-import pl.umk.mat.locals.models.Enums.Experience
-import pl.umk.mat.locals.models.Enums.Gender
+import pl.umk.mat.locals.models.enumerations.Country
+import pl.umk.mat.locals.models.enumerations.Experience
+import pl.umk.mat.locals.models.enumerations.Gender
 import pl.umk.mat.locals.validators.annotations.Telephone
 import javax.validation.constraints.Email
 import javax.validation.constraints.NotBlank

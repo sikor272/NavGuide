@@ -1,4 +1,4 @@
-package pl.umk.mat.locals.models.Enums
+package pl.umk.mat.locals.models.enumerations
 
 enum class Country {
     AD,

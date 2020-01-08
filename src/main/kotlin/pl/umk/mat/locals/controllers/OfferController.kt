@@ -8,7 +8,6 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.multipart.MultipartFile
 import pl.umk.mat.locals.dto.`in`.NewOffer
-import pl.umk.mat.locals.dto.out.OfferDto
 import pl.umk.mat.locals.security.UserPrincipal
 import pl.umk.mat.locals.services.GuideService
 

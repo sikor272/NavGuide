@@ -2,11 +2,11 @@ package pl.umk.mat.locals.dto.out
 
 import io.swagger.annotations.ApiModel
 import io.swagger.annotations.ApiModelProperty
-import pl.umk.mat.locals.models.Enums.Country
-import pl.umk.mat.locals.models.Enums.Experience
-import pl.umk.mat.locals.models.Enums.Gender
-import pl.umk.mat.locals.models.Enums.Role
 import pl.umk.mat.locals.models.User
+import pl.umk.mat.locals.models.enumerations.Country
+import pl.umk.mat.locals.models.enumerations.Experience
+import pl.umk.mat.locals.models.enumerations.Gender
+import pl.umk.mat.locals.models.enumerations.Role
 import java.util.*
 
 @ApiModel(value = "Self User Info")

@@ -5,13 +5,14 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority
 import org.springframework.security.core.userdetails.UserDetails
 import pl.umk.mat.locals.models.User
 import java.util.*
+import kotlin.collections.ArrayList
 
 
 class UserPrincipal(
         val user: User
 ) : UserDetails {
 
-    override fun getAuthorities(): MutableCollection<out GrantedAuthority> {
+    override fun getAuthorities(): ArrayList<SimpleGrantedAuthority> {
         return arrayListOf(SimpleGrantedAuthority(user.role.name))
     }
 

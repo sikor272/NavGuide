@@ -15,10 +15,10 @@ import pl.umk.mat.locals.dto.out.*
 import pl.umk.mat.locals.exceptions.BadRequest
 import pl.umk.mat.locals.exceptions.ResourceAlreadyExistException
 import pl.umk.mat.locals.exceptions.UserAuthException
-import pl.umk.mat.locals.models.Enums.Country
 import pl.umk.mat.locals.models.GuideRequest
 import pl.umk.mat.locals.models.TemporaryUser
 import pl.umk.mat.locals.models.User
+import pl.umk.mat.locals.models.enumerations.Country
 import pl.umk.mat.locals.repositories.GuideRequestRepository
 import pl.umk.mat.locals.repositories.InterestRepository
 import pl.umk.mat.locals.repositories.TemporaryUserRepository

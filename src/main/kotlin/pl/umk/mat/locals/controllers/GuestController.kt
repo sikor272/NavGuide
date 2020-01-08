@@ -40,7 +40,7 @@ class GuestController(
     ): List<GuestOfferDto> {
         return guestService.getAllOffersByCity(city)
     }
-
+/*
     @GetMapping("/offers/tags")
     @ResponseStatus(HttpStatus.OK)
     @ApiOperation("Get all offers by tags.")
@@ -49,5 +49,5 @@ class GuestController(
     ): List<GuestOfferDto> {
         return guestService.getAllOffersByTags(tags)
     }
-
+*/
 }

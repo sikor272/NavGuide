@@ -41,7 +41,7 @@ class GuestService(
             GuestOfferDto(it)
         }.toList()
     }
-
+/*
     fun getAllOffersByTags(list: List<String>): List<GuestOfferDto> {
         return offerRepository.saveAll(offerRepository.findAllByTagsIn(
                 tagRepository.findAllByNameIn(list).asSequence().toList()
@@ -53,5 +53,5 @@ class GuestService(
             GuestOfferDto(it)
         }.toList()
     }
-
+*/
 }

@@ -3,18 +3,15 @@ package pl.umk.mat.locals.services
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
-import pl.umk.mat.locals.dto.`in`.Ban
-import pl.umk.mat.locals.dto.`in`.ChangeGuideRequestStatus
-import pl.umk.mat.locals.dto.`in`.NewInterest
-import pl.umk.mat.locals.dto.`in`.NewTag
+import pl.umk.mat.locals.dto.`in`.*
 import pl.umk.mat.locals.dto.out.AdministratorGuideRequest
 import pl.umk.mat.locals.dto.out.ComplainDto
 import pl.umk.mat.locals.exceptions.ResourceNotFoundException
-import pl.umk.mat.locals.models.Enums.GuideRequestStatus
-import pl.umk.mat.locals.models.Enums.Role
 import pl.umk.mat.locals.models.GuideProfile
 import pl.umk.mat.locals.models.Interest
 import pl.umk.mat.locals.models.Tag
+import pl.umk.mat.locals.models.enumerations.GuideRequestStatus
+import pl.umk.mat.locals.models.enumerations.Role
 import pl.umk.mat.locals.repositories.*
 
 @Service
@@ -34,7 +31,7 @@ class AdministratorService(
         }
     }
 
-    @Transactional
+
     fun acceptGuideRequest(id: Long, changeGuideRequestStatus: ChangeGuideRequestStatus) {
         val guideRequest = guideRequestRepository.findByIdOrNull(id)
                 ?: throw ResourceNotFoundException("Guide request not found.")
@@ -60,7 +57,7 @@ class AdministratorService(
 
     }
 
-    @Transactional
+
     fun rejectGuideRequest(id: Long, changeGuideRequestStatus: ChangeGuideRequestStatus) {
         val guideRequest = guideRequestRepository.findByIdOrNull(id)
                 ?: throw ResourceNotFoundException("Guide request not found.")
@@ -120,5 +117,14 @@ class AdministratorService(
                         ban = ban.end
                 )
         )
+    }
+
+    @Transactional
+    fun changeGuideRequestStatus(id: Long, changeGuideRequestStatus: ChangeGuideRequestStatus) {
+        if (changeGuideRequestStatus.guideRequestStatus == ChangeGuideRequestEnum.ACCEPTED) {
+            acceptGuideRequest(id, changeGuideRequestStatus)
+        } else {
+            acceptGuideRequest(id, changeGuideRequestStatus)
+        }
     }
 }

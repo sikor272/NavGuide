@@ -1,7 +1,7 @@
 package pl.umk.mat.locals.dto.out
 
-import pl.umk.mat.locals.models.Enums.Language
 import pl.umk.mat.locals.models.GuideProfile
+import pl.umk.mat.locals.models.enumerations.Language
 
 data class GuideProfileDto(
         val languages: List<Language>,
