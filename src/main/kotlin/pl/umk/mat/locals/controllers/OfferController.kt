@@ -30,13 +30,4 @@ class OfferController(
     ) {
         guideService.addNewOffer(file, offer, principal.user)
     }
-
-    @GetMapping("/{id}/guide")
-    @ResponseStatus(HttpStatus.OK)
-    @ApiOperation("Get Guide offers", authorizations = [Authorization("JWT Token")])
-    fun getGuideOffers(
-            @PathVariable id: Long
-    ): List<OfferDto> {
-        return guideService.getGuideOffer(id)
-    }
 }

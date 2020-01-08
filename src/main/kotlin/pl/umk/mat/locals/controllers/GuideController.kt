@@ -36,6 +36,14 @@ class GuideController(
     ): List<OfferDto> {
         return guideService.getGuideOffer(principal.user.id)
     }
+    @GetMapping("/{id}/offers")
+    @ResponseStatus(HttpStatus.OK)
+    @ApiOperation("Get Guide offers", authorizations = [Authorization("JWT Token")])
+    fun getGuideOffers(
+            @PathVariable id: Long
+    ): List<OfferDto> {
+        return guideService.getGuideOffer(id)
+    }
 
     @GetMapping("/clients")
     @ResponseStatus(HttpStatus.OK)
