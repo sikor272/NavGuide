@@ -22,7 +22,7 @@ class GuideRequestController(
         private val administratorService: AdministratorService,
         private val userService: UserService
 ) {
-    //ToDo
+
     @GetMapping
     @ApiOperation("Get all pending guide requests.", authorizations = [Authorization("JWT Token")])
     @ResponseStatus(HttpStatus.OK)
@@ -30,7 +30,6 @@ class GuideRequestController(
         return administratorService.getAllPendingGuideRequests()
     }
 
-    //ToDo
     @PutMapping("/{id}")
     @ApiOperation("Accept or reject guide request.", authorizations = [Authorization("JWT Token")])
     @ResponseStatus(HttpStatus.OK)

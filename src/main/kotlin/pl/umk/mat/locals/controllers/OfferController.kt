@@ -29,4 +29,5 @@ class OfferController(
     ) {
         guideService.addNewOffer(file, offer, principal.user)
     }
+
 }

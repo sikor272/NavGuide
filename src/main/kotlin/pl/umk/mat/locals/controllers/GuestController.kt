@@ -14,6 +14,7 @@ import pl.umk.mat.locals.services.GuestService
 class GuestController(
         private val guestService: GuestService
 ) {
+
     @GetMapping("/offers")
     @ResponseStatus(HttpStatus.OK)
     @ApiOperation("Get 10 random offers.")
@@ -40,14 +41,5 @@ class GuestController(
     ): List<GuestOfferDto> {
         return guestService.getAllOffersByCity(city)
     }
-/*
-    @GetMapping("/offers/tags")
-    @ResponseStatus(HttpStatus.OK)
-    @ApiOperation("Get all offers by tags.")
-    fun getAllOffersByTags(
-            @RequestParam(name = "list") @ApiParam("list of tags") tags: List<String>
-    ): List<GuestOfferDto> {
-        return guestService.getAllOffersByTags(tags)
-    }
-*/
+
 }

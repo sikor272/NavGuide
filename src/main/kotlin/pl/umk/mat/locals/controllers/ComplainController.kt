@@ -20,6 +20,7 @@ class ComplainController(
         private val administratorService: AdministratorService,
         private val userService: UserService
 ) {
+
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     @ApiOperation("Get all complains.", authorizations = [Authorization("JWT Token")])
@@ -43,4 +44,5 @@ class ComplainController(
     ) {
         administratorService.deleteComplain(id)
     }
+
 }

@@ -80,8 +80,7 @@ class ProfileController(
         userService.logoutFromAll(principal.user)
     }
 
-    //ToDo
-    @GetMapping("/guide")
+    @GetMapping("/guiderequests")
     @ResponseStatus(HttpStatus.OK)
     @ApiOperation("Get all own guide requests.", authorizations = [Authorization("JWT Token")])
     fun getAllGuideApplication(
@@ -99,4 +98,5 @@ class ProfileController(
     ) {
         userService.setUserAvatar(file, principal.user)
     }
+
 }

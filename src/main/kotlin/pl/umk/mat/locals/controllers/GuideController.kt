@@ -26,16 +26,6 @@ class GuideController(
         return guideService.getGuideProfile(id)
     }
 
-    /*
-        @GetMapping("/offers")
-        @ResponseStatus(HttpStatus.OK)
-        @ApiOperation("Get all own offers.", authorizations = [Authorization("JWT Token")])
-        fun getAllOwnOffers(
-                @AuthenticationPrincipal principal: UserPrincipal
-        ): List<OfferDto> {
-            return guideService.getGuideOffer(principal.user.id)
-        }
-        */
     @GetMapping("/{id}/offers")
     @ResponseStatus(HttpStatus.OK)
     @ApiOperation("Get Guide offers", authorizations = [Authorization("JWT Token")])
@@ -44,15 +34,5 @@ class GuideController(
     ): List<OfferDto> {
         return guideService.getGuideOffer(id)
     }
-/*
-    @GetMapping("/clients")
-    @ResponseStatus(HttpStatus.OK)
-    @ApiOperation("Get all offers purchase requests.", authorizations = [Authorization("JWT Token")])
-    fun getAllOffersBuyRequests(
-            @AuthenticationPrincipal principal: UserPrincipal
-    ) {
-        //ToDo
-    }
 
-*/
 }

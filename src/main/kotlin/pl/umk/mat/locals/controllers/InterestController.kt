@@ -17,6 +17,7 @@ class InterestController(
         private val interestService: InterestService,
         private val administratorService: AdministratorService
 ) {
+
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     @ApiOperation("Get all available interests.")
@@ -40,4 +41,5 @@ class InterestController(
     ) {
         administratorService.deleteInterest(id)
     }
+
 }

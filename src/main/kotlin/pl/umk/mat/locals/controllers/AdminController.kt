@@ -23,4 +23,5 @@ class AdminController(
     ) {
         administratorService.banUserById(id, ban)
     }
+
 }

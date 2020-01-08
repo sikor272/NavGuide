@@ -90,4 +90,5 @@ class AuthController(
     ) {
         userService.confirmResetPassword(confirmPasswordReset)
     }
+
 }

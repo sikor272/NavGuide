@@ -18,6 +18,7 @@ class TagController(
         private val tagService: TagService,
         private val administratorService: AdministratorService
 ) {
+
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     @ApiOperation("Get all available tags.")
@@ -41,4 +42,5 @@ class TagController(
     ) {
         administratorService.deleteTag(id)
     }
+
 }

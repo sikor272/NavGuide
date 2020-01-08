@@ -1,11 +1,9 @@
 package pl.umk.mat.locals.security
 
-import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.authority.SimpleGrantedAuthority
 import org.springframework.security.core.userdetails.UserDetails
 import pl.umk.mat.locals.models.User
 import java.util.*
-import kotlin.collections.ArrayList
 
 
 class UserPrincipal(
