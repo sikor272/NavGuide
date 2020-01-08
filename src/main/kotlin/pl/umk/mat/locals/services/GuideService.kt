@@ -4,9 +4,9 @@ import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 import org.springframework.web.multipart.MultipartFile
 import pl.umk.mat.locals.config.Config
-import pl.umk.mat.locals.dto.GuideProfileDto
-import pl.umk.mat.locals.dto.NewOffer
-import pl.umk.mat.locals.dto.OfferDto
+import pl.umk.mat.locals.dto.`in`.NewOffer
+import pl.umk.mat.locals.dto.out.GuideProfileDto
+import pl.umk.mat.locals.dto.out.OfferDto
 import pl.umk.mat.locals.exceptions.BadRequest
 import pl.umk.mat.locals.exceptions.ResourceNotFoundException
 import pl.umk.mat.locals.models.Offer
@@ -72,7 +72,8 @@ class GuideService(
                         priceType = offer.priceType,
                         owner = user.guideProfile ?: throw RuntimeException("Cannot find owner profile"),
                         tags = offer.tags.map {
-                            tagRepository.findByIdOrNull(it) ?: throw ResourceNotFoundException("Tags of id list do not exist")
+                            tagRepository.findByIdOrNull(it)
+                                    ?: throw ResourceNotFoundException("Tags of id list do not exist")
                         },
                         photos = filename
                 )

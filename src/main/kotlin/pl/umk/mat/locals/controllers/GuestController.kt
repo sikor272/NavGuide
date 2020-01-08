@@ -5,7 +5,7 @@ import io.swagger.annotations.ApiOperation
 import io.swagger.annotations.ApiParam
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
-import pl.umk.mat.locals.dto.GuestOfferDto
+import pl.umk.mat.locals.dto.out.GuestOfferDto
 import pl.umk.mat.locals.services.GuestService
 
 @RestController
@@ -14,6 +14,7 @@ import pl.umk.mat.locals.services.GuestService
 class GuestController(
         private val guestService: GuestService
 ) {
+
     @GetMapping("/offers")
     @ResponseStatus(HttpStatus.OK)
     @ApiOperation("Get 10 random offers.")
@@ -39,15 +40,6 @@ class GuestController(
             @RequestParam(value = "name") city: String
     ): List<GuestOfferDto> {
         return guestService.getAllOffersByCity(city)
-    }
-
-    @GetMapping("/offers/tags")
-    @ResponseStatus(HttpStatus.OK)
-    @ApiOperation("Get all offers by tags.")
-    fun getAllOffersByTags(
-            @RequestParam(name = "list") @ApiParam("list of tags") tags: List<String>
-    ): List<GuestOfferDto> {
-        return guestService.getAllOffersByTags(tags)
     }
 
 }

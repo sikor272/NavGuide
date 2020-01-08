@@ -1,7 +1,7 @@
 package pl.umk.mat.locals.services
 
 import org.springframework.stereotype.Service
-import pl.umk.mat.locals.dto.GuestOfferDto
+import pl.umk.mat.locals.dto.out.GuestOfferDto
 import pl.umk.mat.locals.repositories.OfferRepository
 import pl.umk.mat.locals.repositories.TagRepository
 
@@ -41,7 +41,7 @@ class GuestService(
             GuestOfferDto(it)
         }.toList()
     }
-
+/*
     fun getAllOffersByTags(list: List<String>): List<GuestOfferDto> {
         return offerRepository.saveAll(offerRepository.findAllByTagsIn(
                 tagRepository.findAllByNameIn(list).asSequence().toList()
@@ -53,5 +53,5 @@ class GuestService(
             GuestOfferDto(it)
         }.toList()
     }
-
+*/
 }

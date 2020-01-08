@@ -9,7 +9,7 @@ import pl.umk.mat.locals.models.Tag
 
 @Repository
 interface OfferRepository : CrudRepository<Offer, Long> {
-    @Query(value = "SELECT * FROM offer WHERE (ST_Distance_Sphere( point(lon, lat), point(?2, ?1) )) <= ?3",
+    @Query(value = "SELECT * FROM offer WHERE (ST_Distance_Sphere( point(lon, lat), point(?2, ?1) )) <= ?3 + radius",
             nativeQuery = true)
     fun findAllOffersByPoint(lat: Double, lon: Double, radius: Long): List<Offer>
 

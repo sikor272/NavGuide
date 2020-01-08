@@ -10,14 +10,15 @@ import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
 import org.springframework.web.multipart.MultipartFile
 import pl.umk.mat.locals.config.Config
-import pl.umk.mat.locals.dto.*
+import pl.umk.mat.locals.dto.`in`.*
+import pl.umk.mat.locals.dto.out.*
 import pl.umk.mat.locals.exceptions.BadRequest
 import pl.umk.mat.locals.exceptions.ResourceAlreadyExistException
 import pl.umk.mat.locals.exceptions.UserAuthException
-import pl.umk.mat.locals.models.Country
 import pl.umk.mat.locals.models.GuideRequest
 import pl.umk.mat.locals.models.TemporaryUser
 import pl.umk.mat.locals.models.User
+import pl.umk.mat.locals.models.enumerations.Country
 import pl.umk.mat.locals.repositories.GuideRequestRepository
 import pl.umk.mat.locals.repositories.InterestRepository
 import pl.umk.mat.locals.repositories.TemporaryUserRepository
@@ -310,5 +311,10 @@ class UserService(
                         password = passwordEncoder.encode(changePassword.newPassword)
                 )
         )
+    }
+
+    @Transactional
+    fun addNewComplain(complain: NewComplain, user: User) {
+        //ToDo
     }
 }
