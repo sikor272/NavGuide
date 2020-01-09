@@ -34,10 +34,11 @@ class GuideRequestController(
     @ApiOperation("Accept or reject guide request.", authorizations = [Authorization("JWT Token")])
     @ResponseStatus(HttpStatus.OK)
     fun acceptGuideRequest(
+            @AuthenticationPrincipal principal: UserPrincipal,
             @PathVariable id: Long,
             @RequestBody changeGuideRequestStatus: ChangeGuideRequestStatus
     ) {
-        administratorService.changeGuideRequestStatus(id, changeGuideRequestStatus)
+        administratorService.changeGuideRequestStatus(principal.user, id, changeGuideRequestStatus)
     }
 
     @PostMapping
