@@ -36,13 +36,14 @@ class AdministratorService(
     fun acceptGuideRequest(user: User, id: Long, changeGuideRequestStatus: ChangeGuideRequestStatus) {
         val guideRequest = guideRequestRepository.findByIdOrNull(id)
                 ?: throw ResourceNotFoundException("Guide request not found.")
+
         userRepository.save(
                 guideRequest.user.copy(
                         role = Role.GUIDE,
                         guideProfile = guideProfileRepository.save(
                                 GuideProfile(
                                         user = guideRequest.user,
-                                        languages = guideRequest.languages,
+                                        languages = guideRequest.languages.map { it },
                                         experience = guideRequest.experience,
                                         guideRequest = guideRequest
                                 )
