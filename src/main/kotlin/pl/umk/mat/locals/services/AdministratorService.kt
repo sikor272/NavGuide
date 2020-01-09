@@ -38,7 +38,15 @@ class AdministratorService(
                 ?: throw ResourceNotFoundException("Guide request not found.")
         userRepository.save(
                 guideRequest.user.copy(
-                        role = Role.GUIDE
+                        role = Role.GUIDE,
+                        guideProfile = guideProfileRepository.save(
+                                GuideProfile(
+                                        user = guideRequest.user,
+                                        languages = guideRequest.languages,
+                                        experience = guideRequest.experience,
+                                        guideRequest = guideRequest
+                                )
+                        )
                 )
         )
         guideRequestRepository.save(
@@ -46,14 +54,6 @@ class AdministratorService(
                         status = GuideRequestStatus.ACCEPTED,
                         message = changeGuideRequestStatus.message,
                         processedBy = user
-                )
-        )
-        guideProfileRepository.save(
-                GuideProfile(
-                        user = guideRequest.user,
-                        languages = guideRequest.languages,
-                        experience = guideRequest.experience,
-                        guideRequest = guideRequest
                 )
         )
 
