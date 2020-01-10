@@ -10,6 +10,7 @@ import pl.umk.mat.locals.exceptions.ResourceNotFoundException
 import pl.umk.mat.locals.models.GuideProfile
 import pl.umk.mat.locals.models.Interest
 import pl.umk.mat.locals.models.Tag
+import pl.umk.mat.locals.models.User
 import pl.umk.mat.locals.models.enumerations.GuideRequestStatus
 import pl.umk.mat.locals.models.enumerations.Role
 import pl.umk.mat.locals.repositories.*
@@ -32,39 +33,42 @@ class AdministratorService(
     }
 
 
-    fun acceptGuideRequest(id: Long, changeGuideRequestStatus: ChangeGuideRequestStatus) {
+    fun acceptGuideRequest(user: User, id: Long, changeGuideRequestStatus: ChangeGuideRequestStatus) {
         val guideRequest = guideRequestRepository.findByIdOrNull(id)
                 ?: throw ResourceNotFoundException("Guide request not found.")
+
         userRepository.save(
                 guideRequest.user.copy(
-                        role = Role.GUIDE
+                        role = Role.GUIDE,
+                        guideProfile = guideProfileRepository.save(
+                                GuideProfile(
+                                        user = guideRequest.user,
+                                        languages = guideRequest.languages.map { it },
+                                        experience = guideRequest.experience,
+                                        guideRequest = guideRequest
+                                )
+                        )
                 )
         )
         guideRequestRepository.save(
                 guideRequest.copy(
                         status = GuideRequestStatus.ACCEPTED,
-                        message = changeGuideRequestStatus.message
-                )
-        )
-        guideProfileRepository.save(
-                GuideProfile(
-                        user = guideRequest.user,
-                        languages = guideRequest.languages,
-                        experience = guideRequest.experience,
-                        guideRequest = guideRequest
+                        message = changeGuideRequestStatus.message,
+                        processedBy = user
                 )
         )
 
     }
 
 
-    fun rejectGuideRequest(id: Long, changeGuideRequestStatus: ChangeGuideRequestStatus) {
+    fun rejectGuideRequest(user: User, id: Long, changeGuideRequestStatus: ChangeGuideRequestStatus) {
         val guideRequest = guideRequestRepository.findByIdOrNull(id)
                 ?: throw ResourceNotFoundException("Guide request not found.")
         guideRequestRepository.save(
                 guideRequest.copy(
                         status = GuideRequestStatus.REJECTED,
-                        message = changeGuideRequestStatus.message
+                        message = changeGuideRequestStatus.message,
+                        processedBy = user
                 )
         )
     }
@@ -120,11 +124,11 @@ class AdministratorService(
     }
 
     @Transactional
-    fun changeGuideRequestStatus(id: Long, changeGuideRequestStatus: ChangeGuideRequestStatus) {
+    fun changeGuideRequestStatus(user: User, id: Long, changeGuideRequestStatus: ChangeGuideRequestStatus) {
         if (changeGuideRequestStatus.guideRequestStatus == ChangeGuideRequestEnum.ACCEPTED) {
-            acceptGuideRequest(id, changeGuideRequestStatus)
+            acceptGuideRequest(user, id, changeGuideRequestStatus)
         } else {
-            acceptGuideRequest(id, changeGuideRequestStatus)
+            rejectGuideRequest(user, id, changeGuideRequestStatus)
         }
     }
 }

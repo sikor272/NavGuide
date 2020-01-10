@@ -23,6 +23,12 @@ data class OfferDto(
         val priceType: PriceType,
         @field:ApiModelProperty(notes = "It's exactly what you expect.")
         val tags: List<TagDto>,
+        @field:ApiModelProperty(notes = "It's exactly what you expect.")
+        val owner: GuideProfileDto,
+        @field:ApiModelProperty(notes = "It's exactly what you expect.")
+        val maxPeople: Long,
+        @field:ApiModelProperty(notes = "It's exactly what you expect.")
+        val photos: List<String>,
         @field:ApiModelProperty(notes = "meter.")
         val radius: Long
 ) {
@@ -37,6 +43,9 @@ data class OfferDto(
             tags = offer.tags.map {
                 TagDto(it)
             },
+            owner = GuideProfileDto(offer.owner),
+            maxPeople = offer.maxPeople,
+            photos = offer.photos,
             radius = offer.radius
     )
 }
