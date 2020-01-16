@@ -9,6 +9,7 @@ import pl.umk.mat.locals.dto.`in`.NewInterest
 import pl.umk.mat.locals.dto.out.InterestDto
 import pl.umk.mat.locals.services.AdministratorService
 import pl.umk.mat.locals.services.InterestService
+import javax.validation.Valid
 
 @RestController
 @RequestMapping("/interests")
@@ -29,7 +30,7 @@ class InterestController(
     @ApiOperation("Add interest.", authorizations = [Authorization("JWT Token")])
     @ResponseStatus(HttpStatus.OK)
     fun addNewInterest(
-            @RequestBody newInterest: NewInterest
+            @RequestBody @Valid newInterest: NewInterest
     ) {
         administratorService.addNewInterest(newInterest)
     }

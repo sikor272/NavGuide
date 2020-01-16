@@ -13,6 +13,7 @@ import pl.umk.mat.locals.dto.out.OfferDto
 import pl.umk.mat.locals.security.UserPrincipal
 import pl.umk.mat.locals.services.GuideService
 import pl.umk.mat.locals.services.OfferService
+import javax.validation.Valid
 
 
 @RestController
@@ -27,7 +28,7 @@ class OfferController(
     @ApiOperation("Create new offer.", authorizations = [Authorization("JWT Token")])
     fun createNewOffer(
             @RequestParam file: List<MultipartFile>,
-            @ModelAttribute offer: NewOffer,
+            @ModelAttribute @Valid offer: NewOffer,
             @AuthenticationPrincipal principal: UserPrincipal
     ) {
         guideService.addNewOffer(file, offer, principal.user)

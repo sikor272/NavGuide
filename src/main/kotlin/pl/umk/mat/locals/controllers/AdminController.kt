@@ -6,6 +6,7 @@ import io.swagger.annotations.Authorization
 import org.springframework.web.bind.annotation.*
 import pl.umk.mat.locals.dto.`in`.Ban
 import pl.umk.mat.locals.services.AdministratorService
+import javax.validation.Valid
 
 
 @RestController
@@ -19,7 +20,7 @@ class AdminController(
     @ApiOperation("Ban user", authorizations = [Authorization("JWT Token")])
     fun banUserById(
             @PathVariable id: Long,
-            @RequestBody ban: Ban
+            @RequestBody @Valid ban: Ban
     ) {
         administratorService.banUserById(id, ban)
     }
