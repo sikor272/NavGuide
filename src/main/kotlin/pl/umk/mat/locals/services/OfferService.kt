@@ -1,15 +1,23 @@
 package pl.umk.mat.locals.services
 
+import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
+import pl.umk.mat.locals.dto.`in`.NewComplain
 import pl.umk.mat.locals.dto.out.OfferDto
+import pl.umk.mat.locals.exceptions.ResourceNotFoundException
+import pl.umk.mat.locals.models.Complain
+import pl.umk.mat.locals.models.User
+import pl.umk.mat.locals.repositories.ComplainRepository
 import pl.umk.mat.locals.repositories.OfferRepository
 import pl.umk.mat.locals.repositories.TagRepository
+import javax.transaction.Transactional
 
 @Service
 
 class OfferService(
         private val offerRepository: OfferRepository,
-        private val tagRepository: TagRepository
+        private val tagRepository: TagRepository,
+        private val complainRepository: ComplainRepository
 
 ) {
     fun getAllOffersByGeoLocalization(lat: Double, lon: Double, radius: Long): List<OfferDto> {
@@ -54,4 +62,15 @@ class OfferService(
         }.toList()
     }
 */
+
+    @Transactional
+    fun addNewComplain(complain: NewComplain, user: User) {
+        complainRepository.save(
+                Complain(
+                        target = offerRepository.findByIdOrNull(complain.offerId) ?: throw ResourceNotFoundException("Offer not found."),
+                        description = complain.description,
+                        author = user
+                )
+        )
+    }
 }

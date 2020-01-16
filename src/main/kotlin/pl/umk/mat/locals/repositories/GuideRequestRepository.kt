@@ -10,4 +10,5 @@ import pl.umk.mat.locals.models.enumerations.GuideRequestStatus
 interface GuideRequestRepository : CrudRepository<GuideRequest, Long> {
     fun getAllByUser(user: User): List<GuideRequest>
     fun getAllByStatus(status: GuideRequestStatus): List<GuideRequest>
+    fun existsByUserAndStatus(user: User, status: GuideRequestStatus): Boolean
 }

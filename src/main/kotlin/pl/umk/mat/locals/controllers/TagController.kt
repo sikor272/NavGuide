@@ -9,6 +9,7 @@ import pl.umk.mat.locals.dto.`in`.NewTag
 import pl.umk.mat.locals.dto.out.TagDto
 import pl.umk.mat.locals.services.AdministratorService
 import pl.umk.mat.locals.services.TagService
+import javax.validation.Valid
 
 
 @RestController
@@ -30,7 +31,7 @@ class TagController(
     @ApiOperation("Add tag (used in offers).", authorizations = [Authorization("JWT Token")])
     @ResponseStatus(HttpStatus.OK)
     fun addNewTag(
-            @RequestBody newTag: NewTag
+            @RequestBody @Valid newTag: NewTag
     ) {
         administratorService.addNewTag(newTag)
     }

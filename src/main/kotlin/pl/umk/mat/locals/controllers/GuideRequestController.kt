@@ -36,7 +36,7 @@ class GuideRequestController(
     fun acceptGuideRequest(
             @AuthenticationPrincipal principal: UserPrincipal,
             @PathVariable id: Long,
-            @RequestBody changeGuideRequestStatus: ChangeGuideRequestStatus
+            @RequestBody @Valid changeGuideRequestStatus: ChangeGuideRequestStatus
     ) {
         administratorService.changeGuideRequestStatus(principal.user, id, changeGuideRequestStatus)
     }

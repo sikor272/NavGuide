@@ -19,6 +19,7 @@ import pl.umk.mat.locals.models.GuideRequest
 import pl.umk.mat.locals.models.TemporaryUser
 import pl.umk.mat.locals.models.User
 import pl.umk.mat.locals.models.enumerations.Country
+import pl.umk.mat.locals.models.enumerations.GuideRequestStatus
 import pl.umk.mat.locals.repositories.GuideRequestRepository
 import pl.umk.mat.locals.repositories.InterestRepository
 import pl.umk.mat.locals.repositories.TemporaryUserRepository
@@ -242,7 +243,9 @@ class UserService(
                 ?: throw UserAuthException("Cannot send confirmation email."))
     }
 
+    @Transactional
     fun addRequestForGuide(user: User, guideRequest: GuideRequestDto) {
+        if (guideRequestRepository.existsByUserAndStatus(user,  GuideRequestStatus.PENDING)) throw ResourceAlreadyExistException("You already have pending request.")
         guideRequestRepository.save(GuideRequest(
                 user = user,
                 languages = guideRequest.languages,
@@ -313,8 +316,4 @@ class UserService(
         )
     }
 
-    @Transactional
-    fun addNewComplain(complain: NewComplain, user: User) {
-        //ToDo
-    }
 }

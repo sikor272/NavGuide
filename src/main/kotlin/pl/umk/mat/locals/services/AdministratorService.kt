@@ -125,7 +125,7 @@ class AdministratorService(
 
     @Transactional
     fun changeGuideRequestStatus(user: User, id: Long, changeGuideRequestStatus: ChangeGuideRequestStatus) {
-        if (changeGuideRequestStatus.guideRequestStatus == ChangeGuideRequestEnum.ACCEPTED) {
+        if (changeGuideRequestStatus.guideRequestStatus == ChangeGuideRequestEnum.ACCEPT) {
             acceptGuideRequest(user, id, changeGuideRequestStatus)
         } else {
             rejectGuideRequest(user, id, changeGuideRequestStatus)
