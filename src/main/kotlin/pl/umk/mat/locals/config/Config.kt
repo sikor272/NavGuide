@@ -10,5 +10,5 @@ data class Config(
         var imageDir: String = "src/main/resources/static/",
         var imageServerUrl: String = "/",
         var imageRegex: String = "jpeg|jpg|png",
-        val imageServerHost: String = ""
+        var imageServerHost: String = ""
 )
