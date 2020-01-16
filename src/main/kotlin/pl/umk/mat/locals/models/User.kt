@@ -50,7 +50,7 @@ data class User(
         @Enumerated(EnumType.STRING)
         val experience: Experience = Experience.NOVICE,
 
-        val avatar: String = "https://images.unsplash.com/photo-1534480573933-6fad32e8bd38?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60",
+        val avatar: String = "/img/avatar_default.jpg",
 
         @ManyToMany(fetch = FetchType.EAGER)
         @JoinTable(name = "user_interests",

@@ -188,7 +188,7 @@ class UserService(
     }
 
     fun getSelfUserInfo(user: User): UserSelfInfo {
-        return UserSelfInfo(user)
+        return UserSelfInfo(user, config.imageServerHost)
     }
 
     fun confirmEmail(emailConfirmationCode: EmailConfirmationCode) {
@@ -299,7 +299,8 @@ class UserService(
                         experience = newUserData.experience,
                         interests = interestRepository.findAllById(newUserData.interests).asSequence().toList(),
                         gender = newUserData.gender
-                ))
+                )),
+                config.imageServerHost
         )
     }
 
