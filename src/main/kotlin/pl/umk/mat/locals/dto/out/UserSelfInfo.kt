@@ -58,7 +58,7 @@ data class UserSelfInfo(
         val gender: Gender
 
 ) {
-    constructor(user: User) : this(
+    constructor(user: User, imgServerHost: String) : this(
             id = user.id,
             firstName = user.firstName,
             lastName = user.lastName,
@@ -72,7 +72,7 @@ data class UserSelfInfo(
             tokenUniqueId = user.tokenUniqueId,
             telephone = user.telephone,
             experience = user.experience,
-            avatar = user.avatar,
+            avatar = imgServerHost + user.avatar,
             interests = user.interests.map {
                 InterestDto(it)
             },

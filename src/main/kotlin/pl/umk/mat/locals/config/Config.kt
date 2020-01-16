@@ -9,5 +9,6 @@ data class Config(
         var secretKey: String = "kotNaPlecach",
         var imageDir: String = "src/main/resources/static/",
         var imageServerUrl: String = "/",
-        var imageRegex: String = "jpeg|jpg|png"
+        var imageRegex: String = "jpeg|jpg|png",
+        val imageServerHost: String = ""
 )
