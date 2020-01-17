@@ -74,7 +74,8 @@ class UserService(
                 telephone = registerRequest.telephone,
                 experience = registerRequest.experience,
                 interests = interestRepository.findAllById(registerRequest.interests).asSequence().toList(),
-                gender = registerRequest.gender
+                gender = registerRequest.gender,
+                age = registerRequest.age
         ))
         sendVerificationMail(newUser)
         return createAuthResponse(newUser)
@@ -100,7 +101,8 @@ class UserService(
                 telephone = confirmGoogleAccount.telephone,
                 experience = confirmGoogleAccount.experience,
                 interests = interestRepository.findAllById(confirmGoogleAccount.interests).asSequence().toList(),
-                gender = confirmGoogleAccount.gender
+                gender = confirmGoogleAccount.gender,
+                age = confirmGoogleAccount.age
         ))
 
         temporaryUserRepository.deleteById(temporaryUserId)
@@ -152,11 +154,11 @@ class UserService(
                 email = user.email,
                 telephone = user.telephone,
                 experience = user.experience,
-                avatar = user.avatar,
+                avatar = config.imageServerHost + user.avatar,
                 interests = user.interests.map {
                     InterestDto(it)
-                }
-
+                },
+                age = user.age
         )
     }
 
@@ -245,7 +247,7 @@ class UserService(
 
     @Transactional
     fun addRequestForGuide(user: User, guideRequest: GuideRequestDto) {
-        if (guideRequestRepository.existsByUserAndStatus(user,  GuideRequestStatus.PENDING)) throw ResourceAlreadyExistException("You already have pending request.")
+        if (guideRequestRepository.existsByUserAndStatus(user, GuideRequestStatus.PENDING)) throw ResourceAlreadyExistException("You already have pending request.")
         guideRequestRepository.save(GuideRequest(
                 user = user,
                 languages = guideRequest.languages,

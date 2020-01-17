@@ -28,5 +28,7 @@ data class AuthResponse(
         @field:ApiModelProperty(notes = "It's exactly what you expect.")
         val avatar: String,
         @field:ApiModelProperty(notes = "It's exactly what you expect.")
-        val interests: List<InterestDto>
+        val interests: List<InterestDto>,
+
+        val age: Int?
 )

@@ -33,5 +33,6 @@ data class RegisterRequest(
         val experience: Experience,
         @field:ApiModelProperty(notes = "It's exactly what you expect.")
         val interests: List<Long>,
-        val gender: Gender
+        val gender: Gender,
+        val age: Int?
 )

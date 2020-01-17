@@ -34,6 +34,8 @@ data class ConfirmGoogleAccount(
         @field:ApiModelProperty(notes = "It's exactly what you expect.")
         val experience: Experience,
 
+        val age: Int?,
+
         @field:ApiModelProperty(notes = "List of interest ID")
         val interests: List<Long>,
         val gender: Gender

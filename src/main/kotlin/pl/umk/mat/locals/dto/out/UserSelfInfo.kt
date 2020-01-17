@@ -55,7 +55,11 @@ data class UserSelfInfo(
 
         @field:ApiModelProperty(notes = "It's exactly what you expect.")
         val interests: List<InterestDto> = emptyList(),
+
+        val age: Int?,
+
         val gender: Gender
+
 
 ) {
     constructor(user: User, imgServerHost: String) : this(
@@ -76,6 +80,8 @@ data class UserSelfInfo(
             interests = user.interests.map {
                 InterestDto(it)
             },
-            gender = user.gender
+            gender = user.gender,
+            age = user.age
+
     )
 }

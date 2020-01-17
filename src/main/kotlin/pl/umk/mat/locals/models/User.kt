@@ -1,7 +1,10 @@
 package pl.umk.mat.locals.models
 
 import org.hibernate.validator.constraints.UniqueElements
-import pl.umk.mat.locals.models.enumerations.*
+import pl.umk.mat.locals.models.enumerations.Country
+import pl.umk.mat.locals.models.enumerations.Experience
+import pl.umk.mat.locals.models.enumerations.Gender
+import pl.umk.mat.locals.models.enumerations.Role
 import java.util.*
 import javax.persistence.*
 import javax.validation.constraints.Email
@@ -42,6 +45,8 @@ data class User(
         val emailConfirmationCode: String? = (1..5).map { kotlin.random.Random.nextInt(0, 10) }.map { "1234567890"[it] }.joinToString(""),
 
         val ban: Date? = null,
+
+        val age: Int?,
 
         val passwordResetCode: String? = null,
 
