@@ -154,7 +154,7 @@ class UserService(
                 email = user.email,
                 telephone = user.telephone,
                 experience = user.experience,
-                avatar = config.imageServerUrl + user.avatar,
+                avatar = config.imageServerHost + user.avatar,
                 interests = user.interests.map {
                     InterestDto(it)
                 },
