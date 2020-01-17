@@ -33,6 +33,7 @@ class OfferController(
     ) {
         guideService.addNewOffer(file, offer, principal.user)
     }
+
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     @ApiOperation("Get 10 random offers.", authorizations = [Authorization("JWT Token")])

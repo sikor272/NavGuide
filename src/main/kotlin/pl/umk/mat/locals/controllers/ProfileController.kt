@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.*
 import org.springframework.web.multipart.MultipartFile
 import pl.umk.mat.locals.dto.`in`.ChangePassword
 import pl.umk.mat.locals.dto.`in`.GoogleCode
-import pl.umk.mat.locals.dto.`in`.GuideRequestDto
 import pl.umk.mat.locals.dto.`in`.NewUserData
 import pl.umk.mat.locals.dto.out.SelfGuideRequest
 import pl.umk.mat.locals.dto.out.UserSelfInfo
