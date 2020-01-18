@@ -3,7 +3,6 @@ package pl.umk.mat.locals.dto.out
 import io.swagger.annotations.ApiModel
 import io.swagger.annotations.ApiModelProperty
 import pl.umk.mat.locals.models.enumerations.Country
-import pl.umk.mat.locals.models.enumerations.Experience
 import pl.umk.mat.locals.models.enumerations.Role
 
 
@@ -24,7 +23,7 @@ data class AuthResponse(
         @field:ApiModelProperty(notes = "It's exactly what you expect.")
         val email: String,
         @field:ApiModelProperty(notes = "It's exactly what you expect.")
-        val experience: Experience = Experience.NOVICE,
+        val experience: Int,
         @field:ApiModelProperty(notes = "It's exactly what you expect.")
         val avatar: String,
         @field:ApiModelProperty(notes = "It's exactly what you expect.")

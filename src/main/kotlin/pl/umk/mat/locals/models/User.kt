@@ -2,7 +2,6 @@ package pl.umk.mat.locals.models
 
 import org.hibernate.validator.constraints.UniqueElements
 import pl.umk.mat.locals.models.enumerations.Country
-import pl.umk.mat.locals.models.enumerations.Experience
 import pl.umk.mat.locals.models.enumerations.Gender
 import pl.umk.mat.locals.models.enumerations.Role
 import java.util.*
@@ -52,8 +51,7 @@ data class User(
 
         val tokenUniqueId: Int = kotlin.random.Random.nextInt(100000, 1000000000),
 
-        @Enumerated(EnumType.STRING)
-        val experience: Experience = Experience.NOVICE,
+        val experience: Int,
 
         val avatar: String = "/img/avatar_default.jpg",
 

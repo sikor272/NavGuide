@@ -2,9 +2,9 @@ package pl.umk.mat.locals.dto.out
 
 import io.swagger.annotations.ApiModel
 import io.swagger.annotations.ApiModelProperty
+import org.hibernate.validator.constraints.Range
 import pl.umk.mat.locals.models.User
 import pl.umk.mat.locals.models.enumerations.Country
-import pl.umk.mat.locals.models.enumerations.Experience
 import pl.umk.mat.locals.models.enumerations.Gender
 import pl.umk.mat.locals.models.enumerations.Role
 import java.util.*
@@ -48,7 +48,7 @@ data class UserSelfInfo(
         val telephone: String,
 
         @field:ApiModelProperty(notes = "It's exactly what you expect.")
-        val experience: Experience,
+        val experience: Int,
 
         @field:ApiModelProperty(notes = "It's exactly what you expect.")
         val avatar: String,

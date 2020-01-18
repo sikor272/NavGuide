@@ -1,6 +1,5 @@
 package pl.umk.mat.locals.models
 
-import pl.umk.mat.locals.models.enumerations.Experience
 import pl.umk.mat.locals.models.enumerations.Language
 import javax.persistence.*
 
@@ -12,8 +11,7 @@ data class GuideProfile(
         @Enumerated(EnumType.STRING)
         @ElementCollection
         val languages: List<Language>,
-        @Enumerated(EnumType.STRING)
-        val experience: Experience,
+        val experience: Int,
         @OneToOne
         val user: User,
 
