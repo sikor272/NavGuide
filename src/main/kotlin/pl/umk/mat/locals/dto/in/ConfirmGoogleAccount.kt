@@ -2,8 +2,8 @@ package pl.umk.mat.locals.dto.`in`
 
 import io.swagger.annotations.ApiModel
 import io.swagger.annotations.ApiModelProperty
+import org.hibernate.validator.constraints.Range
 import pl.umk.mat.locals.models.enumerations.Country
-import pl.umk.mat.locals.models.enumerations.Experience
 import pl.umk.mat.locals.models.enumerations.Gender
 import pl.umk.mat.locals.validators.annotations.Telephone
 import javax.validation.constraints.Email
@@ -32,7 +32,8 @@ data class ConfirmGoogleAccount(
         val telephone: String,
 
         @field:ApiModelProperty(notes = "It's exactly what you expect.")
-        val experience: Experience,
+        @field:Range(min = 1, max = 5)
+        val experience: Int,
 
         val age: Int?,
 

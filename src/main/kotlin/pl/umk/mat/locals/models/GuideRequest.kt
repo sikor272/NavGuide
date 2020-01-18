@@ -1,6 +1,5 @@
 package pl.umk.mat.locals.models
 
-import pl.umk.mat.locals.models.enumerations.Experience
 import pl.umk.mat.locals.models.enumerations.GuideRequestStatus
 import pl.umk.mat.locals.models.enumerations.Language
 import java.util.*
@@ -18,8 +17,7 @@ data class GuideRequest(
         @Enumerated(EnumType.STRING)
         val languages: List<Language>,
 
-        @Enumerated(EnumType.STRING)
-        val experience: Experience,
+        val experience: Int,
 
         val description: String,
 
