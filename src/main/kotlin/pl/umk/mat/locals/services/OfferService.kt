@@ -49,6 +49,10 @@ class OfferService(
             OfferDto(it)
         }.toList()
     }
+
+    fun getOfferById(id: Long) :OfferDto {
+        return OfferDto(offerRepository.findByIdOrNull(id)?:throw ResourceNotFoundException("Didn't find"))
+    }
 /*
     fun getAllOffersByTags(list: List<String>): List<OfferDto> {
         return offerRepository.saveAll(offerRepository.findAllByTagsIn(
