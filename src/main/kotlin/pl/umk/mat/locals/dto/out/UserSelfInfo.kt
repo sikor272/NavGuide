@@ -2,7 +2,6 @@ package pl.umk.mat.locals.dto.out
 
 import io.swagger.annotations.ApiModel
 import io.swagger.annotations.ApiModelProperty
-import org.hibernate.validator.constraints.Range
 import pl.umk.mat.locals.models.User
 import pl.umk.mat.locals.models.enumerations.Country
 import pl.umk.mat.locals.models.enumerations.Gender
@@ -62,7 +61,7 @@ data class UserSelfInfo(
 
 
 ) {
-    constructor(user: User, imgServerHost: String) : this(
+    constructor(user: User) : this(
             id = user.id,
             firstName = user.firstName,
             lastName = user.lastName,
@@ -76,7 +75,7 @@ data class UserSelfInfo(
             tokenUniqueId = user.tokenUniqueId,
             telephone = user.telephone,
             experience = user.experience,
-            avatar = imgServerHost + user.avatar,
+            avatar = user.avatar,
             interests = user.interests.map {
                 InterestDto(it)
             },

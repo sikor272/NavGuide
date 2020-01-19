@@ -154,7 +154,7 @@ class UserService(
                 email = user.email,
                 telephone = user.telephone,
                 experience = user.experience,
-                avatar = config.imageServerHost + user.avatar,
+                avatar = user.avatar,
                 interests = user.interests.map {
                     InterestDto(it)
                 },
@@ -190,7 +190,7 @@ class UserService(
     }
 
     fun getSelfUserInfo(user: User): UserSelfInfo {
-        return UserSelfInfo(user, config.imageServerHost)
+        return UserSelfInfo(user)
     }
 
     fun confirmEmail(emailConfirmationCode: EmailConfirmationCode) {
@@ -273,8 +273,8 @@ class UserService(
 
         val filePatch = config.imageDir + filename
         if (File(filePatch).exists()) throw RuntimeException("File exist try later.")
-
-        File(config.imageDir + user.avatar.substringAfterLast("/")).delete()
+        if (user.avatar.substringAfterLast("/") != "avatar_default.jpg")
+            File(config.imageDir + user.avatar.substringAfterLast("/")).delete()
 
         userRepository.save(
                 user.copy(
@@ -301,8 +301,7 @@ class UserService(
                         experience = newUserData.experience,
                         interests = interestRepository.findAllById(newUserData.interests).asSequence().toList(),
                         gender = newUserData.gender
-                )),
-                config.imageServerHost
+                ))
         )
     }
 
