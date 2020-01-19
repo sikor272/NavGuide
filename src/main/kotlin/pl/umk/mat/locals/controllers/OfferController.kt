@@ -9,6 +9,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.multipart.MultipartFile
 import pl.umk.mat.locals.dto.`in`.NewOffer
+import pl.umk.mat.locals.dto.out.GuideProfileDto
 import pl.umk.mat.locals.dto.out.OfferDto
 import pl.umk.mat.locals.security.UserPrincipal
 import pl.umk.mat.locals.services.GuideService
@@ -32,6 +33,15 @@ class OfferController(
             @AuthenticationPrincipal principal: UserPrincipal
     ) {
         guideService.addNewOffer(file, offer, principal.user)
+    }
+
+    @GetMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    @ApiOperation("Get Offer by ID ", authorizations = [Authorization("JWT Token")])
+    fun getOfferById(
+            @PathVariable id: Long
+    ): OfferDto {
+        return offerService.getOfferById(id)
     }
 
     @GetMapping
