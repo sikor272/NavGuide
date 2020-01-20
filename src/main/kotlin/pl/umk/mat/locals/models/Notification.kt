@@ -11,7 +11,6 @@ data class Notification(
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         val id: Long = 0,
 
-        @Column(nullable = false, unique = true, length = 32)
         val name: String,
 
         val description: String,
