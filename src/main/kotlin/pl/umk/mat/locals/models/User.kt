@@ -53,7 +53,7 @@ data class User(
 
         val experience: Int,
 
-        val avatar: String = "/img/avatar_default.jpg",
+        val avatar: String = "https://235.ip-51-91-9.eu/img/avatar_default.jpg",
 
         @ManyToMany(fetch = FetchType.EAGER)
         @JoinTable(name = "user_interests",
@@ -63,5 +63,8 @@ data class User(
         val interests: List<Interest> = emptyList(),
 
         @OneToOne
-        val guideProfile: GuideProfile? = null
+        val guideProfile: GuideProfile? = null,
+
+        @OneToMany(fetch = FetchType.LAZY)
+        val notification: List<Notification> = emptyList()
 )

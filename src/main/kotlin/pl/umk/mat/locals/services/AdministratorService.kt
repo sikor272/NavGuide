@@ -7,13 +7,11 @@ import pl.umk.mat.locals.dto.`in`.*
 import pl.umk.mat.locals.dto.out.AdministratorGuideRequest
 import pl.umk.mat.locals.dto.out.ComplainDto
 import pl.umk.mat.locals.exceptions.ResourceNotFoundException
-import pl.umk.mat.locals.models.GuideProfile
-import pl.umk.mat.locals.models.Interest
-import pl.umk.mat.locals.models.Tag
-import pl.umk.mat.locals.models.User
+import pl.umk.mat.locals.models.*
 import pl.umk.mat.locals.models.enumerations.GuideRequestStatus
 import pl.umk.mat.locals.models.enumerations.Role
 import pl.umk.mat.locals.repositories.*
+import java.util.*
 
 @Service
 class AdministratorService(
@@ -23,7 +21,8 @@ class AdministratorService(
         private val interestRepository: InterestRepository,
         private val complainRepository: ComplainRepository,
         private val guideProfileRepository: GuideProfileRepository,
-        private val offerRepository: OfferRepository
+        private val offerRepository: OfferRepository,
+        private val notificationRepository: NotificationRepository
 ) {
 
     fun getAllPendingGuideRequests(): List<AdministratorGuideRequest> {
@@ -85,6 +84,18 @@ class AdministratorService(
         interestRepository.save(
                 Interest(
                         name = newInterest.name
+                )
+        )
+    }
+
+    fun addNewNotification(newNotification: NewNotification) {
+        notificationRepository.save(
+                Notification(
+                        name = newNotification.name,
+                        description = newNotification.description,
+                        date = Date(),
+                        user = userRepository.findByIdOrNull(newNotification.user)
+                                ?: throw ResourceNotFoundException("User not found")
                 )
         )
     }

@@ -71,7 +71,8 @@ class OfferService(
     fun addNewComplain(complain: NewComplain, user: User) {
         complainRepository.save(
                 Complain(
-                        target = offerRepository.findByIdOrNull(complain.offerId) ?: throw ResourceNotFoundException("Offer not found."),
+                        target = offerRepository.findByIdOrNull(complain.offerId)
+                                ?: throw ResourceNotFoundException("Offer not found."),
                         description = complain.description,
                         author = user
                 )
