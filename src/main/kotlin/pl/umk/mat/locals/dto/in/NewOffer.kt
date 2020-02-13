@@ -16,5 +16,6 @@ data class NewOffer(
         val maxPeople: Long,
         val price: Float,
         val priceType: PriceType,
-        val tags: List<Long>
+        val tags: List<Long>,
+        val description: String
 )
