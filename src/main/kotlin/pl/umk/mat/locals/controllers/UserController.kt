@@ -11,7 +11,7 @@ import pl.umk.mat.locals.services.UserService
 
 @RestController
 @RequestMapping("/users")
-@Api(tags = ["User Controller"], description = "This controller provides logic for authenticated users to manage his account.")
+@Api(tags = ["User Controller"], description = "This controller provides logic for users.")
 class UserController(
         private val userService: UserService
 ) {
