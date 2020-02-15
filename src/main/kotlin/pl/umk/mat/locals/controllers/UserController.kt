@@ -18,7 +18,7 @@ class UserController(
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     @ApiOperation("Get User by ID ", authorizations = [Authorization("JWT Token")])
-    fun getOfferById(
+    fun getUserById(
             @PathVariable id: Long
     ): UserDto {
         return UserDto(userService.findUserById(id))
