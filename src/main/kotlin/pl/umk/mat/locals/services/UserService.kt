@@ -4,6 +4,7 @@ import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeToken
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken
 import com.google.api.client.http.javanet.NetHttpTransport
 import com.google.api.client.json.jackson2.JacksonFactory
+import org.springframework.data.repository.findByIdOrNull
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.crypto.password.PasswordEncoder
@@ -14,6 +15,7 @@ import pl.umk.mat.locals.dto.`in`.*
 import pl.umk.mat.locals.dto.out.*
 import pl.umk.mat.locals.exceptions.BadRequest
 import pl.umk.mat.locals.exceptions.ResourceAlreadyExistException
+import pl.umk.mat.locals.exceptions.ResourceNotFoundException
 import pl.umk.mat.locals.exceptions.UserAuthException
 import pl.umk.mat.locals.models.GuideRequest
 import pl.umk.mat.locals.models.TemporaryUser
@@ -164,6 +166,10 @@ class UserService(
 
     fun findUserByEmail(email: String): User? {
         return userRepository.findUserByEmail(email)
+    }
+
+    fun findUserById(id: Long): User {
+        return userRepository.findByIdOrNull(id) ?: throw ResourceNotFoundException("User not founded.")
     }
 
     private fun getGoogleAccountInfo(code: String, requestUrl: String): GoogleIdToken.Payload {
