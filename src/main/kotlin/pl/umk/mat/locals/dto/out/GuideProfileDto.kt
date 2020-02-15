@@ -6,13 +6,15 @@ import pl.umk.mat.locals.models.enumerations.Language
 data class GuideProfileDto(
         val languages: List<Language>,
         val lastName: String,
-        val firstName: String
+        val firstName: String,
+        val id: Long
 ) {
     constructor(guideProfile: GuideProfile) : this(
 
             languages = guideProfile.languages,
             firstName = guideProfile.user.firstName,
-            lastName = guideProfile.user.lastName
+            lastName = guideProfile.user.lastName,
+            id = guideProfile.user.id
     )
 }
 
