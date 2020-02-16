@@ -10,9 +10,11 @@ import org.springframework.web.multipart.MultipartFile
 import pl.umk.mat.locals.dto.`in`.ChangePassword
 import pl.umk.mat.locals.dto.`in`.GoogleCode
 import pl.umk.mat.locals.dto.`in`.NewUserData
+import pl.umk.mat.locals.dto.out.PurchaseRequestDto
 import pl.umk.mat.locals.dto.out.SelfGuideRequest
 import pl.umk.mat.locals.dto.out.UserSelfInfo
 import pl.umk.mat.locals.security.UserPrincipal
+import pl.umk.mat.locals.services.OfferService
 import pl.umk.mat.locals.services.UserService
 import javax.validation.Valid
 
@@ -21,7 +23,8 @@ import javax.validation.Valid
 @RequestMapping("/profile")
 @Api(tags = ["Profile Controller"], description = "This controller provides logic for authenticated users to manage his account.")
 class ProfileController(
-        private val userService: UserService
+        private val userService: UserService,
+        private val offerService: OfferService
 ) {
 
     @ApiOperation(value = "Connect account created using the password to Google account.", authorizations = [Authorization("JWT Token")])
@@ -96,6 +99,15 @@ class ProfileController(
             @AuthenticationPrincipal principal: UserPrincipal
     ) {
         userService.setUserAvatar(file, principal.user)
+    }
+
+    @GetMapping("/approaches")
+    @ApiOperation("Get self purchase offers.", authorizations = [Authorization("JWT Token")])
+    @ResponseStatus(HttpStatus.OK)
+    fun getPurchaseOffersTravelers(
+            @AuthenticationPrincipal principal: UserPrincipal
+    ): List<PurchaseRequestDto> {
+        return offerService.getPurchaseRequestsTravelers(principal.user)
     }
 
 }

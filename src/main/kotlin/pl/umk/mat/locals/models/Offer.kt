@@ -31,5 +31,9 @@ data class Offer(
                 inverseJoinColumns = [JoinColumn(name = "tag_id")])
         val tags: List<Tag> = emptyList(),
         @ElementCollection
-        val photos: List<String> = emptyList()
+        val photos: List<String> = emptyList(),
+
+        @OneToMany(fetch = FetchType.LAZY)
+        val purchaseRequests:List<PurchaseRequest> = emptyList()
+
 )
