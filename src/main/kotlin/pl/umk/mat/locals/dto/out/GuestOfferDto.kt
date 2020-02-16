@@ -23,8 +23,13 @@ data class GuestOfferDto(
         val priceType: PriceType,
         @field:ApiModelProperty(notes = "It's exactly what you expect.")
         val tags: List<TagDto>,
+        @field:ApiModelProperty(notes = "It's exactly what you expect.")
+        val photos: List<String>,
         @field:ApiModelProperty(notes = "meter.")
-        val radius: Long
+        val radius: Long,
+        @field:ApiModelProperty(notes = "It's exactly what you expect.")
+        val description: String
+
 ) {
     constructor(offer: Offer) : this(
             id = offer.id,
@@ -37,6 +42,8 @@ data class GuestOfferDto(
             tags = offer.tags.map {
                 TagDto(it)
             },
-            radius = offer.radius
+            photos = offer.photos,
+            radius = offer.radius,
+            description = offer.description
     )
 }

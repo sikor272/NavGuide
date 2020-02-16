@@ -52,7 +52,7 @@ class GuideService(
                 throw RuntimeException("Can not create new name to file.")
             Files.copy(
                     currentFile.inputStream,
-                    Path.of(config.imageServerUrl + patch),
+                    Path.of(config.imageDir + patch),
                     StandardCopyOption.REPLACE_EXISTING
             )
             config.imageServerUrl + patch
@@ -75,7 +75,8 @@ class GuideService(
                             tagRepository.findByIdOrNull(it)
                                     ?: throw ResourceNotFoundException("Tags of id list do not exist")
                         },
-                        photos = filename
+                        photos = filename,
+                        description = offer.description
                 )
         )
     }

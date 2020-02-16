@@ -6,10 +6,9 @@ import pl.umk.mat.locals.models.User
 import pl.umk.mat.locals.models.enumerations.Country
 import pl.umk.mat.locals.models.enumerations.Gender
 import pl.umk.mat.locals.models.enumerations.Role
-import java.util.*
 
 @ApiModel(value = "Self User Info")
-data class UserSelfInfo(
+data class UserDto(
         @field:ApiModelProperty(notes = "It's exactly what you expect.")
         val id: Long,
 
@@ -27,21 +26,6 @@ data class UserSelfInfo(
 
         @field:ApiModelProperty(notes = "It's exactly what you expect.")
         val email: String,
-
-        @field:ApiModelProperty(notes = "It's exactly what you expect.")
-        val googleId: String?,
-
-        @field:ApiModelProperty(notes = "It's exactly what you expect.")
-        val emailConfirmationCode: String?,
-
-        @field:ApiModelProperty(notes = "It's exactly what you expect.")
-        val ban: Date?,
-
-        @field:ApiModelProperty(notes = "It's exactly what you expect.")
-        val passwordResetCode: String?,
-
-        @field:ApiModelProperty(notes = "It's exactly what you expect.")
-        val tokenUniqueId: Int,
 
         @field:ApiModelProperty(notes = "It's exactly what you expect.")
         val telephone: String,
@@ -68,11 +52,6 @@ data class UserSelfInfo(
             country = user.country,
             role = user.role,
             email = user.email,
-            googleId = user.googleId,
-            emailConfirmationCode = user.emailConfirmationCode,
-            ban = user.ban,
-            passwordResetCode = user.passwordResetCode,
-            tokenUniqueId = user.tokenUniqueId,
             telephone = user.telephone,
             experience = user.experience,
             avatar = user.avatar,

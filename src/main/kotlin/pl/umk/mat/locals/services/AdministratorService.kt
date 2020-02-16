@@ -14,6 +14,7 @@ import pl.umk.mat.locals.models.User
 import pl.umk.mat.locals.models.enumerations.Status
 import pl.umk.mat.locals.models.enumerations.Role
 import pl.umk.mat.locals.repositories.*
+import java.util.*
 
 @Service
 class AdministratorService(
@@ -23,7 +24,8 @@ class AdministratorService(
         private val interestRepository: InterestRepository,
         private val complainRepository: ComplainRepository,
         private val guideProfileRepository: GuideProfileRepository,
-        private val offerRepository: OfferRepository
+        private val offerRepository: OfferRepository,
+        private val notificationRepository: NotificationRepository
 ) {
 
     fun getAllPendingGuideRequests(): List<AdministratorGuideRequest> {
@@ -85,6 +87,18 @@ class AdministratorService(
         interestRepository.save(
                 Interest(
                         name = newInterest.name
+                )
+        )
+    }
+
+    fun addNewNotification(newNotification: NewNotification) {
+        notificationRepository.save(
+                Notification(
+                        name = newNotification.name,
+                        description = newNotification.description,
+                        date = Date(),
+                        user = userRepository.findByIdOrNull(newNotification.user)
+                                ?: throw ResourceNotFoundException("User not found")
                 )
         )
     }

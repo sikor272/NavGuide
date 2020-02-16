@@ -19,6 +19,7 @@ data class Offer(
         val end: Date,
         val maxPeople: Long,
         val price: Float,
+        val description: String,
         @ManyToOne(fetch = FetchType.LAZY)
         val owner: GuideProfile,
         @Enumerated(EnumType.STRING)

@@ -59,11 +59,29 @@ class OfferService(
         }.toList()
     }
 
+    fun getOfferById(id: Long): OfferDto {
+        return OfferDto(offerRepository.findByIdOrNull(id) ?: throw ResourceNotFoundException("Offert not found"))
+    }
+/*
+    fun getAllOffersByTags(list: List<String>): List<OfferDto> {
+        return offerRepository.saveAll(offerRepository.findAllByTagsIn(
+                tagRepository.findAllByNameIn(list).asSequence().toList()
+        ).map {
+            it.copy(
+                    inSearch = it.inSearch + 1
+            )
+        }).asSequence().map {
+            OfferDto(it)
+        }.toList()
+    }
+*/
+
     @Transactional
     fun addNewComplain(complain: NewComplain, user: User) {
         complainRepository.save(
                 Complain(
-                        target = offerRepository.findByIdOrNull(complain.offerId) ?: throw ResourceNotFoundException("Offer not found."),
+                        target = offerRepository.findByIdOrNull(complain.offerId)
+                                ?: throw ResourceNotFoundException("Offer not found."),
                         description = complain.description,
                         author = user
                 )

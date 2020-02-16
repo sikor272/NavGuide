@@ -30,7 +30,9 @@ data class OfferDto(
         @field:ApiModelProperty(notes = "It's exactly what you expect.")
         val photos: List<String>,
         @field:ApiModelProperty(notes = "meter.")
-        val radius: Long
+        val radius: Long,
+        @field:ApiModelProperty(notes = "It's exactly what you expect.")
+        val description: String
 ) {
     constructor(offer: Offer) : this(
             id = offer.id,
@@ -46,6 +48,7 @@ data class OfferDto(
             owner = GuideProfileDto(offer.owner),
             maxPeople = offer.maxPeople,
             photos = offer.photos,
-            radius = offer.radius
+            radius = offer.radius,
+            description = offer.description
     )
 }
