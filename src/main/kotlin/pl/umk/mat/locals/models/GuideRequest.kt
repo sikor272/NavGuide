@@ -1,6 +1,6 @@
 package pl.umk.mat.locals.models
 
-import pl.umk.mat.locals.models.enumerations.GuideRequestStatus
+import pl.umk.mat.locals.models.enumerations.Status
 import pl.umk.mat.locals.models.enumerations.Language
 import java.util.*
 import javax.persistence.*
@@ -24,7 +24,7 @@ data class GuideRequest(
         val message: String? = null,
 
         @Enumerated(EnumType.STRING)
-        val status: GuideRequestStatus = GuideRequestStatus.PENDING,
+        val status: Status = Status.PENDING,
 
         @OneToOne(fetch = FetchType.LAZY)
         val user: User,

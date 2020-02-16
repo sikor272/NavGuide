@@ -13,9 +13,11 @@ import pl.umk.mat.locals.exceptions.UserAuthException
 import pl.umk.mat.locals.models.Complain
 import pl.umk.mat.locals.models.PurchaseRequest
 import pl.umk.mat.locals.models.User
+import pl.umk.mat.locals.models.enumerations.Status
 import pl.umk.mat.locals.repositories.ComplainRepository
 import pl.umk.mat.locals.repositories.OfferRepository
 import pl.umk.mat.locals.repositories.PurchaseRequestRepository
+import pl.umk.mat.locals.repositories.UserRepository
 import javax.transaction.Transactional
 
 @Service
@@ -23,7 +25,8 @@ import javax.transaction.Transactional
 class OfferService(
         private val offerRepository: OfferRepository,
         private val complainRepository: ComplainRepository,
-        private val purchaseRequestRepository: PurchaseRequestRepository
+        private val purchaseRequestRepository: PurchaseRequestRepository,
+        private val userRepository: UserRepository
 
 ) {
     fun getAllOffersByGeoLocalization(lat: Double, lon: Double, radius: Long): List<OfferDto> {
@@ -55,19 +58,6 @@ class OfferService(
             OfferDto(it)
         }.toList()
     }
-/*
-    fun getAllOffersByTags(list: List<String>): List<OfferDto> {
-        return offerRepository.saveAll(offerRepository.findAllByTagsIn(
-                tagRepository.findAllByNameIn(list).asSequence().toList()
-        ).map {
-            it.copy(
-                    inSearch = it.inSearch + 1
-            )
-        }).asSequence().map {
-            OfferDto(it)
-        }.toList()
-    }
-*/
 
     @Transactional
     fun addNewComplain(complain: NewComplain, user: User) {
@@ -82,10 +72,15 @@ class OfferService(
 
     @Transactional
     fun addPurchaseOffer(newPurchaseRequest: NewPurchaseRequest, user: User) {
+        val offer = offerRepository.findByIdOrNull(newPurchaseRequest.offerId) ?: throw ResourceNotFoundException("Offer not found")
+        userRepository.save(user.copy(
+                allowViewProfile = user.allowViewProfile.plus(offer.owner.user)
+        ))
+
         purchaseRequestRepository.save(
                 PurchaseRequest(
                         message = newPurchaseRequest.message,
-                        offer = offerRepository.findByIdOrNull(newPurchaseRequest.offerId) ?: throw ResourceNotFoundException("Offer not found"),
+                        offer = offer,
                         traveler = user
                 )
         )
@@ -110,10 +105,20 @@ class OfferService(
     fun changePurchaseOfferStatus(id: Long, user: User, changePurchaseOfferStatus: ChangePurchaseOfferStatus) {
         val purchaseRequest = purchaseRequestRepository.findByIdOrNull(id) ?: throw ResourceNotFoundException("Not found")
         if (purchaseRequest.offer.owner.user != user) throw UserAuthException("You are not owner of this resource")
+
         if (changePurchaseOfferStatus.status == ChangePurchaseOfferStatusEnum.ACCEPT) {
-            //TODO
+            purchaseRequestRepository.save(
+                    purchaseRequest.copy(
+                            status = Status.ACCEPTED
+                    )
+            )
+            //TODO allow to communicate - jak będzie
         } else {
-            //TODO
+            purchaseRequestRepository.save(
+                    purchaseRequest.copy(
+                            status = Status.REJECTED
+                    )
+            )
         }
     }
 }

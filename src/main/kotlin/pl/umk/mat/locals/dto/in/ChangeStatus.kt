@@ -1,6 +1,6 @@
 package pl.umk.mat.locals.dto.`in`
 
-enum class ChangeGuideRequestEnum {
+enum class ChangeStatus {
     REJECT,
     ACCEPT
 }

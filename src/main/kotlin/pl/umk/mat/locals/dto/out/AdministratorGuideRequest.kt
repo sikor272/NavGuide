@@ -3,7 +3,7 @@ package pl.umk.mat.locals.dto.out
 import io.swagger.annotations.ApiModel
 import io.swagger.annotations.ApiModelProperty
 import pl.umk.mat.locals.models.GuideRequest
-import pl.umk.mat.locals.models.enumerations.GuideRequestStatus
+import pl.umk.mat.locals.models.enumerations.Status
 import pl.umk.mat.locals.models.enumerations.Language
 import java.util.*
 
@@ -14,7 +14,7 @@ data class AdministratorGuideRequest(
         @field:ApiModelProperty(notes = "It's exactly what you expect.")
         val date: Date,
         @field:ApiModelProperty(notes = "It's exactly what you expect.")
-        val status: GuideRequestStatus,
+        val status: Status,
         @field:ApiModelProperty(notes = "It's exactly what you expect.")
         val message: String?,
         @field:ApiModelProperty(notes = "It's exactly what you expect.")

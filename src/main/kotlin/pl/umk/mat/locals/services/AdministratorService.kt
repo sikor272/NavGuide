@@ -11,7 +11,7 @@ import pl.umk.mat.locals.models.GuideProfile
 import pl.umk.mat.locals.models.Interest
 import pl.umk.mat.locals.models.Tag
 import pl.umk.mat.locals.models.User
-import pl.umk.mat.locals.models.enumerations.GuideRequestStatus
+import pl.umk.mat.locals.models.enumerations.Status
 import pl.umk.mat.locals.models.enumerations.Role
 import pl.umk.mat.locals.repositories.*
 
@@ -27,7 +27,7 @@ class AdministratorService(
 ) {
 
     fun getAllPendingGuideRequests(): List<AdministratorGuideRequest> {
-        return guideRequestRepository.getAllByStatus(GuideRequestStatus.PENDING).map {
+        return guideRequestRepository.getAllByStatus(Status.PENDING).map {
             AdministratorGuideRequest(it)
         }
     }
@@ -52,7 +52,7 @@ class AdministratorService(
         )
         guideRequestRepository.save(
                 guideRequest.copy(
-                        status = GuideRequestStatus.ACCEPTED,
+                        status = Status.ACCEPTED,
                         message = changeGuideRequestStatus.message,
                         processedBy = user
                 )
@@ -66,7 +66,7 @@ class AdministratorService(
                 ?: throw ResourceNotFoundException("Guide request not found.")
         guideRequestRepository.save(
                 guideRequest.copy(
-                        status = GuideRequestStatus.REJECTED,
+                        status = Status.REJECTED,
                         message = changeGuideRequestStatus.message,
                         processedBy = user
                 )
@@ -125,7 +125,7 @@ class AdministratorService(
 
     @Transactional
     fun changeGuideRequestStatus(user: User, id: Long, changeGuideRequestStatus: ChangeGuideRequestStatus) {
-        if (changeGuideRequestStatus.guideRequestStatus == ChangeGuideRequestEnum.ACCEPT) {
+        if (changeGuideRequestStatus.guideRequestStatus == ChangeStatus.ACCEPT) {
             acceptGuideRequest(user, id, changeGuideRequestStatus)
         } else {
             rejectGuideRequest(user, id, changeGuideRequestStatus)

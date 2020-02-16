@@ -19,7 +19,7 @@ import pl.umk.mat.locals.models.GuideRequest
 import pl.umk.mat.locals.models.TemporaryUser
 import pl.umk.mat.locals.models.User
 import pl.umk.mat.locals.models.enumerations.Country
-import pl.umk.mat.locals.models.enumerations.GuideRequestStatus
+import pl.umk.mat.locals.models.enumerations.Status
 import pl.umk.mat.locals.repositories.GuideRequestRepository
 import pl.umk.mat.locals.repositories.InterestRepository
 import pl.umk.mat.locals.repositories.TemporaryUserRepository
@@ -247,7 +247,7 @@ class UserService(
 
     @Transactional
     fun addRequestForGuide(user: User, guideRequest: GuideRequestDto) {
-        if (guideRequestRepository.existsByUserAndStatus(user, GuideRequestStatus.PENDING)) throw ResourceAlreadyExistException("You already have pending request.")
+        if (guideRequestRepository.existsByUserAndStatus(user, Status.PENDING)) throw ResourceAlreadyExistException("You already have pending request.")
         guideRequestRepository.save(GuideRequest(
                 user = user,
                 languages = guideRequest.languages,
