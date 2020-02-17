@@ -66,8 +66,9 @@ data class User(
         val guideProfile: GuideProfile? = null,
 
         @OneToMany(fetch = FetchType.LAZY)
-        val allowViewProfile: List<User> = emptyList()
+        val allowViewProfile: List<User> = emptyList(),
 
+        @OneToMany(fetch = FetchType.LAZY)
         val notification: List<Notification> = emptyList()
     
 )
