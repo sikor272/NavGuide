@@ -10,6 +10,7 @@ import java.util.*
 
 @ApiModel(value = "Guide Request for Administrator")
 data class AdministratorGuideRequest(
+        @field:ApiModelProperty(notes = "It's exactly what you expect.")
         val id: Long,
         @field:ApiModelProperty(notes = "It's exactly what you expect.")
         val date: Date,
@@ -20,7 +21,11 @@ data class AdministratorGuideRequest(
         @field:ApiModelProperty(notes = "It's exactly what you expect.")
         val description: String,
         @field:ApiModelProperty(notes = "It's exactly what you expect.")
-        val languages: List<Language>
+        val languages: List<Language>,
+        @field:ApiModelProperty(notes = "It's exactly what you expect.")
+        val userId: Long,
+        @field:ApiModelProperty(notes = "It's exactly what you expect.")
+        val experience: Int
 ) {
     constructor(guideRequest: GuideRequest) :
             this(
@@ -29,7 +34,9 @@ data class AdministratorGuideRequest(
                     message = guideRequest.message,
                     description = guideRequest.description,
                     languages = guideRequest.languages,
-                    id = guideRequest.id
+                    id = guideRequest.id,
+                    userId = guideRequest.user.id,
+                    experience = guideRequest.experience
             )
 
 }
