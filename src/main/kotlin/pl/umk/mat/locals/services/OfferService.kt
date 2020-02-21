@@ -99,7 +99,8 @@ class OfferService(
                 PurchaseRequest(
                         message = newPurchaseRequest.message,
                         offer = offer,
-                        traveler = user
+                        traveler = user,
+                        userGuide = offer.owner.user
                 )
         )
     }
