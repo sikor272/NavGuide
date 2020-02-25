@@ -18,6 +18,9 @@ data class PurchaseRequest(
 
         val message: String,
 
+        @ManyToOne(fetch = FetchType.LAZY)
+        val userGuide: User,
+
         val createdAt: Date = Date(),
 
         val status: Status = Status.PENDING

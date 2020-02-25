@@ -22,10 +22,7 @@ import pl.umk.mat.locals.models.TemporaryUser
 import pl.umk.mat.locals.models.User
 import pl.umk.mat.locals.models.enumerations.Country
 import pl.umk.mat.locals.models.enumerations.Status
-import pl.umk.mat.locals.repositories.GuideRequestRepository
-import pl.umk.mat.locals.repositories.InterestRepository
-import pl.umk.mat.locals.repositories.TemporaryUserRepository
-import pl.umk.mat.locals.repositories.UserRepository
+import pl.umk.mat.locals.repositories.*
 import pl.umk.mat.locals.security.JwtTokenProvider
 import java.io.File
 import java.nio.file.Files
@@ -45,7 +42,8 @@ class UserService(
         private val emailService: EmailService,
         private val interestRepository: InterestRepository,
         private val guideRequestRepository: GuideRequestRepository,
-        private val config: Config
+        private val config: Config,
+        private val purchaseRequestRepository: PurchaseRequestRepository
 ) {
 
     fun localLogin(loginRequest: LoginRequest): AuthResponse {
@@ -168,8 +166,18 @@ class UserService(
         return userRepository.findUserByEmail(email)
     }
 
-    fun findUserById(id: Long): User {
-        return userRepository.findByIdOrNull(id) ?: throw ResourceNotFoundException("User not founded.")
+    fun findUserById(id: Long, questioningUser: User): UserDto {
+
+        val user = userRepository.findByIdOrNull(id) ?: throw ResourceNotFoundException("User not found")
+        if (questioningUser.guideProfile != null) {
+            return UserDto(user)
+        }
+
+        if (purchaseRequestRepository.existsByTravelerAndUserGuide(user, questioningUser)) {
+            return UserDto(user)
+        }
+
+        throw AuthException("You don't have permission to display users!")
     }
 
     private fun getGoogleAccountInfo(code: String, requestUrl: String): GoogleIdToken.Payload {
