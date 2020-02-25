@@ -21,6 +21,7 @@ import pl.umk.mat.locals.models.GuideRequest
 import pl.umk.mat.locals.models.TemporaryUser
 import pl.umk.mat.locals.models.User
 import pl.umk.mat.locals.models.enumerations.Country
+import pl.umk.mat.locals.models.enumerations.Role
 import pl.umk.mat.locals.models.enumerations.Status
 import pl.umk.mat.locals.repositories.*
 import pl.umk.mat.locals.security.JwtTokenProvider
@@ -169,7 +170,7 @@ class UserService(
     fun findUserById(id: Long, questioningUser: User): UserDto {
 
         val user = userRepository.findByIdOrNull(id) ?: throw ResourceNotFoundException("User not found")
-        if (questioningUser.guideProfile != null) {
+        if (questioningUser.role != Role.TRAVELER) {
             return UserDto(user)
         }
 

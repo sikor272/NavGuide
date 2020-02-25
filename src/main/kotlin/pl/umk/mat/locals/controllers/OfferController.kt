@@ -69,4 +69,14 @@ class OfferController(
     ): List<OfferDto> {
         return offerService.getAllOffersByCity(city)
     }
+
+    @GetMapping("/name")
+    @ApiOperation("Get all offers by name.", authorizations = [Authorization("JWT Token")])
+    @ResponseStatus(HttpStatus.OK)
+    fun getAllOffersByName(
+            @RequestParam(value = "name") name: String
+    ): List<OfferDto> {
+        return offerService.getAllOffersByName(name)
+    }
+
 }

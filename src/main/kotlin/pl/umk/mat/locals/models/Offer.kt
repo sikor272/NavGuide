@@ -34,6 +34,16 @@ data class Offer(
         val photos: List<String> = emptyList(),
 
         @OneToMany(fetch = FetchType.LAZY)
-        val purchaseRequests:List<PurchaseRequest> = emptyList()
+        val purchaseRequests: List<PurchaseRequest> = emptyList(),
+
+        @OneToMany(fetch = FetchType.LAZY)
+        val agreements: List<Agreement> = emptyList(),
+
+        @OneToMany(fetch = FetchType.LAZY)
+        val purchases: List<PurchaseRequest> = emptyList(),
+
+        @OneToMany(fetch = FetchType.LAZY)
+        val bought: List<BoughtOffer> = emptyList()
+
 
 )

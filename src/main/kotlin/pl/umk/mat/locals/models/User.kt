@@ -69,6 +69,16 @@ data class User(
         val allowViewProfile: List<User> = emptyList(),
 
         @OneToMany(fetch = FetchType.LAZY)
-        val notification: List<Notification> = emptyList()
-    
+        val notification: List<Notification> = emptyList(),
+
+        @OneToMany(fetch = FetchType.LAZY)
+        val agreements: List<Agreement> = emptyList(),
+
+        @OneToMany(fetch = FetchType.LAZY)
+        val purchases: List<PurchaseRequest> = emptyList(),
+
+        @OneToMany(fetch = FetchType.LAZY)
+        val boughtOffers: List<BoughtOffer> = emptyList()
+
+
 )

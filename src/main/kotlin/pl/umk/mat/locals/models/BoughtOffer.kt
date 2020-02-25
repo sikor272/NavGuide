@@ -4,7 +4,7 @@ import java.util.*
 import javax.persistence.*
 
 @Entity
-data class BoughtOffert(
+data class BoughtOffer(
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         val id: Long = 0,

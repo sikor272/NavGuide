@@ -6,7 +6,6 @@ import io.swagger.annotations.Authorization
 import org.springframework.http.HttpStatus
 import org.springframework.security.core.annotation.AuthenticationPrincipal
 import org.springframework.web.bind.annotation.*
-import pl.umk.mat.locals.dto.`in`.ChangeGuideRequestStatus
 import pl.umk.mat.locals.dto.`in`.ChangePurchaseOfferStatus
 import pl.umk.mat.locals.dto.`in`.NewPurchaseRequest
 import pl.umk.mat.locals.dto.out.PurchaseRequestDto

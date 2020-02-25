@@ -24,6 +24,6 @@ data class Agreement(
         val target: User,
 
         @Enumerated(EnumType.STRING)
-        val status:Status = Status.PENDING
+        val status: Status = Status.PENDING
 
 )

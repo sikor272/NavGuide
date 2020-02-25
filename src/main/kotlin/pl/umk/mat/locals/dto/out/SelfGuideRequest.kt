@@ -2,8 +2,8 @@ package pl.umk.mat.locals.dto.out
 
 import io.swagger.annotations.ApiModelProperty
 import pl.umk.mat.locals.models.GuideRequest
-import pl.umk.mat.locals.models.enumerations.Status
 import pl.umk.mat.locals.models.enumerations.Language
+import pl.umk.mat.locals.models.enumerations.Status
 import java.util.*
 
 data class SelfGuideRequest(

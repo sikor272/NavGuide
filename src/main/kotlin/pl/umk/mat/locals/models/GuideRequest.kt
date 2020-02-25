@@ -1,7 +1,7 @@
 package pl.umk.mat.locals.models
 
-import pl.umk.mat.locals.models.enumerations.Status
 import pl.umk.mat.locals.models.enumerations.Language
+import pl.umk.mat.locals.models.enumerations.Status
 import java.util.*
 import javax.persistence.*
 
