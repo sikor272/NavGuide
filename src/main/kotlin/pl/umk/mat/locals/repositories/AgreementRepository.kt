@@ -7,6 +7,6 @@ import pl.umk.mat.locals.models.GuideProfile
 import pl.umk.mat.locals.models.User
 
 @Repository
-interface AgreementRepository : CrudRepository<Agreement, Long>{
+interface AgreementRepository : CrudRepository<Agreement, Long> {
     fun getAllByAuthorOrTarget(author: GuideProfile?, target: User): List<Agreement>
 }

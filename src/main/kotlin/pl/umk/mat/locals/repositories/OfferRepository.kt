@@ -4,7 +4,6 @@ import org.springframework.data.jpa.repository.Query
 import org.springframework.data.repository.CrudRepository
 import org.springframework.stereotype.Repository
 import pl.umk.mat.locals.models.Offer
-import pl.umk.mat.locals.models.Tag
 
 
 @Repository
@@ -18,6 +17,5 @@ interface OfferRepository : CrudRepository<Offer, Long> {
             nativeQuery = true)
     fun findRandomOffers(): List<Offer>
 
-    fun findAllByTagsIn(list: List<Tag>): List<Offer>
-
+    fun findAllByNameContaining(name: String): List<Offer>
 }

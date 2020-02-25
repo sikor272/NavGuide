@@ -7,14 +7,17 @@ data class GuideProfileDto(
         val languages: List<Language>,
         val lastName: String,
         val firstName: String,
-        val id: Long
+        val guideId: Long,
+        val userId: Long
+
 ) {
     constructor(guideProfile: GuideProfile) : this(
 
             languages = guideProfile.languages,
             firstName = guideProfile.user.firstName,
             lastName = guideProfile.user.lastName,
-            id = guideProfile.user.id
+            guideId = guideProfile.id,
+            userId = guideProfile.user.id
     )
 }
 

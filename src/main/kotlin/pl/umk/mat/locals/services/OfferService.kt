@@ -13,11 +13,13 @@ import pl.umk.mat.locals.exceptions.UserAuthException
 import pl.umk.mat.locals.models.Complain
 import pl.umk.mat.locals.models.PurchaseRequest
 import pl.umk.mat.locals.models.User
+import pl.umk.mat.locals.models.enumerations.Role
 import pl.umk.mat.locals.models.enumerations.Status
 import pl.umk.mat.locals.repositories.ComplainRepository
 import pl.umk.mat.locals.repositories.OfferRepository
 import pl.umk.mat.locals.repositories.PurchaseRequestRepository
 import pl.umk.mat.locals.repositories.UserRepository
+import javax.security.auth.message.AuthException
 import javax.transaction.Transactional
 
 @Service
@@ -62,11 +64,9 @@ class OfferService(
     fun getOfferById(id: Long): OfferDto {
         return OfferDto(offerRepository.findByIdOrNull(id) ?: throw ResourceNotFoundException("Offert not found"))
     }
-/*
-    fun getAllOffersByTags(list: List<String>): List<OfferDto> {
-        return offerRepository.saveAll(offerRepository.findAllByTagsIn(
-                tagRepository.findAllByNameIn(list).asSequence().toList()
-        ).map {
+
+    fun getAllOffersByName(name: String): List<OfferDto> {
+        return offerRepository.saveAll(offerRepository.findAllByNameContaining(name).map {
             it.copy(
                     inSearch = it.inSearch + 1
             )
@@ -74,7 +74,20 @@ class OfferService(
             OfferDto(it)
         }.toList()
     }
-*/
+
+    fun findOffersHistoryByUserId(id: Long, questioningUser: User): List<OfferDto> {
+
+        val user = userRepository.findByIdOrNull(id) ?: throw ResourceNotFoundException("User not found")
+        if (questioningUser.role != Role.TRAVELER || questioningUser == user) {
+            return user.boughtOffers.map { OfferDto(it.offer) }.toList()
+        }
+
+        if (purchaseRequestRepository.existsByTravelerAndUserGuide(user, questioningUser)) {
+            return user.boughtOffers.map { OfferDto(it.offer) }.toList()
+        }
+
+        throw AuthException("You don't have permission to display users!")
+    }
 
     @Transactional
     fun addNewComplain(complain: NewComplain, user: User) {
@@ -90,7 +103,8 @@ class OfferService(
 
     @Transactional
     fun addPurchaseOffer(newPurchaseRequest: NewPurchaseRequest, user: User) {
-        val offer = offerRepository.findByIdOrNull(newPurchaseRequest.offerId) ?: throw ResourceNotFoundException("Offer not found")
+        val offer = offerRepository.findByIdOrNull(newPurchaseRequest.offerId)
+                ?: throw ResourceNotFoundException("Offer not found")
         userRepository.save(user.copy(
                 allowViewProfile = user.allowViewProfile.plus(offer.owner.user)
         ))
@@ -122,7 +136,8 @@ class OfferService(
     }
 
     fun changePurchaseOfferStatus(id: Long, user: User, changePurchaseOfferStatus: ChangePurchaseOfferStatus) {
-        val purchaseRequest = purchaseRequestRepository.findByIdOrNull(id) ?: throw ResourceNotFoundException("Not found")
+        val purchaseRequest = purchaseRequestRepository.findByIdOrNull(id)
+                ?: throw ResourceNotFoundException("Not found")
         if (purchaseRequest.offer.owner.user != user) throw UserAuthException("You are not owner of this resource")
 
         if (changePurchaseOfferStatus.status == ChangePurchaseOfferStatusEnum.ACCEPT) {

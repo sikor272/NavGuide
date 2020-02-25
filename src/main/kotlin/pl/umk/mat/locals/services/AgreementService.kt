@@ -9,7 +9,7 @@ import pl.umk.mat.locals.dto.out.AgreementDto
 import pl.umk.mat.locals.exceptions.ResourceNotFoundException
 import pl.umk.mat.locals.exceptions.UserAuthException
 import pl.umk.mat.locals.models.Agreement
-import pl.umk.mat.locals.models.BoughtOffert
+import pl.umk.mat.locals.models.BoughtOffer
 import pl.umk.mat.locals.models.User
 import pl.umk.mat.locals.models.enumerations.Status
 import pl.umk.mat.locals.repositories.AgreementRepository
@@ -24,11 +24,13 @@ class AgreementService(
         private val userRepository: UserRepository,
         private val offerRepository: OfferRepository,
         private val boughtOffertRepository: BoughtOffertRepository
-){
+) {
     @Transactional
-    fun createNewAgreement(user:User, newAgreement: NewAgreement){
-        val target = userRepository.findByIdOrNull(newAgreement.userId) ?: throw ResourceNotFoundException("User dont found.")
-        val offer = offerRepository.findByIdOrNull(newAgreement.offerId) ?: throw ResourceNotFoundException("Offer dont found.")
+    fun createNewAgreement(user: User, newAgreement: NewAgreement) {
+        val target = userRepository.findByIdOrNull(newAgreement.userId)
+                ?: throw ResourceNotFoundException("User dont found.")
+        val offer = offerRepository.findByIdOrNull(newAgreement.offerId)
+                ?: throw ResourceNotFoundException("Offer dont found.")
         agreementRepository.save(
                 Agreement(
                         offer = offer,
@@ -47,11 +49,12 @@ class AgreementService(
     }
 
     fun changeAgreementStatus(agreementId: Long, user: User, changeAgreementStatus: ChangeAgreementStatus) {
-        val agreement = agreementRepository.findByIdOrNull(agreementId) ?: throw  ResourceNotFoundException("Agreement dont found.")
+        val agreement = agreementRepository.findByIdOrNull(agreementId)
+                ?: throw  ResourceNotFoundException("Agreement dont found.")
         if (agreement.target != user) throw UserAuthException("You cannot accept/reject this agreement")
         agreementRepository.save(
                 agreement.copy(
-                        status = if(changeAgreementStatus.status == ChangeStatus.ACCEPT){
+                        status = if (changeAgreementStatus.status == ChangeStatus.ACCEPT) {
                             Status.ACCEPTED
                         } else {
                             Status.REJECTED
@@ -59,7 +62,7 @@ class AgreementService(
                 )
         )
         boughtOffertRepository.save(
-                BoughtOffert(
+                BoughtOffer(
                         offer = agreement.offer,
                         user = user
                 )

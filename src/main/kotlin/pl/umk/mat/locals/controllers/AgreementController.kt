@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.*
 import pl.umk.mat.locals.dto.`in`.ChangeAgreementStatus
 import pl.umk.mat.locals.dto.`in`.NewAgreement
 import pl.umk.mat.locals.dto.out.AgreementDto
-import pl.umk.mat.locals.dto.out.OfferDto
 import pl.umk.mat.locals.security.UserPrincipal
 import pl.umk.mat.locals.services.AgreementService
 import javax.validation.Valid
@@ -48,7 +47,7 @@ class AgreementController(
             @AuthenticationPrincipal principal: UserPrincipal,
             @RequestBody @Valid changeAgreementStatus: ChangeAgreementStatus,
             @PathVariable id: Long
-    ){
+    ) {
         agreementService.changeAgreementStatus(id, principal.user, changeAgreementStatus)
     }
 
