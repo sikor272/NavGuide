@@ -8,11 +8,11 @@ data class GuideProfileDto(
         val lastName: String,
         val firstName: String,
         val guideId: Long,
-        val userId: Long
-
+        val userId: Long,
+        val experience: Int
 ) {
     constructor(guideProfile: GuideProfile) : this(
-
+            experience = guideProfile.experience,
             languages = guideProfile.languages,
             firstName = guideProfile.user.firstName,
             lastName = guideProfile.user.lastName,
