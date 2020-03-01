@@ -20,11 +20,9 @@ data class PurchaseRequest(
 
         val message: String,
 
-        @ManyToOne(fetch = FetchType.LAZY)
-        @JoinColumn(name = "user_guide_id")
-        val userGuide: User,
-
         val createdAt: Date = Date(),
+
+        val plannedDate: Date,
 
         val status: Status = Status.PENDING
 

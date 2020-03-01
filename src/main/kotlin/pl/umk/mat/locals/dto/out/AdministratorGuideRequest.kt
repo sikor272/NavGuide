@@ -27,6 +27,7 @@ data class AdministratorGuideRequest(
         @field:ApiModelProperty(notes = "It's exactly what you expect.")
         val experience: Int
 ) {
+
     constructor(guideRequest: GuideRequest) :
             this(
                     date = guideRequest.createdAt,

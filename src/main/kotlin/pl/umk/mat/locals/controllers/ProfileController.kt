@@ -10,11 +10,14 @@ import org.springframework.web.multipart.MultipartFile
 import pl.umk.mat.locals.dto.`in`.ChangePassword
 import pl.umk.mat.locals.dto.`in`.GoogleCode
 import pl.umk.mat.locals.dto.`in`.NewUserData
+import pl.umk.mat.locals.dto.out.BoughtOfferDto
 import pl.umk.mat.locals.dto.out.PurchaseRequestDto
 import pl.umk.mat.locals.dto.out.SelfGuideRequest
 import pl.umk.mat.locals.dto.out.UserSelfInfo
 import pl.umk.mat.locals.security.UserPrincipal
+import pl.umk.mat.locals.services.BoughtOfferService
 import pl.umk.mat.locals.services.OfferService
+import pl.umk.mat.locals.services.PurchaseRequestService
 import pl.umk.mat.locals.services.UserService
 import javax.validation.Valid
 
@@ -24,7 +27,8 @@ import javax.validation.Valid
 @Api(tags = ["Profile Controller"], description = "This controller provides logic for authenticated users to manage his account.")
 class ProfileController(
         private val userService: UserService,
-        private val offerService: OfferService
+        private val boughtOfferService: BoughtOfferService,
+        private val purchaseRequestService: PurchaseRequestService
 ) {
 
     @ApiOperation(value = "Connect account created using the password to Google account.", authorizations = [Authorization("JWT Token")])
@@ -82,7 +86,7 @@ class ProfileController(
         userService.logoutFromAll(principal.user)
     }
 
-    @GetMapping("/guiderequests")
+    @GetMapping("/guideRequests")
     @ResponseStatus(HttpStatus.OK)
     @ApiOperation("Get all own guide requests.", authorizations = [Authorization("JWT Token")])
     fun getAllGuideApplication(
@@ -107,7 +111,15 @@ class ProfileController(
     fun getPurchaseOffersTravelers(
             @AuthenticationPrincipal principal: UserPrincipal
     ): List<PurchaseRequestDto> {
-        return offerService.getPurchaseRequestsTravelers(principal.user)
+        return purchaseRequestService.getPurchaseRequestsTravelers(principal.user)
     }
 
+    @GetMapping("/history")
+    @ResponseStatus(HttpStatus.OK)
+    @ApiOperation("Get self history offers.", authorizations = [Authorization("JWT Token")])
+    fun getOffersHistoryByUserId(
+            @AuthenticationPrincipal principal: UserPrincipal
+    ): List<BoughtOfferDto> {
+        return boughtOfferService.findOffersHistoryByUserId(principal.user.id, principal.user)
+    }
 }

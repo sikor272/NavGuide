@@ -13,9 +13,10 @@ import pl.umk.mat.locals.models.BoughtOffer
 import pl.umk.mat.locals.models.User
 import pl.umk.mat.locals.models.enumerations.Status
 import pl.umk.mat.locals.repositories.AgreementRepository
-import pl.umk.mat.locals.repositories.BoughtOffertRepository
+import pl.umk.mat.locals.repositories.BoughtOfferRepository
 import pl.umk.mat.locals.repositories.OfferRepository
 import pl.umk.mat.locals.repositories.UserRepository
+import java.util.*
 import javax.transaction.Transactional
 
 @Service
@@ -23,7 +24,7 @@ class AgreementService(
         private val agreementRepository: AgreementRepository,
         private val userRepository: UserRepository,
         private val offerRepository: OfferRepository,
-        private val boughtOffertRepository: BoughtOffertRepository
+        private val boughtOfferRepository: BoughtOfferRepository
 ) {
     @Transactional
     fun createNewAgreement(user: User, newAgreement: NewAgreement) {
@@ -31,12 +32,15 @@ class AgreementService(
                 ?: throw ResourceNotFoundException("User dont found.")
         val offer = offerRepository.findByIdOrNull(newAgreement.offerId)
                 ?: throw ResourceNotFoundException("Offer dont found.")
+        if(user.guideProfile == null)
+            throw ResourceNotFoundException("You are not a guide")
         agreementRepository.save(
                 Agreement(
                         offer = offer,
                         target = target,
                         description = newAgreement.description,
-                        author = user.guideProfile ?: throw ResourceNotFoundException("You are not a guide")
+                        plannedDate = newAgreement.plannedDate,
+                        price = newAgreement.price
                 )
         )
     }
@@ -61,12 +65,15 @@ class AgreementService(
                         }
                 )
         )
-        boughtOffertRepository.save(
-                BoughtOffer(
-                        offer = agreement.offer,
-                        user = user
-                )
-        )
+        if (changeAgreementStatus.status == ChangeStatus.ACCEPT)
+            boughtOfferRepository.save(
+                    BoughtOffer(
+                            offer = agreement.offer,
+                            traveler = user,
+                            plannedDate = agreement.plannedDate,
+                            price = agreement.price
+                    )
+            )
     }
 
 }
