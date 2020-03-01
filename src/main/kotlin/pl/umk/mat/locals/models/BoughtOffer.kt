@@ -15,7 +15,15 @@ data class BoughtOffer(
 
         @ManyToOne(fetch = FetchType.LAZY)
         @JoinColumn(name = "user_id")
-        val user: User,
+        val traveler: User,
 
-        val date: Date = Date()
+        val date: Date = Date(),
+
+        val plannedDate: Date,
+
+        val price: Float,
+
+        val wasTheGuide: Boolean = false,
+
+        val wasTheTraveler: Boolean = false
 )

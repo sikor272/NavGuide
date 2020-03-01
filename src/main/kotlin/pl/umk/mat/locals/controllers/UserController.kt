@@ -6,9 +6,11 @@ import io.swagger.annotations.Authorization
 import org.springframework.http.HttpStatus
 import org.springframework.security.core.annotation.AuthenticationPrincipal
 import org.springframework.web.bind.annotation.*
+import pl.umk.mat.locals.dto.out.BoughtOfferDto
 import pl.umk.mat.locals.dto.out.OfferDto
 import pl.umk.mat.locals.dto.out.UserDto
 import pl.umk.mat.locals.security.UserPrincipal
+import pl.umk.mat.locals.services.BoughtOfferService
 import pl.umk.mat.locals.services.OfferService
 import pl.umk.mat.locals.services.UserService
 
@@ -18,7 +20,7 @@ import pl.umk.mat.locals.services.UserService
 @Api(tags = ["User Controller"], description = "This controller provides logic for users.")
 class UserController(
         private val userService: UserService,
-        private val offerService: OfferService
+        private val boughtOfferService: BoughtOfferService
 ) {
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
@@ -36,7 +38,7 @@ class UserController(
     fun getOffersHistoryByUserId(
             @AuthenticationPrincipal principal: UserPrincipal,
             @PathVariable id: Long
-    ): List<OfferDto> {
-        return offerService.findOffersHistoryByUserId(id, principal.user)
+    ): List<BoughtOfferDto> {
+        return boughtOfferService.findOffersHistoryByUserId(id, principal.user)
     }
 }

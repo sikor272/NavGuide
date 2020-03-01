@@ -5,4 +5,4 @@ import org.springframework.stereotype.Repository
 import pl.umk.mat.locals.models.BoughtOffer
 
 @Repository
-interface BoughtOffertRepository : CrudRepository<BoughtOffer, Long>
+interface BoughtOfferRepository : CrudRepository<BoughtOffer, Long>

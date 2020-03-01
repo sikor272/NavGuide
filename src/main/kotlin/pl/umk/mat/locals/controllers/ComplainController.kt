@@ -10,6 +10,7 @@ import pl.umk.mat.locals.dto.`in`.NewComplain
 import pl.umk.mat.locals.dto.out.ComplainDto
 import pl.umk.mat.locals.security.UserPrincipal
 import pl.umk.mat.locals.services.AdministratorService
+import pl.umk.mat.locals.services.ComplainService
 import pl.umk.mat.locals.services.OfferService
 import javax.validation.Valid
 
@@ -19,7 +20,7 @@ import javax.validation.Valid
 @Api(tags = ["Complain Controller"], description = "This controller is used to manage complaints for offers.")
 class ComplainController(
         private val administratorService: AdministratorService,
-        private val offerService: OfferService
+        private val complainService: ComplainService
 ) {
 
     @GetMapping
@@ -35,7 +36,7 @@ class ComplainController(
             @AuthenticationPrincipal principal: UserPrincipal,
             @RequestBody @Valid newComplain: NewComplain
     ) {
-        offerService.addNewComplain(newComplain, principal.user)
+        complainService.addNewComplain(newComplain, principal.user)
     }
 
     @DeleteMapping("/{id}")
