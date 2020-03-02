@@ -8,5 +8,5 @@ import pl.umk.mat.locals.models.User
 
 @Repository
 interface AgreementRepository : CrudRepository<Agreement, Long> {
-    fun getAllByAuthorOrTarget(author: GuideProfile?, target: User): List<Agreement>
+    fun getAllByOfferOwnerOrTraveler(offerOwner: GuideProfile?, traveler: User): List<Agreement>
 }

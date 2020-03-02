@@ -37,7 +37,7 @@ class AgreementService(
         agreementRepository.save(
                 Agreement(
                         offer = offer,
-                        target = target,
+                        traveler = target,
                         description = newAgreement.description,
                         plannedDate = newAgreement.plannedDate,
                         price = newAgreement.price
@@ -46,7 +46,7 @@ class AgreementService(
     }
 
     fun getOwnAgreements(user: User): List<AgreementDto> {
-        return agreementRepository.getAllByAuthorOrTarget(
+        return agreementRepository.getAllByOfferOwnerOrTraveler(
                 user.guideProfile,
                 user
         ).map { AgreementDto(it) }
@@ -55,7 +55,7 @@ class AgreementService(
     fun changeAgreementStatus(agreementId: Long, user: User, changeAgreementStatus: ChangeAgreementStatus) {
         val agreement = agreementRepository.findByIdOrNull(agreementId)
                 ?: throw  ResourceNotFoundException("Agreement dont found.")
-        if (agreement.target != user) throw UserAuthException("You cannot accept/reject this agreement")
+        if (agreement.traveler != user) throw UserAuthException("You cannot accept/reject this agreement")
         agreementRepository.save(
                 agreement.copy(
                         status = if (changeAgreementStatus.status == ChangeStatus.ACCEPT) {
