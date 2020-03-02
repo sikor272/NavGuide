@@ -174,7 +174,7 @@ class UserService(
             return UserDto(user)
         }
 
-        if (purchaseRequestRepository.existsByTravelerAndUserGuide(user, questioningUser)) {
+        if (questioningUser.guideProfile != null && purchaseRequestRepository.existsByTravelerAndOffer_Owner(user, questioningUser.guideProfile)) {
             return UserDto(user)
         }
 
