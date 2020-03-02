@@ -27,7 +27,7 @@ class BoughtOfferService(
             return user.boughtOffers.map { BoughtOfferDto(it) }.toList()
         }
 
-        if (purchaseRequestRepository.existsByTravelerAndUserGuide(user, questioningUser)) {
+        if (questioningUser.guideProfile != null && purchaseRequestRepository.existsByTravelerAndOffer_Owner(user, questioningUser.guideProfile)) {
             return user.boughtOffers.map { BoughtOfferDto(it) }.toList()
         }
 
