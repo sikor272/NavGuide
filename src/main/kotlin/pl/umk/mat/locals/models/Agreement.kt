@@ -18,7 +18,7 @@ data class Agreement(
 
         @ManyToOne(fetch = FetchType.LAZY)
         @JoinColumn(name = "user_id")
-        val target: User,
+        val traveler: User,
 
         @Enumerated(EnumType.STRING)
         val status: Status = Status.PENDING,

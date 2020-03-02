@@ -8,7 +8,7 @@ data class AgreementDto(
         val id: Long,
         val description: String,
         val offer: OfferDto,
-        val target: UserDto,
+        val traveler: UserDto,
         val status: Status,
         val plannedDate: Date,
         val price: Float
@@ -17,7 +17,7 @@ data class AgreementDto(
             id = agreement.id,
             description = agreement.description,
             offer = OfferDto(agreement.offer),
-            target = UserDto(agreement.target),
+            traveler = UserDto(agreement.traveler),
             status = agreement.status,
             plannedDate = agreement.plannedDate,
             price = agreement.price
