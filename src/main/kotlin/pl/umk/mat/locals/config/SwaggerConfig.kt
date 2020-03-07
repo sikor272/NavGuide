@@ -25,7 +25,7 @@ class SwaggerConfig {
                 .apiInfo(apiInfo())
                 .ignoredParameterTypes(AuthenticationPrincipal::class.java)
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("pl.umk.mat.locals.controllers"))
+                .apis(RequestHandlerSelectors.basePackage("pl.umk.mat.locals"))
                 .paths(PathSelectors.any())
                 .build()
                 .globalResponseMessage(RequestMethod.GET, defaultResponseMessage())
