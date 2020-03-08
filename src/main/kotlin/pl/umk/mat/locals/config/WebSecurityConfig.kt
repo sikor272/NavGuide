@@ -13,9 +13,9 @@ import org.springframework.security.config.http.SessionCreationPolicy
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter
-import pl.umk.mat.locals.security.JwtAuthorizationFilter
-import pl.umk.mat.locals.security.JwtTokenProvider
-import pl.umk.mat.locals.services.UserDetailsServiceImpl
+import pl.umk.mat.locals.auth.utils.JwtAuthorizationFilter
+import pl.umk.mat.locals.auth.utils.JwtTokenProvider
+import pl.umk.mat.locals.auth.utils.UserDetailsServiceImpl
 
 @Configuration
 @EnableWebSecurity
@@ -48,7 +48,7 @@ class WebSecurityConfig(
                         "/swagger-resources/**",
                         "/configuration/security",
                         "/swagger-ui.html",
-                        "/webjars/**");
+                        "/webjars/**")
     }
 
     override fun configure(http: HttpSecurity) {
@@ -57,7 +57,7 @@ class WebSecurityConfig(
 
         http.authorizeRequests()
                 .antMatchers("/profile/**").authenticated()
-                .antMatchers("/admin/**").authenticated()
+                //.antMatchers("/admin/**").authenticated()
                 .anyRequest().permitAll()
 
         http.addFilterBefore(JwtAuthorizationFilter(jwtTokenProvider, userDetailsService), UsernamePasswordAuthenticationFilter::class.java)
