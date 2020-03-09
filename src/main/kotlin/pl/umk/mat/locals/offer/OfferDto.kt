@@ -32,7 +32,11 @@ data class OfferDto(
         @field:ApiModelProperty(notes = "meter.")
         val radius: Long,
         @field:ApiModelProperty(notes = "It's exactly what you expect.")
-        val description: String
+        val description: String,
+
+        val averageMark: Double?,
+
+        val sold: Int?
 ) {
     constructor(offer: Offer) : this(
             id = offer.id,
@@ -49,6 +53,10 @@ data class OfferDto(
             maxPeople = offer.maxPeople,
             photos = offer.photos,
             radius = offer.radius,
-            description = offer.description
+            description = offer.description,
+            averageMark = offer.feedbackOffers.map {
+                it.scoreOffer
+            }.average(),
+            sold = offer.feedbackOffers.count()
     )
 }

@@ -9,7 +9,8 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.multipart.MultipartFile
 import pl.umk.mat.locals.auth.utils.UserPrincipal
-import pl.umk.mat.locals.offer.feedback.Feedback
+import pl.umk.mat.locals.offer.feedback.FeedbackDto
+import pl.umk.mat.locals.offer.feedback.FeedbackService
 import javax.validation.Valid
 
 
@@ -17,7 +18,8 @@ import javax.validation.Valid
 @RequestMapping("/offers")
 @Api(tags = ["Offer Controller"], description = "This controller is used to manage offers.")
 class OfferController(
-        private val offerService: OfferService
+        private val offerService: OfferService,
+        private val feedbackService: FeedbackService
 ) {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
@@ -44,8 +46,8 @@ class OfferController(
     @ApiOperation("Get Offer feedback by ID ", authorizations = [Authorization("JWT Token")])
     fun getOfferFeedback(
             @PathVariable id: Long
-    ): List<Feedback> {
-        return emptyList()
+    ): List<FeedbackDto> {
+        return feedbackService.getFeedbackByOfferId(id)
     }
 
     @GetMapping("/geo")

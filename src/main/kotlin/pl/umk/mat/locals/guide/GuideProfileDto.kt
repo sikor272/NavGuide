@@ -8,7 +8,8 @@ data class GuideProfileDto(
         val firstName: String,
         val guideId: Long,
         val userId: Long,
-        val experience: Int
+        val experience: Int,
+        val averageMark: Double?
 ) {
     constructor(guideProfile: GuideProfile) : this(
             experience = guideProfile.experience,
@@ -16,7 +17,12 @@ data class GuideProfileDto(
             firstName = guideProfile.user.firstName,
             lastName = guideProfile.user.lastName,
             guideId = guideProfile.id,
-            userId = guideProfile.user.id
+            userId = guideProfile.user.id,
+            averageMark = guideProfile.offers.flatMap { offer ->
+                offer.feedbackOffers.map {
+                    it.scoreGuide
+                }
+            }.average()
     )
 }
 

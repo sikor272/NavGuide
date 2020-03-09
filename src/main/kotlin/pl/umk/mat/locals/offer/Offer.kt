@@ -3,6 +3,7 @@ package pl.umk.mat.locals.offer
 import pl.umk.mat.locals.guide.GuideProfile
 import pl.umk.mat.locals.offer.agreement.Agreement
 import pl.umk.mat.locals.offer.bought.BoughtOffer
+import pl.umk.mat.locals.offer.feedback.Feedback
 import pl.umk.mat.locals.offer.purchase.PurchaseRequest
 import pl.umk.mat.locals.offer.tag.Tag
 import java.util.*
@@ -47,7 +48,10 @@ data class Offer(
         val purchases: List<PurchaseRequest> = emptyList(),
 
         @OneToMany(fetch = FetchType.LAZY)
-        val bought: List<BoughtOffer> = emptyList()
+        val bought: List<BoughtOffer> = emptyList(),
+
+        @OneToMany(fetch = FetchType.LAZY)
+        val feedbackOffers: List<Feedback> = emptyList()
 
 
 )
