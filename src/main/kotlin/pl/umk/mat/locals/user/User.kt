@@ -5,6 +5,7 @@ import pl.umk.mat.locals.guide.GuideProfile
 import pl.umk.mat.locals.notofication.Notification
 import pl.umk.mat.locals.offer.agreement.Agreement
 import pl.umk.mat.locals.offer.bought.BoughtOffer
+import pl.umk.mat.locals.offer.feedback.Feedback
 import pl.umk.mat.locals.offer.purchase.PurchaseRequest
 import pl.umk.mat.locals.user.interest.Interest
 import pl.umk.mat.locals.utils.enumerations.Country
@@ -76,7 +77,10 @@ data class User(
         val purchases: List<PurchaseRequest> = emptyList(),
 
         @OneToMany(fetch = FetchType.LAZY)
-        val boughtOffers: List<BoughtOffer> = emptyList()
+        val boughtOffers: List<BoughtOffer> = emptyList(),
+
+        @OneToMany(fetch = FetchType.LAZY)
+        val feedbackOffers: List<Feedback> = emptyList()
 
 
 )

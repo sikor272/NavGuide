@@ -2,6 +2,7 @@ package pl.umk.mat.locals.offer.feedback
 
 import pl.umk.mat.locals.offer.Offer
 import pl.umk.mat.locals.user.User
+import java.util.*
 import javax.persistence.*
 
 @Entity
@@ -16,11 +17,13 @@ data class Feedback(
 
         @ManyToOne(fetch = FetchType.LAZY)
         @JoinColumn(name = "offer_id")
-        val target: Offer,
+        val offer: Offer,
 
         val scoreOffer: Int,
 
         val scoreGuide: Int,
 
-        val comment: Long
+        val comment: String,
+
+        val date: Date = Date()
 )

@@ -4,5 +4,5 @@ data class NewFeedback(
         val offerId: Long,
         val scoreOffer: Int,
         val scoreGuide: Int,
-        val comment: Long
+        val comment: String
 )

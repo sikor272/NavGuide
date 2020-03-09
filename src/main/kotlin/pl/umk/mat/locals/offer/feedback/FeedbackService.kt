@@ -19,7 +19,7 @@ class FeedbackService(
         if (boughtOfferRepository.existsByTravelerAndOffer(traveler, offer)) {
             feedbackRepository.save(Feedback(
                     author = traveler,
-                    target = offer,
+                    offer = offer,
                     scoreOffer = feedback.scoreOffer,
                     scoreGuide = feedback.scoreGuide,
                     comment = feedback.comment
@@ -28,6 +28,11 @@ class FeedbackService(
             throw UserAuthException("You can't comment this offer")
         }
 
+    }
+
+    fun getFeedbackByOfferId(id: Long): List<FeedbackDto> {
+        val offer = offerRepository.findByIdOrThrow(id)
+        return feedbackRepository.findALLByOffer(offer).map { FeedbackDto(it) }
     }
 
 }
