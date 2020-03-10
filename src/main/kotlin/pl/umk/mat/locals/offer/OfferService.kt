@@ -66,7 +66,7 @@ class OfferService(
                         price = offer.price,
                         priceType = offer.priceType,
                         owner = user.guideProfile ?: throw RuntimeException("Cannot find owner profile"),
-                        tags = offer.tags.map {
+                        tags = offer.tag.map {
                             tagRepository.findByIdOrThrow(it)
                         },
                         photos = filename,
