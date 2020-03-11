@@ -34,9 +34,9 @@ data class OfferDto(
         @field:ApiModelProperty(notes = "It's exactly what you expect.")
         val description: String,
 
-        val averageMark: Double?,
+        val averageMark: Double,
 
-        val sold: Int?
+        val sold: Int
 ) {
     constructor(offer: Offer) : this(
             id = offer.id,

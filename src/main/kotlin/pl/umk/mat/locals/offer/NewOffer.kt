@@ -15,6 +15,9 @@ data class NewOffer(
         val maxPeople: Long,
         val price: Float,
         val priceType: PriceType,
-        val tags: List<Long>,
+        val tags: String,
         val description: String
-)
+) {
+        val tag: List<Long>
+                get() = tags.split(",").map { it.toLong() }
+}
