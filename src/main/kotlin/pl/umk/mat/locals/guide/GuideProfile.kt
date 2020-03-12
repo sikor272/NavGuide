@@ -22,7 +22,7 @@ data class GuideProfile(
         @OneToOne
         val guideRequest: GuideRequest,
 
-        @OneToMany(fetch = FetchType.LAZY)
+        @OneToMany(fetch = FetchType.EAGER)
         val offers: List<Offer> = emptyList(),
 
         @OneToMany(fetch = FetchType.LAZY)
