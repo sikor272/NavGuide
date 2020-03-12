@@ -2,6 +2,7 @@ package pl.umk.mat.locals.user
 
 import org.hibernate.validator.constraints.UniqueElements
 import pl.umk.mat.locals.guide.GuideProfile
+import pl.umk.mat.locals.guide.request.GuideRequest
 import pl.umk.mat.locals.notofication.Notification
 import pl.umk.mat.locals.offer.agreement.Agreement
 import pl.umk.mat.locals.offer.bought.BoughtOffer
@@ -60,6 +61,12 @@ data class User(
                 inverseJoinColumns = [JoinColumn(name = "interest_id")]
         )
         val interests: List<Interest> = emptyList(),
+
+        @OneToMany(fetch = FetchType.LAZY)
+        val guideRequests: List<GuideRequest> = emptyList(),
+
+        @OneToMany(fetch = FetchType.LAZY)
+        val processedGuideRequests: List<GuideRequest> = emptyList(),
 
         @OneToOne
         val guideProfile: GuideProfile? = null,
