@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiOperation
 import io.swagger.annotations.Authorization
 import org.springframework.http.HttpStatus
 import org.springframework.security.core.annotation.AuthenticationPrincipal
+import org.springframework.transaction.annotation.Transactional
 import org.springframework.web.bind.annotation.*
 import pl.umk.mat.locals.auth.utils.UserPrincipal
 import javax.validation.Valid
@@ -12,6 +13,7 @@ import javax.validation.Valid
 @RestController
 @RequestMapping("/purchases")
 @Api(tags = ["Purchase Controller"], description = "")
+@Transactional
 class PurchaseController(
         private val purchaseRequestService: PurchaseRequestService
 ) {
