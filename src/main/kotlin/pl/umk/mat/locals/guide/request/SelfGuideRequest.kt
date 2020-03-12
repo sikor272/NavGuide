@@ -15,7 +15,9 @@ data class SelfGuideRequest(
         @field:ApiModelProperty(notes = "It's exactly what you expect.")
         val description: String,
         @field:ApiModelProperty(notes = "It's exactly what you expect.")
-        val languages: List<Language>
+        val languages: List<Language>,
+        @field:ApiModelProperty(notes = "It's exactly what you expect.")
+        val experience: Int
 ) {
     constructor(guideRequest: GuideRequest) :
             this(
@@ -23,7 +25,8 @@ data class SelfGuideRequest(
                     status = guideRequest.status,
                     message = guideRequest.message,
                     description = guideRequest.description,
-                    languages = guideRequest.languages
+                    languages = guideRequest.languages,
+                    experience = guideRequest.experience
             )
 
 }

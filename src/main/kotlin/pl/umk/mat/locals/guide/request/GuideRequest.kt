@@ -27,7 +27,7 @@ data class GuideRequest(
         @Enumerated(EnumType.STRING)
         val status: Status = Status.PENDING,
 
-        @OneToOne(fetch = FetchType.LAZY)
+        @ManyToOne(fetch = FetchType.LAZY)
         val user: User,
 
         @ManyToOne(fetch = FetchType.LAZY)
