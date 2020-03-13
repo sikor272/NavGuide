@@ -68,7 +68,7 @@ data class User(
         @OneToMany(fetch = FetchType.LAZY)
         val processedGuideRequests: List<GuideRequest> = emptyList(),
 
-        @OneToOne
+        @OneToOne(fetch = FetchType.EAGER)
         val guideProfile: GuideProfile? = null,
 
         @OneToMany(fetch = FetchType.LAZY)
