@@ -37,7 +37,9 @@ class PurchaseRequestService(
 
     @Transactional
     fun getPurchaseRequestsGuide(user: User): List<PurchaseRequestDto> {
-        val offers = user.guideProfile?.offers ?: emptyList()
+        //val offers = user.guideProfile?.offers ?: emptyList()
+        if( user.guideProfile == null) throw UserAuthException("You are not owner of this resource")
+        val offers = offerRepository.findAllByOwner(user.guideProfile)
         return offers.map {
             it.purchaseRequests
         }.flatten().map {
