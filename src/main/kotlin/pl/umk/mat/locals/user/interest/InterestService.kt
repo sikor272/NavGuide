@@ -33,7 +33,12 @@ class InterestService(
     @Transactional
     fun deleteInterest(id: Long) {
         val interest = interestRepository.findByIdOrThrow(id)
-        userRepository.saveAll(interest.users.map { it.copy(interests = it.interests - interest) })
+        userRepository.saveAll(
+                userRepository.findAllByInterestsIn(interest)
+                        .asSequence().map {
+                            it.copy(interests = it.interests - interest)
+                        }.toList()
+        )
         interestRepository.delete(interest)
     }
 }

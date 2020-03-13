@@ -1,9 +1,12 @@
 package pl.umk.mat.locals.offer.agreement
 
 import org.springframework.stereotype.Service
+import pl.umk.mat.locals.guide.GuideProfileRepository
+import pl.umk.mat.locals.offer.OfferDto
 import pl.umk.mat.locals.offer.OfferRepository
 import pl.umk.mat.locals.offer.bought.BoughtOffer
 import pl.umk.mat.locals.offer.bought.BoughtOfferRepository
+import pl.umk.mat.locals.offer.feedback.FeedbackRepository
 import pl.umk.mat.locals.user.User
 import pl.umk.mat.locals.user.UserRepository
 import pl.umk.mat.locals.utils.enumerations.ChangeStatus
@@ -18,14 +21,16 @@ class AgreementService(
         private val agreementRepository: AgreementRepository,
         private val userRepository: UserRepository,
         private val offerRepository: OfferRepository,
-        private val boughtOfferRepository: BoughtOfferRepository
+        private val boughtOfferRepository: BoughtOfferRepository,
+        private val guideProfileRepository: GuideProfileRepository,
+        private val feedbackRepository: FeedbackRepository
 ) {
     @Transactional
     fun createNewAgreement(user: User, newAgreement: NewAgreement) {
         val target = userRepository.findByIdOrThrow(newAgreement.userId)
         val offer = offerRepository.findByIdOrThrow(newAgreement.offerId)
-        if (user.guideProfile == null)
-            throw ResourceNotFoundException("You are not a guide")
+        guideProfileRepository.findByGuideRequestUser(user)
+                ?: throw ResourceNotFoundException("You are not a guide")
         agreementRepository.save(
                 Agreement(
                         offer = offer,
@@ -39,9 +44,11 @@ class AgreementService(
 
     fun getOwnAgreements(user: User): List<AgreementDto> {
         return agreementRepository.getAllByOfferOwnerOrTraveler(
-                user.guideProfile,
+                guideProfileRepository.findByGuideRequestUser(user),
                 user
-        ).map { AgreementDto(it) }
+        ).map { AgreementDto(it, feedbackRepository.findAllByOfferOwner(it.offer.owner).map { score-> score.scoreGuide }.average(),
+                feedbackRepository.findALLByOffer(it.offer).map { score-> score.scoreOffer }.average(),
+                boughtOfferRepository.findAllByOffer(it.offer).count()) }
     }
 
     fun changeAgreementStatus(agreementId: Long, user: User, changeAgreementStatus: ChangeAgreementStatus) {
@@ -62,8 +69,7 @@ class AgreementService(
                             offer = agreement.offer,
                             traveler = user,
                             plannedDate = agreement.plannedDate,
-                            price = agreement.price,
-                            guide = agreement.offer.owner
+                            price = agreement.price
                     )
             )
     }

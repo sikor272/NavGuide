@@ -10,9 +10,9 @@ data class PurchaseRequestDto(
         val plannedDate: Date,
         val traveler: UserDto
 ) {
-    constructor(purchaseRequest: PurchaseRequest) : this(
+    constructor(purchaseRequest: PurchaseRequest, averageGuideMark: Double, averageOfferMark: Double, sold: Int) : this(
             message = purchaseRequest.message,
-            offer = OfferDto(purchaseRequest.offer),
+            offer = OfferDto(purchaseRequest.offer, averageGuideMark, averageOfferMark, sold),
             plannedDate = purchaseRequest.plannedDate,
             traveler = UserDto(purchaseRequest.traveler)
     )

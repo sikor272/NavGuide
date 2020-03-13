@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service
 import org.springframework.web.multipart.MultipartFile
 import pl.umk.mat.locals.auth.NewUserData
 import pl.umk.mat.locals.config.Config
+import pl.umk.mat.locals.guide.GuideProfileRepository
 import pl.umk.mat.locals.guide.request.GuideRequestRepository
 import pl.umk.mat.locals.guide.request.SelfGuideRequest
 import pl.umk.mat.locals.offer.purchase.PurchaseRequestRepository
@@ -23,8 +24,9 @@ class UserService(
         private val userRepository: UserRepository,
         private val interestRepository: InterestRepository,
         private val guideRequestRepository: GuideRequestRepository,
-        private val config: Config,
-        private val purchaseRequestRepository: PurchaseRequestRepository
+        private val purchaseRequestRepository: PurchaseRequestRepository,
+        private val guideProfileRepository: GuideProfileRepository,
+        private val config: Config
 ) {
 
 
@@ -33,14 +35,13 @@ class UserService(
     }
 
     fun findUserById(id: Long, questioningUser: User): UserDto {
-
         val user = userRepository.findByIdOrThrow(id)
-
+        val guide = guideProfileRepository.findByGuideRequestUser(user)
         if (questioningUser.role != Role.TRAVELER) {
             return UserDto(user)
         }
 
-        if (questioningUser.guideProfile != null && purchaseRequestRepository.existsByTravelerAndOffer_Owner(user, questioningUser.guideProfile)) {
+        if (guide != null && purchaseRequestRepository.existsByTravelerAndOfferOwner(user, guide)) {
             return UserDto(user)
         }
 

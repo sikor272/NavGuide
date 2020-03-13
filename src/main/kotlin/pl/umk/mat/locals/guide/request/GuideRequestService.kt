@@ -43,15 +43,7 @@ class GuideRequestService(
 
         userRepository.save(
                 guideRequest.user.copy(
-                        role = Role.GUIDE,
-                        guideProfile = guideProfileRepository.save(
-                                GuideProfile(
-                                        user = guideRequest.user,
-                                        languages = guideRequest.languages.map { it },
-                                        experience = guideRequest.experience,
-                                        guideRequest = guideRequest
-                                )
-                        )
+                        role = Role.GUIDE
                 )
         )
         guideRequestRepository.save(

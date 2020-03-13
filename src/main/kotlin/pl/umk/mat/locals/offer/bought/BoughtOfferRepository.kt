@@ -8,6 +8,8 @@ import pl.umk.mat.locals.user.User
 
 @Repository
 interface BoughtOfferRepository : CrudRepository<BoughtOffer, Long> {
-    fun findAllByGuide(guide: GuideProfile): List<BoughtOffer>
+    fun findAllByOfferOwner(guide: GuideProfile): List<BoughtOffer>
     fun existsByTravelerAndOffer(traveler: User, offer: Offer): Boolean
+    fun findAllByTraveler(user: User): List<BoughtOffer>
+    fun findAllByOffer(offer: Offer): List<BoughtOffer>
 }

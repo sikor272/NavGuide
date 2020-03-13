@@ -15,17 +15,10 @@ data class GuideProfile(
         @Enumerated(EnumType.STRING)
         @ElementCollection
         val languages: List<Language>,
+
         val experience: Int,
-        @OneToOne
-        val user: User,
 
         @OneToOne
-        val guideRequest: GuideRequest,
-
-        @OneToMany(fetch = FetchType.LAZY)
-        val offers: List<Offer> = emptyList(),
-
-        @OneToMany(fetch = FetchType.LAZY)
-        val agreements: List<Agreement> = emptyList()
+        val guideRequest: GuideRequest
 
 )

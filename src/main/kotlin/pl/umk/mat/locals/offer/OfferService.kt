@@ -4,9 +4,14 @@ package pl.umk.mat.locals.offer
 import org.springframework.stereotype.Service
 import org.springframework.web.multipart.MultipartFile
 import pl.umk.mat.locals.config.Config
+import pl.umk.mat.locals.guide.GuideProfileRepository
+import pl.umk.mat.locals.offer.bought.BoughtOfferRepository
+import pl.umk.mat.locals.offer.feedback.FeedbackRepository
+import pl.umk.mat.locals.offer.guest.GuestOfferDto
 import pl.umk.mat.locals.offer.tag.TagRepository
 import pl.umk.mat.locals.user.User
 import pl.umk.mat.locals.utils.exceptions.BadRequest
+import pl.umk.mat.locals.utils.exceptions.ResourceNotFoundException
 import pl.umk.mat.locals.utils.findByIdOrThrow
 import java.io.File
 import java.nio.file.Files
@@ -19,11 +24,16 @@ import javax.transaction.Transactional
 class OfferService(
         private val offerRepository: OfferRepository,
         private val tagRepository: TagRepository,
+        private val guideProfileRepository: GuideProfileRepository,
+        private val feedbackRepository: FeedbackRepository,
+        private val boughtOfferRepository: BoughtOfferRepository,
         private val config: Config
 ) {
 
     @Transactional
     fun addNewOffer(file: List<MultipartFile>, offer: NewOffer, user: User) {
+        val guide = guideProfileRepository.findByGuideRequestUser(user)
+                ?: throw ResourceNotFoundException("Cannot find guide profile")
         val availableLetters = "qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM0123654789"
         val filename = file.map { currentFile ->
             val extension = currentFile.originalFilename?.substringAfterLast(".")?.toLowerCase()
@@ -65,7 +75,7 @@ class OfferService(
                         maxPeople = offer.maxPeople,
                         price = offer.price,
                         priceType = offer.priceType,
-                        owner = user.guideProfile ?: throw RuntimeException("Cannot find owner profile"),
+                        owner = guide,
                         tags = offer.tag.map {
                             tagRepository.findByIdOrThrow(it)
                         },
@@ -77,12 +87,15 @@ class OfferService(
 
 
     fun getAllOffersByGeoLocalization(lat: Double, lon: Double, radius: Long): List<OfferDto> {
+
         return offerRepository.saveAll(offerRepository.findAllOffersByPoint(lat, lon, radius).map {
             it.copy(
                     inSearch = it.inSearch + 1
             )
         }).asSequence().map {
-            OfferDto(it)
+            OfferDto(it, feedbackRepository.findAllByOfferOwner(it.owner).map { score-> score.scoreGuide }.average(),
+                    feedbackRepository.findALLByOffer(it).map { score-> score.scoreOffer }.average(),
+                    boughtOfferRepository.findAllByOffer(it).count())
         }.toList()
     }
 
@@ -92,13 +105,18 @@ class OfferService(
                     inSearch = it.inSearch + 1
             )
         }).asSequence().map {
-            OfferDto(it)
+            OfferDto(it, feedbackRepository.findAllByOfferOwner(it.owner).map { score-> score.scoreGuide }.average(),
+                    feedbackRepository.findALLByOffer(it).map { score-> score.scoreOffer }.average(),
+                    boughtOfferRepository.findAllByOffer(it).count())
         }.toList()
     }
 
 
     fun getOfferById(id: Long): OfferDto {
-        return OfferDto(offerRepository.findByIdOrThrow(id))
+        val offer = offerRepository.findByIdOrThrow(id)
+        return OfferDto(offer, feedbackRepository.findAllByOfferOwner(offer.owner).map { score-> score.scoreGuide }.average(),
+                feedbackRepository.findALLByOffer(offer).map { score-> score.scoreOffer }.average(),
+                boughtOfferRepository.findAllByOffer(offer).count())
     }
 
     fun getAllOffersByName(name: String): List<OfferDto> {
@@ -107,7 +125,9 @@ class OfferService(
                     inSearch = it.inSearch + 1
             )
         }).asSequence().map {
-            OfferDto(it)
+            OfferDto(it, feedbackRepository.findAllByOfferOwner(it.owner).map { score-> score.scoreGuide }.average(),
+                    feedbackRepository.findALLByOffer(it).map { score-> score.scoreOffer }.average(),
+                    boughtOfferRepository.findAllByOffer(it).count())
         }.toList()
     }
 

@@ -1,5 +1,6 @@
 package pl.umk.mat.locals.guide
 
+import pl.umk.mat.locals.offer.Offer
 import pl.umk.mat.locals.utils.enumerations.Language
 
 data class GuideProfileDto(
@@ -9,20 +10,16 @@ data class GuideProfileDto(
         val guideId: Long,
         val userId: Long,
         val experience: Int,
-        val averageMark: Double?
+        val averageMark: Double
 ) {
-    constructor(guideProfile: GuideProfile) : this(
+    constructor(guideProfile: GuideProfile, averageGuideMark: Double) : this(
             experience = guideProfile.experience,
             languages = guideProfile.languages,
-            firstName = guideProfile.user.firstName,
-            lastName = guideProfile.user.lastName,
+            firstName = guideProfile.guideRequest.user.firstName,
+            lastName = guideProfile.guideRequest.user.lastName,
             guideId = guideProfile.id,
-            userId = guideProfile.user.id,
-            averageMark = guideProfile.offers.flatMap { offer ->
-                offer.feedbackOffers.map {
-                    it.scoreGuide
-                }
-            }.average()
+            userId = guideProfile.guideRequest.user.id,
+            averageMark = averageGuideMark
     )
 }
 

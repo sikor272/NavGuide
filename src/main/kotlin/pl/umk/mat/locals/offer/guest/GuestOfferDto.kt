@@ -34,7 +34,7 @@ data class GuestOfferDto(
         val averageMark: Double
 
 ) {
-    constructor(offer: Offer) : this(
+    constructor(offer: Offer, averageOfferMark: Double) : this(
             id = offer.id,
             name = offer.name,
             city = offer.city,
@@ -48,8 +48,6 @@ data class GuestOfferDto(
             photos = offer.photos,
             radius = offer.radius,
             description = offer.description,
-            averageMark = offer.feedbackOffers?.map {
-                it.scoreOffer
-            }.average()
+            averageMark = averageOfferMark
     )
 }

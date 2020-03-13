@@ -38,7 +38,7 @@ data class OfferDto(
 
         val sold: Int
 ) {
-    constructor(offer: Offer) : this(
+    constructor(offer: Offer, averageGuideMark: Double, averageOfferMark: Double, sold: Int) : this(
             id = offer.id,
             name = offer.name,
             city = offer.city,
@@ -49,14 +49,12 @@ data class OfferDto(
             tags = offer.tags.map {
                 TagDto(it)
             },
-            owner = GuideProfileDto(offer.owner),
+            owner = GuideProfileDto(offer.owner, averageGuideMark),
             maxPeople = offer.maxPeople,
             photos = offer.photos,
             radius = offer.radius,
             description = offer.description,
-            averageMark = offer.feedbackOffers.map {
-                it.scoreOffer
-            }.average(),
-            sold = offer.feedbackOffers.count()
+            averageMark = averageOfferMark,
+            sold = sold
     )
 }

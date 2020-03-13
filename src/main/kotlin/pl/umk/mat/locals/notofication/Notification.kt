@@ -18,7 +18,7 @@ data class Notification(
         val date: Date,
 
         @ManyToOne(fetch = FetchType.LAZY)
-        val user: User,
+        val author: User,
 
         @Enumerated(EnumType.STRING)
         val status: NotificationStatus = NotificationStatus.NEW

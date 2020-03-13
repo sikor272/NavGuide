@@ -11,8 +11,5 @@ data class Tag(
         val id: Long = 0,
 
         @Column(nullable = false, unique = true, length = 32)
-        val name: String,
-
-        @ManyToMany(mappedBy = "tags", fetch = FetchType.LAZY)
-        val offers: List<Offer> = emptyList()
+        val name: String
 )

@@ -32,7 +32,7 @@ class FeedbackService(
 
     fun getFeedbackByOfferId(id: Long): List<FeedbackDto> {
         val offer = offerRepository.findByIdOrThrow(id)
-        return feedbackRepository.findALLByOffer(offer).map { FeedbackDto(it) }
+        return feedbackRepository.findALLByOffer(offer).asSequence().map { FeedbackDto(it) }.toList()
     }
 
 }

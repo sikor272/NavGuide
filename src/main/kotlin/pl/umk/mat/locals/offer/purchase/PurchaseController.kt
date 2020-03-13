@@ -13,7 +13,6 @@ import javax.validation.Valid
 @RestController
 @RequestMapping("/purchases")
 @Api(tags = ["Purchase Controller"], description = "")
-@Transactional
 class PurchaseController(
         private val purchaseRequestService: PurchaseRequestService
 ) {

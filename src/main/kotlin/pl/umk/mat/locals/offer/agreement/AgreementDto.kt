@@ -14,10 +14,10 @@ data class AgreementDto(
         val plannedDate: Date,
         val price: Float
 ) {
-    constructor(agreement: Agreement) : this(
+    constructor(agreement: Agreement, averageGuideMark: Double, averageOfferMark: Double, sold: Int) : this(
             id = agreement.id,
             description = agreement.description,
-            offer = OfferDto(agreement.offer),
+            offer = OfferDto(agreement.offer, averageGuideMark, averageOfferMark, sold),
             traveler = UserDto(agreement.traveler),
             status = agreement.status,
             plannedDate = agreement.plannedDate,

@@ -7,8 +7,8 @@ data class BoughtOfferDto(
         val offer: OfferDto,
         val date: Date
 ) {
-    constructor(boughtOffer: BoughtOffer) : this(
-            offer = OfferDto(boughtOffer.offer),
+    constructor(boughtOffer: BoughtOffer, averageGuideMark: Double, averageOfferMark: Double, sold: Int) : this(
+            offer = OfferDto(boughtOffer.offer, averageGuideMark, averageOfferMark, sold),
             date = boughtOffer.date
     )
 }

@@ -4,6 +4,7 @@ import org.springframework.data.jpa.repository.Query
 import org.springframework.data.repository.CrudRepository
 import org.springframework.stereotype.Repository
 import pl.umk.mat.locals.guide.GuideProfile
+import pl.umk.mat.locals.offer.tag.Tag
 
 
 @Repository
@@ -20,4 +21,6 @@ interface OfferRepository : CrudRepository<Offer, Long> {
     fun findAllByNameContaining(name: String): List<Offer>
 
     fun findAllByOwner(guideProfile: GuideProfile): List<Offer>
+
+    fun findAllByTagsIn(tag: Tag): List<Offer>
 }

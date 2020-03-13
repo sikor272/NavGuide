@@ -33,7 +33,12 @@ class TagService(
     @Transactional
     fun deleteTag(id: Long) {
         val tag = tagRepository.findByIdOrThrow(id)
-        offerRepository.saveAll(tag.offers.map { it.copy(tags = it.tags - tag) })
+        offerRepository.saveAll(
+                offerRepository.findAllByTagsIn(tag)
+                        .asSequence().map {
+                            it.copy(tags = it.tags - tag)
+                        }.toList()
+        )
         tagRepository.delete(tag)
     }
 

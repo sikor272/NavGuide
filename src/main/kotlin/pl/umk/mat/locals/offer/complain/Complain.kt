@@ -18,6 +18,6 @@ data class Complain(
 
         @ManyToOne(fetch = FetchType.LAZY)
         @JoinColumn(name = "offer_id")
-        val target: Offer
+        val offer: Offer
 
 )

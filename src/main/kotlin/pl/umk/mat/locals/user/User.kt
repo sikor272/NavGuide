@@ -60,34 +60,6 @@ data class User(
                 joinColumns = [JoinColumn(name = "user_id")],
                 inverseJoinColumns = [JoinColumn(name = "interest_id")]
         )
-        val interests: List<Interest> = emptyList(),
-
-        @OneToMany(fetch = FetchType.LAZY)
-        val guideRequests: List<GuideRequest> = emptyList(),
-
-        @OneToMany(fetch = FetchType.LAZY)
-        val processedGuideRequests: List<GuideRequest> = emptyList(),
-
-        @OneToOne
-        val guideProfile: GuideProfile? = null,
-
-        @OneToMany(fetch = FetchType.LAZY)
-        val allowViewProfile: List<User> = emptyList(),
-
-        @OneToMany(fetch = FetchType.LAZY)
-        val notification: List<Notification> = emptyList(),
-
-        @OneToMany(fetch = FetchType.LAZY)
-        val agreements: List<Agreement> = emptyList(),
-
-        @OneToMany(fetch = FetchType.LAZY)
-        val purchases: List<PurchaseRequest> = emptyList(),
-
-        @OneToMany(fetch = FetchType.LAZY)
-        val boughtOffers: List<BoughtOffer> = emptyList(),
-
-        @OneToMany(fetch = FetchType.LAZY)
-        val feedbackOffers: List<Feedback> = emptyList()
-
+        val interests: List<Interest> = emptyList()
 
 )

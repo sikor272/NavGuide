@@ -28,8 +28,5 @@ data class BoughtOffer(
 
         val wasTheGuide: Boolean = false,
 
-        val wasTheTraveler: Boolean = false,
-
-        @ManyToOne(fetch = FetchType.LAZY)
-        val guide: GuideProfile
+        val wasTheTraveler: Boolean = false
 )

@@ -17,7 +17,7 @@ class ComplainService(
     fun addNewComplain(complain: NewComplain, user: User) {
         complainRepository.save(
                 Complain(
-                        target = offerRepository.findByIdOrThrow(complain.offerId),
+                        offer = offerRepository.findByIdOrThrow(complain.offerId),
                         description = complain.description,
                         author = user
                 )
