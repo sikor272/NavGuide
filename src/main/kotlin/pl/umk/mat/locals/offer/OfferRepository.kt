@@ -3,6 +3,7 @@ package pl.umk.mat.locals.offer
 import org.springframework.data.jpa.repository.Query
 import org.springframework.data.repository.CrudRepository
 import org.springframework.stereotype.Repository
+import pl.umk.mat.locals.guide.GuideProfile
 
 
 @Repository
@@ -17,4 +18,6 @@ interface OfferRepository : CrudRepository<Offer, Long> {
     fun findRandomOffers(): List<Offer>
 
     fun findAllByNameContaining(name: String): List<Offer>
+
+    fun findAllByOwner(guideProfile: GuideProfile): List<Offer>
 }
