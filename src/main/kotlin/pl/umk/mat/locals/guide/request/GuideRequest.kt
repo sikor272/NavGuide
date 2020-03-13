@@ -35,5 +35,5 @@ data class GuideRequest(
         val processedBy: User? = null,
 
         @OneToOne(fetch = FetchType.EAGER)
-        val guideProfile: GuideProfile
+        val guideProfile: GuideProfile? = null
 )
