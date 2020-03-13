@@ -16,10 +16,10 @@ data class GuideProfile(
         @ElementCollection
         val languages: List<Language>,
         val experience: Int,
-        @OneToOne
+        @OneToOne(fetch = FetchType.EAGER)
         val user: User,
 
-        @OneToOne
+        @OneToOne(fetch = FetchType.EAGER)
         val guideRequest: GuideRequest,
 
         @OneToMany(fetch = FetchType.LAZY)
