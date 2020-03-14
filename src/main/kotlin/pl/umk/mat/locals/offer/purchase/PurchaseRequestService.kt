@@ -6,7 +6,6 @@ import pl.umk.mat.locals.offer.OfferRepository
 import pl.umk.mat.locals.user.User
 import pl.umk.mat.locals.utils.enumerations.ChangeStatus
 import pl.umk.mat.locals.utils.enumerations.Status
-import pl.umk.mat.locals.utils.exceptions.UserAuthException
 import pl.umk.mat.locals.utils.findByIdOrThrow
 import javax.transaction.Transactional
 
@@ -48,7 +47,7 @@ class PurchaseRequestService(
 
     fun changePurchaseOfferStatus(id: Long, user: User, changePurchaseOfferStatus: ChangePurchaseOfferStatus) {
         val purchaseRequest = purchaseRequestRepository.findByIdOrThrow(id)
-        if (purchaseRequest.offer.owner.user != user) throw UserAuthException("You are not owner of this resource")
+        //if (purchaseRequest.offer.owner.user != user) throw UserAuthException("You are not owner of this resource") TODO
         purchaseRequestRepository.save(
                 purchaseRequest.copy(
                         status = when (changePurchaseOfferStatus.status) {
