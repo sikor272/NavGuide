@@ -24,6 +24,7 @@ data class PurchaseRequest(
 
         val plannedDate: Date,
 
+        @Enumerated(EnumType.STRING)
         val status: Status = Status.PENDING,
 
         val feedbackMessage: String? = null
