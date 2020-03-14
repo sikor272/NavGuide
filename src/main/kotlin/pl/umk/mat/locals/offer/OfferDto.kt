@@ -4,6 +4,7 @@ import io.swagger.annotations.ApiModel
 import io.swagger.annotations.ApiModelProperty
 import pl.umk.mat.locals.guide.GuideProfileDto
 import pl.umk.mat.locals.offer.tag.TagDto
+import java.util.*
 
 @ApiModel(value = "Offer")
 data class OfferDto(
@@ -33,10 +34,10 @@ data class OfferDto(
         val radius: Long,
         @field:ApiModelProperty(notes = "It's exactly what you expect.")
         val description: String,
-
         val averageMark: Double,
-
-        val sold: Int
+        val sold: Int,
+        val begin: Date,
+        val end: Date
 ) {
     constructor(offer: Offer) : this(
             id = offer.id,
@@ -57,6 +58,8 @@ data class OfferDto(
             averageMark = offer.feedbackOffers.map {
                 it.scoreOffer
             }.average(),
-            sold = offer.feedbackOffers.count()
+            sold = offer.feedbackOffers.count(),
+            begin = offer.begin,
+            end = offer.end
     )
 }
