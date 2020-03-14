@@ -54,7 +54,7 @@ class PurchaseRequestService(
                             ChangeStatus.ACCEPT -> Status.ACCEPTED
                             ChangeStatus.REJECT -> Status.REJECTED
                         },
-                        message = changePurchaseOfferStatus.message
+                        feedbackMessage = changePurchaseOfferStatus.message
                 )
         )
     }
