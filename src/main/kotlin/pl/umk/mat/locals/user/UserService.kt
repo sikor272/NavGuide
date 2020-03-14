@@ -27,7 +27,6 @@ class UserService(
         private val purchaseRequestRepository: PurchaseRequestRepository
 ) {
 
-
     fun findUserByEmail(email: String): User? {
         return userRepository.findUserByEmail(email)
     }
@@ -36,7 +35,11 @@ class UserService(
 
         val user = userRepository.findByIdOrThrow(id)
 
-        if (questioningUser.role != Role.TRAVELER) {
+        if (user.role == Role.TRAVELER) {
+            return UserDto(user)
+        }
+
+        if (user == questioningUser) {
             return UserDto(user)
         }
 
