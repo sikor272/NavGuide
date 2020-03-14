@@ -3,11 +3,9 @@ package pl.umk.mat.locals.offer.bought
 import org.springframework.stereotype.Service
 import pl.umk.mat.locals.guide.GuideProfileRepository
 import pl.umk.mat.locals.offer.purchase.PurchaseRequestRepository
-import pl.umk.mat.locals.user.Role
 import pl.umk.mat.locals.user.User
 import pl.umk.mat.locals.user.UserRepository
 import pl.umk.mat.locals.utils.findByIdOrThrow
-import javax.security.auth.message.AuthException
 
 @Service
 class BoughtOfferService(
@@ -19,8 +17,11 @@ class BoughtOfferService(
 
     fun getOfferHistoryAsTraveler(userId: Long, questioningUser: User): List<BoughtOfferDto> {
 
+
         val user = userRepository.findByIdOrThrow(userId)
 
+        return user.boughtOffers.map { BoughtOfferDto(it) } // TODO
+        /*
         if (questioningUser.role == Role.ADMIN) {
             return user.boughtOffers.map { BoughtOfferDto(it) }
         }
@@ -33,7 +34,7 @@ class BoughtOfferService(
             return user.boughtOffers.map { BoughtOfferDto(it) }
         }
 
-        throw AuthException("You don't have permission to display users!")
+        throw AuthException("You don't have permission to display users!")*/
     }
 
     fun getOfferHistoryAsGuide(guideId: Long): List<BoughtOfferDto> {
