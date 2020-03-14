@@ -21,9 +21,6 @@ class PurchaseRequestService(
     @Transactional
     fun addPurchaseOffer(newPurchaseRequest: NewPurchaseRequest, user: User) {
         val offer = offerRepository.findByIdOrThrow(newPurchaseRequest.offerId)
-        userRepository.save(user.copy(
-                allowViewProfile = user.allowViewProfile.plus(offer.owner.user)
-        ))
 
         purchaseRequestRepository.save(
                 PurchaseRequest(

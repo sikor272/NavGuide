@@ -12,11 +12,9 @@ data class Feedback(
         val id: Long = 0,
 
         @ManyToOne(fetch = FetchType.LAZY)
-        @JoinColumn(name = "user_id")
         val author: User,
 
         @ManyToOne(fetch = FetchType.LAZY)
-        @JoinColumn(name = "offer_id")
         val offer: Offer,
 
         val scoreOffer: Int,

@@ -13,13 +13,11 @@ data class Agreement(
         val id: Long = 0,
 
         @ManyToOne(fetch = FetchType.LAZY)
-        @JoinColumn(name = "offer_id")
         val offer: Offer,
 
         val description: String,
 
         @ManyToOne(fetch = FetchType.LAZY)
-        @JoinColumn(name = "user_id")
         val traveler: User,
 
         @Enumerated(EnumType.STRING)

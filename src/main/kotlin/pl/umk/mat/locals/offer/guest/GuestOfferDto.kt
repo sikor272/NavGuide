@@ -48,7 +48,7 @@ data class GuestOfferDto(
             photos = offer.photos,
             radius = offer.radius,
             description = offer.description,
-            averageMark = offer.feedbackOffers?.map {
+            averageMark = offer.feedbackOffers.map {
                 it.scoreOffer
             }.average()
     )

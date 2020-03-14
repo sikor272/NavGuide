@@ -1,6 +1,5 @@
 package pl.umk.mat.locals.guide.request
 
-import pl.umk.mat.locals.guide.GuideProfile
 import pl.umk.mat.locals.user.User
 import pl.umk.mat.locals.utils.enumerations.Language
 import pl.umk.mat.locals.utils.enumerations.Status
@@ -32,8 +31,6 @@ data class GuideRequest(
         val user: User,
 
         @ManyToOne(fetch = FetchType.LAZY)
-        val processedBy: User? = null,
+        val processedBy: User? = null
 
-        @OneToOne(fetch = FetchType.EAGER)
-        val guideProfile: GuideProfile? = null
 )
