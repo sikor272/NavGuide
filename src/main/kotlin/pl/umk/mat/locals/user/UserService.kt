@@ -35,7 +35,7 @@ class UserService(
 
         val user = userRepository.findByIdOrThrow(id)
 
-        if (user.role == Role.TRAVELER) {
+        if (user.role == Role.GUIDE) {
             return UserDto(user)
         }
 
