@@ -4,7 +4,6 @@ package pl.umk.mat.locals.offer.purchase
 import org.springframework.stereotype.Service
 import pl.umk.mat.locals.offer.OfferRepository
 import pl.umk.mat.locals.user.User
-import pl.umk.mat.locals.user.UserRepository
 import pl.umk.mat.locals.utils.enumerations.ChangeStatus
 import pl.umk.mat.locals.utils.enumerations.Status
 import pl.umk.mat.locals.utils.exceptions.UserAuthException
@@ -14,8 +13,7 @@ import javax.transaction.Transactional
 @Service
 class PurchaseRequestService(
         private val purchaseRequestRepository: PurchaseRequestRepository,
-        private val offerRepository: OfferRepository,
-        private val userRepository: UserRepository
+        private val offerRepository: OfferRepository
 ) {
 
     @Transactional
