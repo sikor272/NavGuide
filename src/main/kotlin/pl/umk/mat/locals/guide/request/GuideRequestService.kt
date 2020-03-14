@@ -48,8 +48,7 @@ class GuideRequestService(
                                 GuideProfile(
                                         user = guideRequest.user,
                                         languages = guideRequest.languages.map { it },
-                                        experience = guideRequest.experience,
-                                        guideRequest = guideRequest
+                                        experience = guideRequest.experience
                                 )
                         )
                 )

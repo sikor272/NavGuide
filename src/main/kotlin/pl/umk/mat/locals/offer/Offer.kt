@@ -25,33 +25,37 @@ data class Offer(
         val maxPeople: Long,
         val price: Float,
         val description: String,
-        @ManyToOne(fetch = FetchType.LAZY)
-        val owner: GuideProfile,
+        val inSearch: Long = 0,
+
+
         @Enumerated(EnumType.STRING)
         val priceType: PriceType = PriceType.PER_GROUP,
-        val inSearch: Long = 0,
+
+        @ManyToOne(fetch = FetchType.LAZY)
+        val owner: GuideProfile,
+
         @ManyToMany(fetch = FetchType.LAZY)
         @JoinTable(name = "offer_tags",
                 joinColumns = [JoinColumn(name = "offer_id")],
                 inverseJoinColumns = [JoinColumn(name = "tag_id")])
         val tags: List<Tag> = emptyList(),
+
         @ElementCollection
         val photos: List<String> = emptyList(),
 
         @OneToMany(fetch = FetchType.LAZY)
+        @JoinColumn(name = "offer_id")
         val purchaseRequests: List<PurchaseRequest> = emptyList(),
 
         @OneToMany(fetch = FetchType.LAZY)
+        @JoinColumn(name = "offer_id")
         val agreements: List<Agreement> = emptyList(),
 
         @OneToMany(fetch = FetchType.LAZY)
-        val purchases: List<PurchaseRequest> = emptyList(),
-
-        @OneToMany(fetch = FetchType.LAZY)
+        @JoinColumn(name = "offer_id")
         val bought: List<BoughtOffer> = emptyList(),
 
         @OneToMany(fetch = FetchType.LAZY)
+        @JoinColumn(name = "offer_id")
         val feedbackOffers: List<Feedback> = emptyList()
-
-
 )

@@ -13,11 +13,9 @@ data class PurchaseRequest(
         val id: Long = 0,
 
         @ManyToOne(fetch = FetchType.LAZY)
-        @JoinColumn(name = "offer_id")
         val offer: Offer,
 
         @ManyToOne(fetch = FetchType.LAZY)
-        @JoinColumn(name = "user_id")
         val traveler: User,
 
         val message: String,

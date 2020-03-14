@@ -63,30 +63,34 @@ data class User(
         val interests: List<Interest> = emptyList(),
 
         @OneToMany(fetch = FetchType.LAZY)
+        @JoinColumn(name = "user_id")
         val guideRequests: List<GuideRequest> = emptyList(),
 
         @OneToMany(fetch = FetchType.LAZY)
+        @JoinColumn(name = "processed_by_id")
         val processedGuideRequests: List<GuideRequest> = emptyList(),
 
         @OneToOne(fetch = FetchType.EAGER)
         val guideProfile: GuideProfile? = null,
 
         @OneToMany(fetch = FetchType.LAZY)
-        val allowViewProfile: List<User> = emptyList(),
-
-        @OneToMany(fetch = FetchType.LAZY)
+        @JoinColumn(name = "user_id")
         val notification: List<Notification> = emptyList(),
 
         @OneToMany(fetch = FetchType.LAZY)
+        @JoinColumn(name = "traveler_id")
         val agreements: List<Agreement> = emptyList(),
 
         @OneToMany(fetch = FetchType.LAZY)
+        @JoinColumn(name = "traveler_id")
         val purchases: List<PurchaseRequest> = emptyList(),
 
         @OneToMany(fetch = FetchType.LAZY)
+        @JoinColumn(name = "traveler_id")
         val boughtOffers: List<BoughtOffer> = emptyList(),
 
         @OneToMany(fetch = FetchType.LAZY)
+        @JoinColumn(name = "author_id")
         val feedbackOffers: List<Feedback> = emptyList()
 
 
