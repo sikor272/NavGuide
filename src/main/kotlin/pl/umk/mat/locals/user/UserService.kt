@@ -14,7 +14,6 @@ import java.io.File
 import java.nio.file.Files
 import java.nio.file.Path
 import java.nio.file.StandardCopyOption
-import javax.security.auth.message.AuthException
 import javax.transaction.Transactional
 
 
@@ -35,6 +34,8 @@ class UserService(
 
         val user = userRepository.findByIdOrThrow(id)
 
+        return UserDto(user)
+        /*
         if (user.role == Role.GUIDE) {
             return UserDto(user)
         }
@@ -47,7 +48,7 @@ class UserService(
             return UserDto(user)
         }
 
-        throw AuthException("You don't have permission to display users!")
+        throw AuthException("You don't have permission to display users!")*/
     }
 
 
