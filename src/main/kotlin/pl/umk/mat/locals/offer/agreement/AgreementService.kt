@@ -9,7 +9,6 @@ import pl.umk.mat.locals.user.UserRepository
 import pl.umk.mat.locals.utils.enumerations.ChangeStatus
 import pl.umk.mat.locals.utils.enumerations.Status
 import pl.umk.mat.locals.utils.exceptions.ResourceNotFoundException
-import pl.umk.mat.locals.utils.exceptions.UserAuthException
 import pl.umk.mat.locals.utils.findByIdOrThrow
 import javax.transaction.Transactional
 
@@ -46,7 +45,7 @@ class AgreementService(
 
     fun changeAgreementStatus(agreementId: Long, user: User, changeAgreementStatus: ChangeAgreementStatus) {
         val agreement = agreementRepository.findByIdOrThrow(agreementId)
-        if (agreement.traveler != user) throw UserAuthException("You cannot accept/reject this agreement")
+       // if (agreement.traveler != user) throw UserAuthException("You cannot accept/reject this agreement")
         agreementRepository.save(
                 agreement.copy(
                         status = if (changeAgreementStatus.status == ChangeStatus.ACCEPT) {
