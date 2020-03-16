@@ -77,38 +77,31 @@ class OfferService(
 
 
     fun getAllOffersByGeoLocalization(lat: Double, lon: Double, radius: Long): List<OfferDto> {
-        return offerRepository.saveAll(offerRepository.findAllOffersByPoint(lat, lon, radius).map {
-            it.copy(
-                    inSearch = it.inSearch + 1
-            )
-        }).asSequence().map {
+        return offerRepository.findAllOffersByPoint(lat, lon, radius).map {
             OfferDto(it)
         }.toList()
     }
 
     fun getAllOffersByCity(city: String): List<OfferDto> {
-        return offerRepository.saveAll(offerRepository.findAllOffersByCity(city).map {
-            it.copy(
-                    inSearch = it.inSearch + 1
-            )
-        }).asSequence().map {
+        return offerRepository.findAllOffersByCity(city).map {
             OfferDto(it)
         }.toList()
     }
 
 
     fun getOfferById(id: Long): OfferDto {
-        return OfferDto(offerRepository.findByIdOrThrow(id))
+        val offer = offerRepository.findByIdOrThrow(id)
+        return OfferDto(offerRepository.save(
+                offer.copy(
+                        inSearch = offer.inSearch + 1
+                )
+        )
+        )
     }
 
     fun getAllOffersByName(name: String): List<OfferDto> {
-        return offerRepository.saveAll(offerRepository.findAllByNameContaining(name).map {
-            it.copy(
-                    inSearch = it.inSearch + 1
-            )
-        }).asSequence().map {
+        return offerRepository.findAllByNameContaining(name).map {
             OfferDto(it)
         }.toList()
     }
-
 }
