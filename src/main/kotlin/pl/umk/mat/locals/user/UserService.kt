@@ -108,7 +108,8 @@ class UserService(
                         telephone = newUserData.telephone,
                         experience = newUserData.experience,
                         interests = interestRepository.findAllById(newUserData.interests).asSequence().toList(),
-                        gender = newUserData.gender
+                        gender = newUserData.gender,
+                        age = newUserData.age
                 ))
         )
     }

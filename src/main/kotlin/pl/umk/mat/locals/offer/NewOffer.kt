@@ -18,6 +18,6 @@ data class NewOffer(
         val tags: String,
         val description: String
 ) {
-        val tag: List<Long>
-                get() = tags.split(",").map { it.toLong() }
+    val tag: List<Long>
+        get() = tags.split(",").map { it.toLong() }
 }

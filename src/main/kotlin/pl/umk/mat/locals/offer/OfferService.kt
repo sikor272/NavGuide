@@ -1,6 +1,7 @@
 package pl.umk.mat.locals.offer
 
 
+import io.jsonwebtoken.lang.Collections.size
 import org.springframework.stereotype.Service
 import org.springframework.web.multipart.MultipartFile
 import pl.umk.mat.locals.config.Config
@@ -77,13 +78,19 @@ class OfferService(
 
 
     fun getAllOffersByGeoLocalization(lat: Double, lon: Double, radius: Long): List<OfferDto> {
-        return offerRepository.findAllOffersByPoint(lat, lon, radius).map {
+        val offers = offerRepository.findAllOffersByPoint(lat, lon, radius).asSequence().map {
             OfferDto(it)
         }.toList()
+        if (size(offers) < 3)
+            return offers.plus(offerRepository.findAllOffersNearByPoint(lat, lon).asSequence().map {
+                OfferDto(it)
+            }.toList()
+            ).distinct()
+        return offers
     }
 
     fun getAllOffersByCity(city: String): List<OfferDto> {
-        return offerRepository.findAllOffersByCity(city).map {
+        return offerRepository.findAllOffersByCity(city).asSequence().map {
             OfferDto(it)
         }.toList()
     }
@@ -100,7 +107,7 @@ class OfferService(
     }
 
     fun getAllOffersByName(name: String): List<OfferDto> {
-        return offerRepository.findAllByNameContaining(name).map {
+        return offerRepository.findAllByNameContaining(name).asSequence().map {
             OfferDto(it)
         }.toList()
     }
