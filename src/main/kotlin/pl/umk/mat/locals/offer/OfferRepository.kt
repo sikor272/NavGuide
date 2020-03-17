@@ -12,6 +12,10 @@ interface OfferRepository : CrudRepository<Offer, Long> {
             nativeQuery = true)
     fun findAllOffersByPoint(lat: Double, lon: Double, radius: Long): List<Offer>
 
+    @Query(value = "SELECT * FROM offer ORDER BY (ST_Distance_Sphere( point(lon, lat), point(?2, ?1) )) LIMIT 3",
+            nativeQuery = true)
+    fun findAllOffersNearByPoint(lat: Double, lon: Double): List<Offer>
+
     fun findAllOffersByCity(city: String): List<Offer>
     @Query(value = "SELECT * FROM offer ORDER BY RAND() LIMIT 10",
             nativeQuery = true)
