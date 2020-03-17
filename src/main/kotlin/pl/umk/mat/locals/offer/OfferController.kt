@@ -79,4 +79,14 @@ class OfferController(
         return offerService.getAllOffersByName(name)
     }
 
+    @GetMapping("/near")
+    @ResponseStatus(HttpStatus.OK)
+    @ApiOperation("Get nearest offers ", authorizations = [Authorization("JWT Token")])
+    fun getNearestOffers(
+            @RequestParam @ApiParam("latitude", example = "1") lat: Double,
+            @RequestParam @ApiParam("longitude", example = "1") lon: Double,
+            @RequestParam @ApiParam("count", example = "3", defaultValue = "3") count: Int
+    ): List<OfferDto> {
+        return offerService.getNearestOffers(lat, lon, count)
+    }
 }

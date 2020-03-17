@@ -35,6 +35,7 @@ data class OfferDto(
         @field:ApiModelProperty(notes = "It's exactly what you expect.")
         val description: String,
         val averageMark: Double,
+        val inSearch: Long,
         val sold: Int,
         val begin: Date,
         val end: Date
@@ -58,8 +59,9 @@ data class OfferDto(
             averageMark = offer.feedbackOffers.map {
                 it.scoreOffer
             }.average(),
-            sold = offer.feedbackOffers.count(),
+            sold = offer.bought.size,
             begin = offer.begin,
-            end = offer.end
+            end = offer.end,
+            inSearch = offer.inSearch
     )
 }
