@@ -30,8 +30,8 @@ data class GuestOfferDto(
         val radius: Long,
         @field:ApiModelProperty(notes = "It's exactly what you expect.")
         val description: String,
-
-        val averageMark: Double
+        val averageMark: Double,
+        val inSearch: Long
 
 ) {
     constructor(offer: Offer) : this(
@@ -50,6 +50,7 @@ data class GuestOfferDto(
             description = offer.description,
             averageMark = offer.feedbackOffers.map {
                 it.scoreOffer
-            }.average()
+            }.average(),
+            inSearch = offer.inSearch
     )
 }
