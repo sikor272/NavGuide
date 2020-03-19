@@ -19,12 +19,8 @@ class BoughtOfferService(
 
     fun getOfferHistory(userId: Long, questioningUser: User): List<BoughtOfferDto> {
         val user = userRepository.findByIdOrThrow(userId)
-        println(user == questioningUser)
-        println(user)
-        println(questioningUser)
-        println(user == questioningUser)
         if (questioningUser.role == Role.ADMIN ||
-                user.guideProfile != null ||
+                user.role == Role.GUIDE ||
                 questioningUser.id == user.id ||
                 (questioningUser.guideProfile != null &&
                         purchaseRequestRepository.existsByTravelerAndOffer_Owner(user, questioningUser.guideProfile)))
