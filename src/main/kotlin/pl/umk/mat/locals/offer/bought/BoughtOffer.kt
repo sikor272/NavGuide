@@ -3,14 +3,15 @@ package pl.umk.mat.locals.offer.bought
 import pl.umk.mat.locals.guide.GuideProfile
 import pl.umk.mat.locals.offer.Offer
 import pl.umk.mat.locals.user.User
+import pl.umk.mat.locals.utils.BaseEntity
 import java.util.*
-import javax.persistence.*
+import javax.persistence.Entity
+import javax.persistence.FetchType
+import javax.persistence.ManyToOne
 
 @Entity
 data class BoughtOffer(
-        @Id
-        @GeneratedValue(strategy = GenerationType.IDENTITY)
-        val id: Long = 0,
+
 
         @ManyToOne(fetch = FetchType.LAZY)
         val offer: Offer,
@@ -30,4 +31,4 @@ data class BoughtOffer(
 
         @ManyToOne(fetch = FetchType.LAZY)
         val guide: GuideProfile
-)
+) : BaseEntity()

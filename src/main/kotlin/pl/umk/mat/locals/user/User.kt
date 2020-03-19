@@ -1,7 +1,6 @@
 package pl.umk.mat.locals.user
 
 import org.hibernate.validator.constraints.UniqueElements
-import org.springframework.data.domain.Persistable
 import pl.umk.mat.locals.guide.GuideProfile
 import pl.umk.mat.locals.guide.request.GuideRequest
 import pl.umk.mat.locals.notofication.Notification
@@ -92,4 +91,4 @@ data class User(
         @JoinColumn(name = "author_id")
         val feedbackOffers: List<Feedback> = emptyList()
 
-): BaseEntity()
+) : BaseEntity()
