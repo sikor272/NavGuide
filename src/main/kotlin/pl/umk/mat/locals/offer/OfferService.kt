@@ -4,6 +4,7 @@ package pl.umk.mat.locals.offer
 import org.springframework.stereotype.Service
 import org.springframework.web.multipart.MultipartFile
 import pl.umk.mat.locals.config.Config
+import pl.umk.mat.locals.offer.feedback.FeedbackDto
 import pl.umk.mat.locals.offer.tag.TagRepository
 import pl.umk.mat.locals.user.User
 import pl.umk.mat.locals.utils.exceptions.BadRequest
@@ -109,5 +110,11 @@ class OfferService(
         return offerRepository.findAllByNameContaining(name).asSequence().map {
             OfferDto(it)
         }.toList()
+    }
+
+
+    fun getFeedbackByOfferId(id: Long): List<FeedbackDto> {
+        val offer = offerRepository.findByIdOrThrow(id)
+        return offer.feedbackOffers.map { FeedbackDto(it) }
     }
 }

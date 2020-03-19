@@ -35,6 +35,6 @@ class UserController(
             @AuthenticationPrincipal principal: UserPrincipal,
             @PathVariable id: Long
     ): List<BoughtOfferDto> {
-        return boughtOfferService.getOfferHistoryAsTraveler(id, principal.user)
+        return boughtOfferService.getOfferHistory(id, principal.user)
     }
 }

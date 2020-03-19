@@ -36,7 +36,7 @@ class NotificationService(
                         name = newNotification.name,
                         description = newNotification.description,
                         date = Date(),
-                        user = userRepository.findByIdOrThrow(newNotification.user)
+                        user = userRepository.findByIdOrThrow(newNotification.userId)
                 )
         )
     }

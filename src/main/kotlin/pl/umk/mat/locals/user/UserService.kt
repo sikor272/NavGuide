@@ -6,6 +6,8 @@ import pl.umk.mat.locals.auth.NewUserData
 import pl.umk.mat.locals.config.Config
 import pl.umk.mat.locals.guide.request.GuideRequestRepository
 import pl.umk.mat.locals.guide.request.SelfGuideRequest
+import pl.umk.mat.locals.offer.bought.BoughtOfferDto
+import pl.umk.mat.locals.offer.purchase.PurchaseRequestDto
 import pl.umk.mat.locals.offer.purchase.PurchaseRequestRepository
 import pl.umk.mat.locals.user.interest.InterestRepository
 import pl.umk.mat.locals.utils.exceptions.BadRequest
@@ -14,6 +16,7 @@ import java.io.File
 import java.nio.file.Files
 import java.nio.file.Path
 import java.nio.file.StandardCopyOption
+import javax.security.auth.message.AuthException
 import javax.transaction.Transactional
 
 
@@ -30,11 +33,30 @@ class UserService(
         return userRepository.findUserByEmail(email)
     }
 
+    fun getSelfHistoryOffer(user: User): List<BoughtOfferDto> {
+        return user.boughtOffers.map { BoughtOfferDto(it) }
+    }
+
+    fun getSelfPurchaseRequests(user: User): List<PurchaseRequestDto> {
+        return purchaseRequestRepository.getAllByTraveler(user).map {
+            PurchaseRequestDto(it)
+        }
+    }
+
     fun findUserById(id: Long, questioningUser: User): UserDto {
 
         val user = userRepository.findByIdOrThrow(id)
-
-        return UserDto(user)
+        println(user == questioningUser)
+        println(user)
+        println(questioningUser)
+        println(user == questioningUser)
+        if (questioningUser.role == Role.ADMIN ||
+                user.guideProfile != null ||
+                questioningUser.id == user.id ||
+                (questioningUser.guideProfile != null &&
+                        purchaseRequestRepository.existsByTravelerAndOffer_Owner(user, questioningUser.guideProfile)))
+            return UserDto(user)
+        throw AuthException("You don't have permission to display users!")
         /*
         if (user.role == Role.GUIDE) {
             return UserDto(user)
