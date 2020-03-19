@@ -39,14 +39,11 @@ class PurchaseRequestService(
         }
     }
 
-    fun getPurchaseRequestsTravelers(user: User): List<PurchaseRequestDto> {
-        return purchaseRequestRepository.getAllByTraveler(user).map {
-            PurchaseRequestDto(it)
-        }
-    }
-
     fun changePurchaseOfferStatus(id: Long, user: User, changePurchaseOfferStatus: ChangePurchaseOfferStatus) {
         val purchaseRequest = purchaseRequestRepository.findByIdOrThrow(id)
+        println(user == purchaseRequest.offer.owner.user)
+        println(user)
+        println(purchaseRequest.offer.owner.user)
         //if (purchaseRequest.offer.owner.user != user) throw UserAuthException("You are not owner of this resource") TODO
         purchaseRequestRepository.save(
                 purchaseRequest.copy(

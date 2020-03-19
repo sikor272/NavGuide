@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.*
 import org.springframework.web.multipart.MultipartFile
 import pl.umk.mat.locals.auth.utils.UserPrincipal
 import pl.umk.mat.locals.offer.feedback.FeedbackDto
-import pl.umk.mat.locals.offer.feedback.FeedbackService
 import javax.validation.Valid
 
 
@@ -18,8 +17,7 @@ import javax.validation.Valid
 @RequestMapping("/offers")
 @Api(tags = ["Offer Controller"], description = "This controller is used to manage offers.")
 class OfferController(
-        private val offerService: OfferService,
-        private val feedbackService: FeedbackService
+        private val offerService: OfferService
 ) {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
@@ -47,7 +45,7 @@ class OfferController(
     fun getOfferFeedback(
             @PathVariable id: Long
     ): List<FeedbackDto> {
-        return feedbackService.getFeedbackByOfferId(id)
+        return offerService.getFeedbackByOfferId(id)
     }
 
     @GetMapping("/geo")

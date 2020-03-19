@@ -11,9 +11,7 @@ import pl.umk.mat.locals.auth.NewUserData
 import pl.umk.mat.locals.auth.utils.UserPrincipal
 import pl.umk.mat.locals.guide.request.SelfGuideRequest
 import pl.umk.mat.locals.offer.bought.BoughtOfferDto
-import pl.umk.mat.locals.offer.bought.BoughtOfferService
 import pl.umk.mat.locals.offer.purchase.PurchaseRequestDto
-import pl.umk.mat.locals.offer.purchase.PurchaseRequestService
 import javax.validation.Valid
 
 
@@ -21,9 +19,7 @@ import javax.validation.Valid
 @RequestMapping("/profile")
 @Api(tags = ["Profile Controller"], description = "This controller provides logic for authenticated users to manage his account.")
 class ProfileController(
-        private val userService: UserService,
-        private val boughtOfferService: BoughtOfferService,
-        private val purchaseRequestService: PurchaseRequestService
+        private val userService: UserService
 ) {
 
     @GetMapping
@@ -79,7 +75,7 @@ class ProfileController(
     fun getPurchaseOffersTravelers(
             @AuthenticationPrincipal principal: UserPrincipal
     ): List<PurchaseRequestDto> {
-        return purchaseRequestService.getPurchaseRequestsTravelers(principal.user)
+        return userService.getSelfPurchaseRequests(principal.user)
     }
 
     @GetMapping("/history")
@@ -88,6 +84,6 @@ class ProfileController(
     fun getOffersHistoryByUserId(
             @AuthenticationPrincipal principal: UserPrincipal
     ): List<BoughtOfferDto> {
-        return boughtOfferService.getOfferHistoryAsTraveler(principal.user.id, principal.user)
+        return userService.getSelfHistoryOffer(principal.user)
     }
 }

@@ -7,15 +7,13 @@ import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
 import pl.umk.mat.locals.offer.OfferDto
 import pl.umk.mat.locals.offer.bought.BoughtOfferDto
-import pl.umk.mat.locals.offer.bought.BoughtOfferService
 
 
 @RestController
 @RequestMapping("/guides")
 @Api(tags = ["Guide Controller"], description = "This controller provide logic to menage your guide profile.")
 class GuideController(
-        private val guideService: GuideService,
-        private val boughtOfferService: BoughtOfferService
+        private val guideService: GuideService
 ) {
 
     @GetMapping("/{id}")
@@ -42,6 +40,6 @@ class GuideController(
     fun getGuideOffersHistory(
             @PathVariable id: Long
     ): List<BoughtOfferDto> {
-        return boughtOfferService.getOfferHistoryAsGuide(id)
+        return guideService.getGuideHistoryOffer(id)
     }
 }
