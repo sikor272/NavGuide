@@ -6,15 +6,14 @@ import pl.umk.mat.locals.offer.bought.BoughtOffer
 import pl.umk.mat.locals.offer.feedback.Feedback
 import pl.umk.mat.locals.offer.purchase.PurchaseRequest
 import pl.umk.mat.locals.offer.tag.Tag
+import pl.umk.mat.locals.utils.BaseEntity
 import java.util.*
 import javax.persistence.*
 
 
 @Entity
 data class Offer(
-        @Id
-        @GeneratedValue(strategy = GenerationType.IDENTITY)
-        val id: Long = 0,
+
         val name: String,
         val city: String,
         val lat: Double,
@@ -58,4 +57,4 @@ data class Offer(
         @OneToMany(fetch = FetchType.LAZY)
         @JoinColumn(name = "offer_id")
         val feedbackOffers: List<Feedback> = emptyList()
-)
+) : BaseEntity()

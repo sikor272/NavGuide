@@ -1,7 +1,10 @@
 package pl.umk.mat.locals.utils
 
 import org.springframework.data.domain.Persistable
-import javax.persistence.*
+import javax.persistence.GeneratedValue
+import javax.persistence.GenerationType
+import javax.persistence.Id
+import javax.persistence.MappedSuperclass
 
 @MappedSuperclass
 abstract class BaseEntity(

@@ -3,14 +3,13 @@ package pl.umk.mat.locals.guide
 import pl.umk.mat.locals.offer.Offer
 import pl.umk.mat.locals.offer.agreement.Agreement
 import pl.umk.mat.locals.user.User
+import pl.umk.mat.locals.utils.BaseEntity
 import pl.umk.mat.locals.utils.enumerations.Language
 import javax.persistence.*
 
 @Entity
 data class GuideProfile(
-        @Id
-        @GeneratedValue(strategy = GenerationType.IDENTITY)
-        val id: Long = 0,
+
         @Enumerated(EnumType.STRING)
         @ElementCollection
         val languages: List<Language>,
@@ -27,4 +26,4 @@ data class GuideProfile(
         @JoinColumn(name = "guide_profile_id")
         val agreements: List<Agreement> = emptyList()
 
-)
+) : BaseEntity()

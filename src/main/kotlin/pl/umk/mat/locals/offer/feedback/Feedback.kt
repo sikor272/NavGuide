@@ -2,14 +2,15 @@ package pl.umk.mat.locals.offer.feedback
 
 import pl.umk.mat.locals.offer.Offer
 import pl.umk.mat.locals.user.User
+import pl.umk.mat.locals.utils.BaseEntity
 import java.util.*
-import javax.persistence.*
+import javax.persistence.Entity
+import javax.persistence.FetchType
+import javax.persistence.ManyToOne
 
 @Entity
 data class Feedback(
-        @Id
-        @GeneratedValue(strategy = GenerationType.IDENTITY)
-        val id: Long = 0,
+
 
         @ManyToOne(fetch = FetchType.LAZY)
         val author: User,
@@ -24,4 +25,4 @@ data class Feedback(
         val comment: String,
 
         val date: Date = Date()
-)
+) : BaseEntity()
