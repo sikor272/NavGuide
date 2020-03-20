@@ -1,6 +1,7 @@
 package pl.umk.mat.locals.offer
 
 import io.swagger.annotations.ApiModelProperty
+import pl.umk.mat.locals.utils.enumerations.PriceType
 import java.util.*
 
 data class NewOffer(

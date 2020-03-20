@@ -42,7 +42,7 @@ class PurchaseRequestService(
 
     fun changePurchaseOfferStatus(id: Long, user: User, changePurchaseOfferStatus: ChangePurchaseOfferStatus) {
         val purchaseRequest = purchaseRequestRepository.findByIdOrThrow(id)
-        if (purchaseRequest.offer.owner.user.id != user.id) throw UserAuthException("You are not owner of this resource") //TODO
+        if (purchaseRequest.offer.owner.user.id != user.id) throw UserAuthException("You are not owner of this resource")
         purchaseRequestRepository.save(
                 purchaseRequest.copy(
                         status = when (changePurchaseOfferStatus.status) {

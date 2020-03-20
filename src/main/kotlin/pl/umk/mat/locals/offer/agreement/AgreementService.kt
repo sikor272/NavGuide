@@ -46,7 +46,7 @@ class AgreementService(
 
     fun changeAgreementStatus(agreementId: Long, user: User, changeAgreementStatus: ChangeAgreementStatus) {
         val agreement = agreementRepository.findByIdOrThrow(agreementId)
-        if (agreement.traveler.id != user.id) throw UserAuthException("You cannot accept/reject this agreement") // TODO
+        if (agreement.traveler.id != user.id) throw UserAuthException("You cannot accept/reject this agreement")
         agreementRepository.save(
                 agreement.copy(
                         status = if (changeAgreementStatus.status == ChangeStatus.ACCEPT) {

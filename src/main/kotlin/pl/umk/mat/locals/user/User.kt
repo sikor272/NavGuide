@@ -9,7 +9,6 @@ import pl.umk.mat.locals.offer.bought.BoughtOffer
 import pl.umk.mat.locals.offer.feedback.Feedback
 import pl.umk.mat.locals.offer.purchase.PurchaseRequest
 import pl.umk.mat.locals.user.interest.Interest
-import pl.umk.mat.locals.utils.BaseEntity
 import pl.umk.mat.locals.utils.enumerations.Country
 import pl.umk.mat.locals.utils.enumerations.Gender
 import java.util.*
@@ -18,6 +17,9 @@ import javax.validation.constraints.Email
 
 @Entity
 data class User(
+        @Id
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
+        val id: Long = 0,
 
         val firstName: String,
 
@@ -91,4 +93,4 @@ data class User(
         @JoinColumn(name = "author_id")
         val feedbackOffers: List<Feedback> = emptyList()
 
-) : BaseEntity()
+)
