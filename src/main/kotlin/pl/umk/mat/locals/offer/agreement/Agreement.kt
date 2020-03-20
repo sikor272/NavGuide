@@ -2,14 +2,16 @@ package pl.umk.mat.locals.offer.agreement
 
 import pl.umk.mat.locals.offer.Offer
 import pl.umk.mat.locals.user.User
-import pl.umk.mat.locals.utils.BaseEntity
+
 import pl.umk.mat.locals.utils.enumerations.Status
 import java.util.*
 import javax.persistence.*
 
 @Entity
 data class Agreement(
-
+        @Id
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
+        val id: Long = 0,
 
         @ManyToOne(fetch = FetchType.LAZY)
         val offer: Offer,
@@ -25,4 +27,4 @@ data class Agreement(
         val plannedDate: Date,
 
         val price: Float
-) : BaseEntity()
+)
