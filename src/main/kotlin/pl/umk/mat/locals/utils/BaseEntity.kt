@@ -10,7 +10,7 @@ import javax.persistence.MappedSuperclass
 abstract class BaseEntity(
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
-        private val id: Long = -1
+        val id: Long = -1
 ) : Persistable<Long> {
 
     override fun getId() = id
@@ -29,4 +29,6 @@ abstract class BaseEntity(
     }
 
     override fun toString() = "Entity of type ${this.javaClass.name} with id: $id"
+
+    fun copy() = this
 }
