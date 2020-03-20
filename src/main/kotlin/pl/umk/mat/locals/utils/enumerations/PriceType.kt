@@ -1,4 +1,4 @@
-package pl.umk.mat.locals.offer
+package pl.umk.mat.locals.utils.enumerations
 
 enum class PriceType {
     PER_PERSON,

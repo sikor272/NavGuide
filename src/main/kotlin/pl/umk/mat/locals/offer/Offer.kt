@@ -6,6 +6,7 @@ import pl.umk.mat.locals.offer.bought.BoughtOffer
 import pl.umk.mat.locals.offer.feedback.Feedback
 import pl.umk.mat.locals.offer.purchase.PurchaseRequest
 import pl.umk.mat.locals.offer.tag.Tag
+import pl.umk.mat.locals.utils.enumerations.PriceType
 import java.util.*
 import javax.persistence.*
 

@@ -4,6 +4,7 @@ import io.swagger.annotations.ApiModel
 import io.swagger.annotations.ApiModelProperty
 import pl.umk.mat.locals.guide.GuideProfileDto
 import pl.umk.mat.locals.offer.tag.TagDto
+import pl.umk.mat.locals.utils.enumerations.PriceType
 import java.util.*
 
 @ApiModel(value = "Offer")
