@@ -116,6 +116,7 @@ class AuthService(
 
     private fun createAuthResponse(user: User): AuthResponse {
         return AuthResponse(
+                id = user.id,
                 token = jwtTokenProvider.createToken(user.email, user.id, user.tokenUniqueId),
                 firstName = user.firstName,
                 lastName = user.lastName,
