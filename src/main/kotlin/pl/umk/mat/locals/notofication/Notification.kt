@@ -1,14 +1,16 @@
 package pl.umk.mat.locals.notofication
 
 import pl.umk.mat.locals.user.User
-import pl.umk.mat.locals.utils.BaseEntity
+
 import java.util.*
 import javax.persistence.*
 
 
 @Entity
 data class Notification(
-
+        @Id
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
+        val id: Long = 0,
 
         val name: String,
 
@@ -21,4 +23,4 @@ data class Notification(
 
         @Enumerated(EnumType.STRING)
         val status: NotificationStatus = NotificationStatus.NEW
-) : BaseEntity()
+)
