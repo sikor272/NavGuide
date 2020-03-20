@@ -8,6 +8,7 @@ import javax.persistence.*
 
 @Entity
 data class BoughtOffer(
+
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         val id: Long = 0,

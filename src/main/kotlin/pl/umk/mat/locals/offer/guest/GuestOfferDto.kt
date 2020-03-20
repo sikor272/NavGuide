@@ -3,8 +3,8 @@ package pl.umk.mat.locals.offer.guest
 import io.swagger.annotations.ApiModel
 import io.swagger.annotations.ApiModelProperty
 import pl.umk.mat.locals.offer.Offer
-import pl.umk.mat.locals.utils.enumerations.PriceType
 import pl.umk.mat.locals.offer.tag.TagDto
+import pl.umk.mat.locals.utils.enumerations.PriceType
 
 @ApiModel(value = "Guest offer")
 data class GuestOfferDto(

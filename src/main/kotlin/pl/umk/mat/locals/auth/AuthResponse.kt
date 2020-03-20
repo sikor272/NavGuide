@@ -9,6 +9,7 @@ import pl.umk.mat.locals.utils.enumerations.Country
 
 @ApiModel(value = "Auth response")
 data class AuthResponse(
+        val id: Long,
         @field:ApiModelProperty(notes = "This token will be use to authorization.")
         val token: String,
         @field:ApiModelProperty(notes = "It's exactly what you expect.")
