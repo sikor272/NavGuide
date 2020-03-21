@@ -53,20 +53,6 @@ class UserService(
                         purchaseRequestRepository.existsByTravelerAndOffer_Owner(user, questioningUser.guideProfile)))
             return UserDto(user)
         throw AuthException("You don't have permission to display users!")
-        /*
-        if (user.role == Role.GUIDE) {
-            return UserDto(user)
-        }
-
-        if (user == questioningUser) {
-            return UserDto(user)
-        }
-
-        if (questioningUser.guideProfile != null && purchaseRequestRepository.existsByTravelerAndOffer_Owner(user, questioningUser.guideProfile)) {
-            return UserDto(user)
-        }
-
-        throw AuthException("You don't have permission to display users!")*/
     }
 
 
