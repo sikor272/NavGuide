@@ -6,15 +6,10 @@ import org.hibernate.validator.constraints.Range
 import pl.umk.mat.locals.utils.enumerations.Country
 import pl.umk.mat.locals.utils.enumerations.Gender
 import pl.umk.mat.locals.utils.validators.annotations.Telephone
-import javax.validation.constraints.Email
 import javax.validation.constraints.NotBlank
 
 @ApiModel(value = "Confirm Google account")
 data class ConfirmGoogleAccount(
-
-        @field:ApiModelProperty(notes = "It's exactly what you expect.")
-        @field:Email
-        val email: String,
 
         @field:ApiModelProperty(notes = "It's exactly what you expect.")
         @field:NotBlank(message = "First name cannot be empty!")

@@ -5,11 +5,14 @@ import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeToken
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken
 import com.google.api.client.http.javanet.NetHttpTransport
 import com.google.api.client.json.jackson2.JacksonFactory
+import org.springframework.amqp.rabbit.core.RabbitTemplate
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
 import pl.umk.mat.locals.auth.utils.JwtTokenProvider
+import pl.umk.mat.locals.auth.utils.NewUserRabbitDto
+import pl.umk.mat.locals.config.Config
 import pl.umk.mat.locals.user.User
 import pl.umk.mat.locals.user.UserRepository
 import pl.umk.mat.locals.user.interest.InterestDto
@@ -17,6 +20,7 @@ import pl.umk.mat.locals.user.interest.InterestRepository
 import pl.umk.mat.locals.utils.enumerations.Country
 import pl.umk.mat.locals.utils.exceptions.ResourceAlreadyExistException
 import pl.umk.mat.locals.utils.exceptions.UserAuthException
+import pl.umk.mat.locals.utils.findByIdOrThrow
 import javax.security.auth.message.AuthException
 import javax.transaction.Transactional
 
@@ -28,7 +32,9 @@ class AuthService(
         private val authenticationManager: AuthenticationManager,
         private val jwtTokenProvider: JwtTokenProvider,
         private val temporaryUserRepository: TemporaryUserRepository,
-        private val interestRepository: InterestRepository
+        private val interestRepository: InterestRepository,
+        private val rabbitTemplate: RabbitTemplate,
+        private val config: Config
 ) {
 
     fun localLogin(loginRequest: LoginRequest): AuthResponse {
@@ -62,6 +68,12 @@ class AuthService(
                 gender = registerRequest.gender,
                 age = registerRequest.age
         ))
+        rabbitTemplate.convertAndSend(
+                config.rabbitExchangeName, "newUser", NewUserRabbitDto(
+                newUser.email,
+                newUser.firstName,
+                newUser.lastName
+        ))
         return createAuthResponse(newUser)
     }
 
@@ -70,14 +82,16 @@ class AuthService(
         val jwtTokenPayload = jwtTokenProvider.getTokenPayloadFromTokenForTemporaryUser(token.removePrefix("Bearer "))
         val temporaryUserId = jwtTokenPayload.claims["userId"]?.asLong() ?: throw UserAuthException("Bad token.")
 
-        if (userRepository.existsUserByEmail(confirmGoogleAccount.email))
+        val temporaryUser = temporaryUserRepository.findByIdOrThrow(temporaryUserId)
+        if (userRepository.existsUserByEmail(temporaryUser.email))
             throw ResourceAlreadyExistException("User with this email already exist.")
 
         if (userRepository.existsUserByGoogleId(jwtTokenPayload.subject))
             throw ResourceAlreadyExistException("User with this GoogleId already exist.")
 
+
         val newUser = userRepository.save(User(
-                email = confirmGoogleAccount.email,
+                email = temporaryUser.email,
                 firstName = confirmGoogleAccount.firstName,
                 lastName = confirmGoogleAccount.lastName,
                 country = confirmGoogleAccount.country,
@@ -90,6 +104,13 @@ class AuthService(
         ))
 
         temporaryUserRepository.deleteById(temporaryUserId)
+
+        rabbitTemplate.convertAndSend(
+                config.rabbitExchangeName, "newUser", NewUserRabbitDto(
+                newUser.email,
+                newUser.firstName,
+                newUser.lastName
+        ))
         return createAuthResponse(newUser)
     }
 

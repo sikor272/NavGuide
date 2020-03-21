@@ -1,7 +1,9 @@
 package pl.umk.mat.locals.offer.purchase
 
 
+import org.springframework.amqp.rabbit.core.RabbitTemplate
 import org.springframework.stereotype.Service
+import pl.umk.mat.locals.config.Config
 import pl.umk.mat.locals.offer.OfferRepository
 import pl.umk.mat.locals.user.User
 import pl.umk.mat.locals.utils.enumerations.ChangeStatus
@@ -13,7 +15,9 @@ import javax.transaction.Transactional
 @Service
 class PurchaseRequestService(
         private val purchaseRequestRepository: PurchaseRequestRepository,
-        private val offerRepository: OfferRepository
+        private val offerRepository: OfferRepository,
+        private val rabbitTemplate: RabbitTemplate,
+        private val config: Config
 ) {
 
     @Transactional
@@ -28,6 +32,13 @@ class PurchaseRequestService(
                         plannedDate = newPurchaseRequest.plannedDate
                 )
         )
+        rabbitTemplate.convertAndSend(
+                config.rabbitExchangeName, "newPurchaseRequest", NewPurchaseRequestRabbitDto(
+                email = user.email,
+                firstName = user.firstName,
+                lastName = user.lastName,
+                offerName = offer.name
+        ))
     }
 
     @Transactional
@@ -43,16 +54,29 @@ class PurchaseRequestService(
     fun changePurchaseOfferStatus(id: Long, user: User, changePurchaseOfferStatus: ChangePurchaseOfferStatus) {
         val purchaseRequest = purchaseRequestRepository.findByIdOrThrow(id)
         if (purchaseRequest.offer.owner.user.id != user.id) throw UserAuthException("You are not owner of this resource")
+        val status = when (changePurchaseOfferStatus.status) {
+            ChangeStatus.ACCEPT -> Status.ACCEPTED
+            ChangeStatus.REJECT -> Status.REJECTED
+        }
         purchaseRequestRepository.save(
                 purchaseRequest.copy(
-                        status = when (changePurchaseOfferStatus.status) {
-                            ChangeStatus.ACCEPT -> Status.ACCEPTED
-                            ChangeStatus.REJECT -> Status.REJECTED
-                        },
+                        status = status,
                         feedbackMessage = changePurchaseOfferStatus.message
                 )
         )
-    }
 
+        rabbitTemplate.convertAndSend(
+                config.rabbitExchangeName, "purchaseRequestStatusChanged", PurchaseRequestStatusChangedRabbitDto(
+                email = user.email,
+                firstName = user.firstName,
+                lastName = user.lastName,
+                offerName = purchaseRequest.offer.name,
+                guide = PurchaseRequestStatusChangedRabbitDto.Guide(
+                        firstName = user.firstName,
+                        lastName = user.lastName
+                ),
+                status = status
+        ))
+    }
 
 }

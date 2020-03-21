@@ -1,8 +1,10 @@
 package pl.umk.mat.locals.guide.request
 
 
+import org.springframework.amqp.rabbit.core.RabbitTemplate
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
+import pl.umk.mat.locals.config.Config
 import pl.umk.mat.locals.guide.GuideProfile
 import pl.umk.mat.locals.guide.GuideProfileRepository
 import pl.umk.mat.locals.user.Role
@@ -17,7 +19,9 @@ import pl.umk.mat.locals.utils.findByIdOrThrow
 class GuideRequestService(
         private val guideRequestRepository: GuideRequestRepository,
         private val userRepository: UserRepository,
-        private val guideProfileRepository: GuideProfileRepository
+        private val guideProfileRepository: GuideProfileRepository,
+        private val rabbitTemplate: RabbitTemplate,
+        private val config: Config
 ) {
 
     @Transactional
@@ -83,5 +87,18 @@ class GuideRequestService(
         } else {
             rejectGuideRequest(user, id, changeGuideRequestStatus)
         }
+
+
+        rabbitTemplate.convertAndSend(
+                config.rabbitExchangeName, "guideRequestStatusChanged", GuideRequestStatusChangedRabbitDto(
+                email = user.email,
+                firstName = user.firstName,
+                lastName = user.lastName,
+                status = when (changeGuideRequestStatus.guideRequestStatus) {
+                    ChangeStatus.ACCEPT -> Status.ACCEPTED
+                    ChangeStatus.REJECT -> Status.REJECTED
+                }
+        ))
+
     }
 }
