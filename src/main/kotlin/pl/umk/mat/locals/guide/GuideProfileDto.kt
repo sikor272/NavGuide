@@ -6,6 +6,7 @@ data class GuideProfileDto(
         val languages: List<Language>,
         val lastName: String,
         val firstName: String,
+        val avatar: String,
         val guideId: Long,
         val userId: Long,
         val experience: Int,
@@ -16,6 +17,7 @@ data class GuideProfileDto(
             languages = guideProfile.languages,
             firstName = guideProfile.user.firstName,
             lastName = guideProfile.user.lastName,
+            avatar = guideProfile.user.avatar,
             guideId = guideProfile.id,
             userId = guideProfile.user.id,
             averageMark = guideProfile.offers.flatMap { offer ->

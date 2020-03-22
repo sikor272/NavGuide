@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiModelProperty
 import pl.umk.mat.locals.user.Role
 import pl.umk.mat.locals.user.interest.InterestDto
 import pl.umk.mat.locals.utils.enumerations.Country
+import pl.umk.mat.locals.utils.enumerations.Gender
 
 
 @ApiModel(value = "Auth response")
@@ -30,6 +31,6 @@ data class AuthResponse(
         val avatar: String,
         @field:ApiModelProperty(notes = "It's exactly what you expect.")
         val interests: List<InterestDto>,
-
+        val gender: Gender,
         val age: Int?
 )
