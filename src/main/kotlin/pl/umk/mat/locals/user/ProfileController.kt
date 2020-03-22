@@ -40,6 +40,14 @@ class ProfileController(
         return userService.updateProfile(principal.user, newUserData)
     }
 
+    @PutMapping
+    @ApiOperation("Change OneSignal id.", authorizations = [Authorization("JWT Token")])
+    fun setOneSignalId(
+            @RequestBody @Valid oneSignalId: OneSignalId,
+            @AuthenticationPrincipal principal: UserPrincipal
+    ) {
+        return userService.setOneSignalId(principal.user, oneSignalId)
+    }
 
     @PostMapping("/logout")
     @ResponseStatus(HttpStatus.OK)

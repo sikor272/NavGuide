@@ -118,4 +118,12 @@ class UserService(
         )
     }
 
+    fun setOneSignalId(user: User, oneSignalId: OneSignalId) {
+        userRepository.save(
+                user.copy(
+                        oneSignalId = oneSignalId.oneSignalId
+                )
+        )
+    }
+
 }

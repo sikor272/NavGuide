@@ -88,17 +88,25 @@ class GuideRequestService(
             rejectGuideRequest(user, id, changeGuideRequestStatus)
         }
 
+        val guideRequest = guideRequestRepository.findByIdOrThrow(id)
+
+
 
         rabbitTemplate.convertAndSend(
                 config.rabbitExchangeName, "guideRequestStatusChanged", GuideRequestStatusChangedRabbitDto(
-                email = user.email,
-                firstName = user.firstName,
-                lastName = user.lastName,
+                email = guideRequest.user.email,
+                firstName = guideRequest.user.firstName,
+                lastName = guideRequest.user.lastName,
                 status = when (changeGuideRequestStatus.guideRequestStatus) {
                     ChangeStatus.ACCEPT -> Status.ACCEPTED
                     ChangeStatus.REJECT -> Status.REJECTED
-                }
-        ))
+                },
+                oneSignalId = guideRequest.user.oneSignalId
+        )){
+            it.messageProperties.headers["email"] = true
+            it.messageProperties.headers["push"] = true
+            it
+        }
 
     }
 }

@@ -6,5 +6,6 @@ data class NewPurchaseRequestRabbitDto(
         val email: String,
         val firstName: String,
         val lastName: String,
-        val offerName: String
+        val offerName: String,
+        val oneSignalId: String? = null
 ) : Serializable
