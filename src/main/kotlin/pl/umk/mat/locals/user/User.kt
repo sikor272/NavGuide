@@ -53,6 +53,8 @@ data class User(
 
         val experience: Int,
 
+        val oneSignalId: String? = null,
+
         val avatar: String = "https://235.ip-51-91-9.eu/img/avatar_default.jpg",
 
         @ManyToMany(fetch = FetchType.EAGER)

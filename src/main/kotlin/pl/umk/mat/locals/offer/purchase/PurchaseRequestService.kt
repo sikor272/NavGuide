@@ -34,11 +34,16 @@ class PurchaseRequestService(
         )
         rabbitTemplate.convertAndSend(
                 config.rabbitExchangeName, "newPurchaseRequest", NewPurchaseRequestRabbitDto(
-                email = user.email,
-                firstName = user.firstName,
-                lastName = user.lastName,
-                offerName = offer.name
-        ))
+                email = offer.owner.user.email,
+                firstName = offer.owner.user.firstName,
+                lastName = offer.owner.user.lastName,
+                offerName = offer.name,
+                oneSignalId = offer.owner.user.oneSignalId
+        )){
+            it.messageProperties.headers["email"] = true
+            it.messageProperties.headers["push"] = true
+            it
+        }
     }
 
     @Transactional
@@ -65,18 +70,24 @@ class PurchaseRequestService(
                 )
         )
 
+
         rabbitTemplate.convertAndSend(
                 config.rabbitExchangeName, "purchaseRequestStatusChanged", PurchaseRequestStatusChangedRabbitDto(
-                email = user.email,
-                firstName = user.firstName,
-                lastName = user.lastName,
+                email = purchaseRequest.traveler.email,
+                firstName = purchaseRequest.traveler.firstName,
+                lastName = purchaseRequest.traveler.lastName,
                 offerName = purchaseRequest.offer.name,
                 guide = PurchaseRequestStatusChangedRabbitDto.Guide(
                         firstName = user.firstName,
                         lastName = user.lastName
                 ),
-                status = status
-        ))
+                status = status,
+                oneSignalId = purchaseRequest.traveler.oneSignalId
+        )){
+            it.messageProperties.headers["email"] = true
+            it.messageProperties.headers["push"] = true
+            it
+        }
     }
 
 }

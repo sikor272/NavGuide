@@ -7,5 +7,6 @@ data class GuideRequestStatusChangedRabbitDto(
         val email: String,
         val firstName: String,
         val lastName: String,
-        val status: Status
+        val status: Status,
+        val oneSignalId: String? = null
 ) : Serializable

@@ -9,7 +9,8 @@ data class PurchaseRequestStatusChangedRabbitDto(
         val lastName: String,
         val guide: Guide,
         val offerName: String,
-        val status: Status
+        val status: Status,
+        val oneSignalId: String? = null
 ) : Serializable {
     data class Guide(
             val firstName: String,
