@@ -128,7 +128,8 @@ class AuthService(
                 interests = user.interests.map {
                     InterestDto(it)
                 },
-                age = user.age
+                age = user.age,
+                gender = user.gender
         )
     }
 
