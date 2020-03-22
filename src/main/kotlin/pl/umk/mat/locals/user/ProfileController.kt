@@ -40,7 +40,7 @@ class ProfileController(
         return userService.updateProfile(principal.user, newUserData)
     }
 
-    @PutMapping
+    @PutMapping("/push")
     @ApiOperation("Change OneSignal id.", authorizations = [Authorization("JWT Token")])
     fun setOneSignalId(
             @RequestBody @Valid oneSignalId: OneSignalId,
