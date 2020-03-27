@@ -7,6 +7,7 @@ import pl.umk.mat.locals.config.Config
 import pl.umk.mat.locals.guide.request.GuideRequestRepository
 import pl.umk.mat.locals.guide.request.SelfGuideRequest
 import pl.umk.mat.locals.offer.bought.BoughtOfferDto
+import pl.umk.mat.locals.offer.feedback.FeedbackDto
 import pl.umk.mat.locals.offer.purchase.PurchaseRequestDto
 import pl.umk.mat.locals.offer.purchase.PurchaseRequestRepository
 import pl.umk.mat.locals.user.interest.InterestRepository
@@ -124,6 +125,10 @@ class UserService(
                         oneSignalId = oneSignalId.oneSignalId
                 )
         )
+    }
+
+    fun getSelfFeedbacks(user: User): List<FeedbackDto> {
+        return user.feedbackOffers.map { FeedbackDto(it) }
     }
 
 }
