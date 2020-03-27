@@ -11,6 +11,7 @@ import pl.umk.mat.locals.auth.NewUserData
 import pl.umk.mat.locals.auth.utils.UserPrincipal
 import pl.umk.mat.locals.guide.request.SelfGuideRequest
 import pl.umk.mat.locals.offer.bought.BoughtOfferDto
+import pl.umk.mat.locals.offer.feedback.FeedbackDto
 import pl.umk.mat.locals.offer.purchase.PurchaseRequestDto
 import javax.validation.Valid
 
@@ -93,5 +94,14 @@ class ProfileController(
             @AuthenticationPrincipal principal: UserPrincipal
     ): List<BoughtOfferDto> {
         return userService.getSelfHistoryOffer(principal.user)
+    }
+
+    @GetMapping("/feedbacks")
+    @ResponseStatus(HttpStatus.OK)
+    @ApiOperation("Get self feedbacks", authorizations = [Authorization("JWT Token")])
+    fun getUserFeedbacks(
+            @AuthenticationPrincipal principal: UserPrincipal
+    ): List<FeedbackDto> {
+        return userService.getSelfFeedbacks(principal.user)
     }
 }
