@@ -102,7 +102,7 @@ class GuideRequestService(
                     ChangeStatus.REJECT -> Status.REJECTED
                 },
                 oneSignalId = guideRequest.user.oneSignalId
-        )){
+        )) {
             it.messageProperties.headers["email"] = true
             it.messageProperties.headers["push"] = true
             it

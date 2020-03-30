@@ -110,7 +110,7 @@ class AuthService(
                 newUser.email,
                 newUser.firstName,
                 newUser.lastName
-        )){
+        )) {
             it.messageProperties.headers["email"] = true
             it.messageProperties.headers["push"] = false
             it

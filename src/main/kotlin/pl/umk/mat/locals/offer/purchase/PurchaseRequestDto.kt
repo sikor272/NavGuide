@@ -1,6 +1,5 @@
 package pl.umk.mat.locals.offer.purchase
 
-import pl.umk.mat.locals.message.MessageDto
 import pl.umk.mat.locals.offer.OfferDto
 import pl.umk.mat.locals.user.UserDto
 import pl.umk.mat.locals.utils.enumerations.Status

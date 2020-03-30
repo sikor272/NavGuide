@@ -36,7 +36,7 @@ class MessageController(
             @RequestBody @Valid newMessage: NewMessage,
             @PathVariable id: Long
     ) {
-        messageService.addNewMessage(principal.user,newMessage,id)
+        messageService.addNewMessage(principal.user, newMessage, id)
     }
 
 }

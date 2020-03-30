@@ -39,7 +39,7 @@ class PurchaseRequestService(
                 lastName = offer.owner.user.lastName,
                 offerName = offer.name,
                 oneSignalId = offer.owner.user.oneSignalId
-        )){
+        )) {
             it.messageProperties.headers["email"] = true
             it.messageProperties.headers["push"] = true
             it
@@ -83,7 +83,7 @@ class PurchaseRequestService(
                 ),
                 status = status,
                 oneSignalId = purchaseRequest.traveler.oneSignalId
-        )){
+        )) {
             it.messageProperties.headers["email"] = true
             it.messageProperties.headers["push"] = true
             it

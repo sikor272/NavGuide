@@ -17,6 +17,7 @@ import java.io.File
 import java.nio.file.Files
 import java.nio.file.Path
 import java.nio.file.StandardCopyOption
+import java.util.*
 import javax.security.auth.message.AuthException
 import javax.transaction.Transactional
 
@@ -35,7 +36,10 @@ class UserService(
     }
 
     fun getSelfHistoryOffer(user: User): List<BoughtOfferDto> {
-        return user.boughtOffers.map { BoughtOfferDto(it) }
+        return user.boughtOffers.filter {
+            it.date <= Date()
+        }.map { BoughtOfferDto(it) }
+
     }
 
     fun getSelfPurchaseRequests(user: User): List<PurchaseRequestDto> {

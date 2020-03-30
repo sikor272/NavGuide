@@ -9,4 +9,5 @@ import pl.umk.mat.locals.user.User
 @Repository
 interface BoughtOfferRepository : CrudRepository<BoughtOffer, Long> {
     fun existsByTravelerAndOffer(traveler: User, offer: Offer): Boolean
+    fun findAllByOfferOwner(guideProfile: GuideProfile): List<BoughtOffer>
 }
