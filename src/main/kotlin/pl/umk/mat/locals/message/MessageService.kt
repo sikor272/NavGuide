@@ -30,7 +30,7 @@ class MessageService(
     fun getAllMessagesForPurchaseRequest(user: User, id: Long): List<MessageDto>{
         val purchaseRequest = purchaseRequestRepository.findByIdOrThrow(id)
         if(purchaseRequest.traveler.id == user.id || purchaseRequest.offer.owner.user.id == user.id)
-            return purchaseRequest.message.map { MessageDto(it) }
+            return purchaseRequest.chatMessage.map { MessageDto(it) }
         throw AuthException("You don't have permission to display messages!")
     }
 }

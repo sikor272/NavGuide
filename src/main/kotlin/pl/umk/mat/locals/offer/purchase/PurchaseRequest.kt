@@ -20,9 +20,11 @@ data class PurchaseRequest(
         @ManyToOne(fetch = FetchType.LAZY)
         val traveler: User,
 
+        val message: String,
+
         @OneToMany(fetch = FetchType.LAZY)
         @JoinColumn(name = "message_id")
-        val message: List<Message> = emptyList(),
+        val chatMessage: List<Message> = emptyList(),
 
         val createdAt: Date = Date(),
 

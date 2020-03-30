@@ -26,6 +26,7 @@ class PurchaseRequestService(
 
         purchaseRequestRepository.save(
                 PurchaseRequest(
+                        message = newPurchaseRequest.message,
                         offer = offer,
                         traveler = user,
                         plannedDate = newPurchaseRequest.plannedDate

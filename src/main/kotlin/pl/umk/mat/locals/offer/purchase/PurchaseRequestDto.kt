@@ -8,7 +8,7 @@ import java.util.*
 
 data class PurchaseRequestDto(
         val id: Long,
-        val message: List<MessageDto>,
+        val message: String,
         val offer: OfferDto,
         val plannedDate: Date,
         val traveler: UserDto,
@@ -17,7 +17,7 @@ data class PurchaseRequestDto(
 ) {
     constructor(purchaseRequest: PurchaseRequest) : this(
             id = purchaseRequest.id,
-            message = purchaseRequest.message.map { MessageDto(it) },
+            message = purchaseRequest.message,
             offer = OfferDto(purchaseRequest.offer),
             plannedDate = purchaseRequest.plannedDate,
             traveler = UserDto(purchaseRequest.traveler),
