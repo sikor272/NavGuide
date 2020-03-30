@@ -11,6 +11,7 @@ import pl.umk.mat.locals.utils.enumerations.Status
 import pl.umk.mat.locals.utils.exceptions.ResourceNotFoundException
 import pl.umk.mat.locals.utils.exceptions.UserAuthException
 import pl.umk.mat.locals.utils.findByIdOrThrow
+import java.util.*
 import javax.transaction.Transactional
 
 @Service
@@ -41,7 +42,9 @@ class AgreementService(
         return agreementRepository.getAllByOfferOwnerOrTraveler(
                 user.guideProfile,
                 user
-        ).map { AgreementDto(it) }
+        ).filter {
+            it.plannedDate >= Date()
+        }.map { AgreementDto(it) }
     }
 
     fun changeAgreementStatus(agreementId: Long, user: User, changeAgreementStatus: ChangeAgreementStatus) {

@@ -6,6 +6,7 @@ import pl.umk.mat.locals.user.Role
 import pl.umk.mat.locals.user.User
 import pl.umk.mat.locals.user.UserRepository
 import pl.umk.mat.locals.utils.findByIdOrThrow
+import java.util.*
 import javax.security.auth.message.AuthException
 
 @Service
@@ -21,7 +22,9 @@ class BoughtOfferService(
                 questioningUser.id == user.id ||
                 (questioningUser.guideProfile != null &&
                         purchaseRequestRepository.existsByTravelerAndOffer_Owner(user, questioningUser.guideProfile)))
-            return user.boughtOffers.map { BoughtOfferDto(it) }
+            return user.boughtOffers.filter {
+                it.date <= Date()
+            }.map { BoughtOfferDto(it) }
         throw AuthException("You don't have permission to display users!")
     }
 

@@ -1,9 +1,7 @@
 package pl.umk.mat.locals.message
 
-import pl.umk.mat.locals.notofication.NotificationStatus
 import pl.umk.mat.locals.offer.purchase.PurchaseRequest
 import pl.umk.mat.locals.user.User
-
 import java.util.*
 import javax.persistence.*
 

@@ -13,6 +13,7 @@ import java.io.File
 import java.nio.file.Files
 import java.nio.file.Path
 import java.nio.file.StandardCopyOption
+import java.util.*
 import javax.transaction.Transactional
 
 @Service
@@ -78,20 +79,26 @@ class OfferService(
 
 
     fun getAllOffersByGeoLocalization(lat: Double, lon: Double, radius: Long): List<OfferDto> {
-        return offerRepository.findAllOffersByPoint(lat, lon, radius).asSequence().map {
+        return offerRepository.findAllOffersByPoint(lat, lon, radius).asSequence().filter {
+            it.end > Date()
+        }.map {
             OfferDto(it)
         }.toList()
     }
 
 
     fun getNearestOffers(lat: Double, lon: Double, count: Int): List<OfferDto> {
-        return offerRepository.findAllOffersNearByPoint(lat, lon, count).asSequence().map {
+        return offerRepository.findAllOffersNearByPoint(lat, lon, count).asSequence().filter {
+            it.end > Date()
+        }.map {
             OfferDto(it)
         }.toList()
     }
 
     fun getAllOffersByCity(city: String): List<OfferDto> {
-        return offerRepository.findAllOffersByCity(city).asSequence().map {
+        return offerRepository.findAllOffersByCity(city).asSequence().filter {
+            it.end > Date()
+        }.map {
             OfferDto(it)
         }.toList()
     }
@@ -107,14 +114,15 @@ class OfferService(
     }
 
     fun getAllOffersByName(name: String): List<OfferDto> {
-        return offerRepository.findAllByNameContaining(name).asSequence().map {
+        return offerRepository.findAllByNameContaining(name).asSequence().filter {
+            it.end > Date()
+        }.map {
             OfferDto(it)
         }.toList()
     }
 
 
     fun getFeedbackByOfferId(id: Long): List<FeedbackDto> {
-        val offer = offerRepository.findByIdOrThrow(id)
-        return offer.feedbackOffers.map { FeedbackDto(it) }
+        return offerRepository.findByIdOrThrow(id).feedbackOffers.map { FeedbackDto(it) }
     }
 }

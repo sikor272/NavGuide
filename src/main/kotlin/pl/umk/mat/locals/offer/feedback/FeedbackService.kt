@@ -19,8 +19,8 @@ class FeedbackService(
         val offer = offerRepository.findByIdOrThrow(feedback.offerId)
         if (boughtOfferRepository.existsByTravelerAndOffer(traveler, offer)) {
             val test = feedbackRepository.findAllByAuthorAndOffer(traveler, offer)
-            if(test.isNotEmpty())
-                    throw ResourceAlreadyExistException("You can't feedback again this offer")
+            if (test.isNotEmpty())
+                throw ResourceAlreadyExistException("You can't feedback again this offer")
 
             feedbackRepository.save(Feedback(
                     author = traveler,
