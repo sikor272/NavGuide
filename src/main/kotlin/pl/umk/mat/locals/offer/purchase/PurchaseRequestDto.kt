@@ -1,5 +1,6 @@
 package pl.umk.mat.locals.offer.purchase
 
+import pl.umk.mat.locals.message.MessageDto
 import pl.umk.mat.locals.offer.OfferDto
 import pl.umk.mat.locals.user.UserDto
 import pl.umk.mat.locals.utils.enumerations.Status
@@ -7,7 +8,7 @@ import java.util.*
 
 data class PurchaseRequestDto(
         val id: Long,
-        val message: String,
+        val message: List<MessageDto>,
         val offer: OfferDto,
         val plannedDate: Date,
         val traveler: UserDto,
@@ -16,7 +17,7 @@ data class PurchaseRequestDto(
 ) {
     constructor(purchaseRequest: PurchaseRequest) : this(
             id = purchaseRequest.id,
-            message = purchaseRequest.message,
+            message = purchaseRequest.message.map { MessageDto(it) },
             offer = OfferDto(purchaseRequest.offer),
             plannedDate = purchaseRequest.plannedDate,
             traveler = UserDto(purchaseRequest.traveler),
