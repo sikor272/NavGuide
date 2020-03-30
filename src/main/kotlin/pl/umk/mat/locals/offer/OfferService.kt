@@ -80,7 +80,7 @@ class OfferService(
 
     fun getAllOffersByGeoLocalization(lat: Double, lon: Double, radius: Long): List<OfferDto> {
         return offerRepository.findAllOffersByPoint(lat, lon, radius).asSequence().filter {
-            it.end > Date()
+            it.end >= Date()
         }.map {
             OfferDto(it)
         }.toList()
@@ -89,7 +89,7 @@ class OfferService(
 
     fun getNearestOffers(lat: Double, lon: Double, count: Int): List<OfferDto> {
         return offerRepository.findAllOffersNearByPoint(lat, lon, count).asSequence().filter {
-            it.end > Date()
+            it.end >= Date()
         }.map {
             OfferDto(it)
         }.toList()
@@ -97,7 +97,7 @@ class OfferService(
 
     fun getAllOffersByCity(city: String): List<OfferDto> {
         return offerRepository.findAllOffersByCity(city).asSequence().filter {
-            it.end > Date()
+            it.end >= Date()
         }.map {
             OfferDto(it)
         }.toList()
@@ -115,7 +115,7 @@ class OfferService(
 
     fun getAllOffersByName(name: String): List<OfferDto> {
         return offerRepository.findAllByNameContaining(name).asSequence().filter {
-            it.end > Date()
+            it.end >= Date()
         }.map {
             OfferDto(it)
         }.toList()

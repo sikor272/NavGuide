@@ -10,7 +10,7 @@ class GuestService(
 ) {
     fun getAllOffersByGeoLocalization(lat: Double, lon: Double, radius: Long): List<GuestOfferDto> {
         return offerRepository.findAllOffersByPoint(lat, lon, radius).asSequence().filter {
-            it.end > Date()
+            it.end >= Date()
         }.map {
             GuestOfferDto(it)
         }.toList()
@@ -18,7 +18,7 @@ class GuestService(
 
     fun getAllOffersByCity(city: String): List<GuestOfferDto> {
         return offerRepository.findAllOffersByCity(city).asSequence().filter {
-            it.end > Date()
+            it.end >= Date()
         }.map {
             GuestOfferDto(it)
         }.toList()
@@ -26,7 +26,7 @@ class GuestService(
 
     fun getRandomOffers(): List<GuestOfferDto> {
         return offerRepository.findRandomOffers().asSequence().filter {
-            it.end > Date()
+            it.end >= Date()
         }.map {
             GuestOfferDto(it)
         }.toList()
