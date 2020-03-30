@@ -1,5 +1,6 @@
 package pl.umk.mat.locals.offer.purchase
 
+import pl.umk.mat.locals.message.Message
 import pl.umk.mat.locals.offer.Offer
 import pl.umk.mat.locals.user.User
 
@@ -20,6 +21,10 @@ data class PurchaseRequest(
         val traveler: User,
 
         val message: String,
+
+        @OneToMany(fetch = FetchType.LAZY)
+        @JoinColumn(name = "message_id")
+        val chatMessage: List<Message> = emptyList(),
 
         val createdAt: Date = Date(),
 
