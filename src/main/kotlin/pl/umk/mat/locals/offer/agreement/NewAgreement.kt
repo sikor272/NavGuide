@@ -4,9 +4,8 @@ import java.util.*
 
 
 data class NewAgreement(
-        val offerId: Long,
         val description: String,
-        val userId: Long,
+        val purchaseRequestId: Long,
         val plannedDate: Date,
         val price: Float
 )
