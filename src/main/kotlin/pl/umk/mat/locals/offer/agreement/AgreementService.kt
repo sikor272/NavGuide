@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service
 import pl.umk.mat.locals.offer.OfferRepository
 import pl.umk.mat.locals.offer.bought.BoughtOffer
 import pl.umk.mat.locals.offer.bought.BoughtOfferRepository
+import pl.umk.mat.locals.offer.purchase.PurchaseRequestRepository
 import pl.umk.mat.locals.user.User
 import pl.umk.mat.locals.user.UserRepository
 import pl.umk.mat.locals.utils.enumerations.ChangeStatus
@@ -19,21 +20,23 @@ class AgreementService(
         private val agreementRepository: AgreementRepository,
         private val userRepository: UserRepository,
         private val offerRepository: OfferRepository,
-        private val boughtOfferRepository: BoughtOfferRepository
+        private val boughtOfferRepository: BoughtOfferRepository,
+        private val purchaseRequestRepository: PurchaseRequestRepository
 ) {
     @Transactional
     fun createNewAgreement(user: User, newAgreement: NewAgreement) {
-        val target = userRepository.findByIdOrThrow(newAgreement.userId)
+        val target = purchaseRequestRepository.findByIdOrThrow(newAgreement.purchaseRequestId)
         val offer = offerRepository.findByIdOrThrow(newAgreement.offerId)
         if (user.guideProfile == null)
             throw ResourceNotFoundException("You are not a guide")
         agreementRepository.save(
                 Agreement(
                         offer = offer,
-                        traveler = target,
+                        traveler = target.traveler,
                         description = newAgreement.description,
                         plannedDate = newAgreement.plannedDate,
-                        price = newAgreement.price
+                        price = newAgreement.price,
+                        purchaseRequest = target
                 )
         )
     }
