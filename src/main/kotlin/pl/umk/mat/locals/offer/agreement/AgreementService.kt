@@ -26,12 +26,11 @@ class AgreementService(
     @Transactional
     fun createNewAgreement(user: User, newAgreement: NewAgreement) {
         val target = purchaseRequestRepository.findByIdOrThrow(newAgreement.purchaseRequestId)
-        val offer = offerRepository.findByIdOrThrow(newAgreement.offerId)
         if (user.guideProfile == null)
             throw ResourceNotFoundException("You are not a guide")
         agreementRepository.save(
                 Agreement(
-                        offer = offer,
+                        offer = target.offer,
                         traveler = target.traveler,
                         description = newAgreement.description,
                         plannedDate = newAgreement.plannedDate,
