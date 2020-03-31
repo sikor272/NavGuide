@@ -29,9 +29,6 @@ data class Agreement(
 
         val price: Float,
 
-        @OneToOne(fetch = FetchType.EAGER)
-        val guideProfile: GuideProfile? = null,
-
         @ManyToOne(fetch = FetchType.LAZY)
         val purchaseRequest: PurchaseRequest
 )
