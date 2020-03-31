@@ -2,6 +2,7 @@ package pl.umk.mat.locals.offer.purchase
 
 import pl.umk.mat.locals.message.Message
 import pl.umk.mat.locals.offer.Offer
+import pl.umk.mat.locals.offer.agreement.Agreement
 import pl.umk.mat.locals.user.User
 
 import pl.umk.mat.locals.utils.enumerations.Status
@@ -33,7 +34,11 @@ data class PurchaseRequest(
         @Enumerated(EnumType.STRING)
         val status: Status = Status.PENDING,
 
-        val feedbackMessage: String? = null
+        val feedbackMessage: String? = null,
+
+        @OneToMany(fetch = FetchType.LAZY)
+        @JoinColumn(name = "agreements_id")
+        val agreements: List<Agreement> = emptyList()
 
 
 )
