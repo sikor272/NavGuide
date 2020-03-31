@@ -43,7 +43,7 @@ class AgreementService(
                 user.guideProfile,
                 user
         ).filter {
-            it.plannedDate >= Date()
+            it.plannedDate >= Date() || it.status == Status.PENDING
         }.map { AgreementDto(it) }
     }
 
