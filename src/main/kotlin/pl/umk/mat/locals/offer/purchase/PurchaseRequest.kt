@@ -24,7 +24,6 @@ data class PurchaseRequest(
         val message: String,
 
         @OneToMany(fetch = FetchType.LAZY)
-        @JoinColumn(name = "message_id")
         val chatMessage: List<Message> = emptyList(),
 
         val createdAt: Date = Date(),

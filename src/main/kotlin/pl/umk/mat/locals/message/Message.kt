@@ -20,5 +20,6 @@ data class Message(
         val author: User,
 
         @ManyToOne(fetch = FetchType.LAZY)
+        @JoinColumn(name = "purchase_request__id")
         val purchaseRequest: PurchaseRequest
 )
