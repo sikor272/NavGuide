@@ -16,14 +16,19 @@ class MessageService(
     fun addNewMessage(user: User, newMessage: NewMessage, purchaseId: Long) {
         val purchaseRequest = purchaseRequestRepository.findByIdOrThrow(purchaseId)
         if (purchaseRequest.traveler.id == user.id || purchaseRequest.offer.owner.user.id == user.id)
-            messageRepository.save(
-                    Message(
-                            author = user,
-                            description = newMessage.description,
-                            date = Date(),
-                            purchaseRequest = purchaseRequest
+            purchaseRequestRepository.save(
+                    purchaseRequest.copy(
+                            chatMessage = purchaseRequest.chatMessage.plus(messageRepository.save(
+                                    Message(
+                                            author = user,
+                                            description = newMessage.description,
+                                            date = Date(),
+                                            purchaseRequest = purchaseRequest
+                                    )
+                            ))
                     )
             )
+
         throw AuthException("You don't have permission to add messages!")
     }
 
