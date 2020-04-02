@@ -20,6 +20,6 @@ data class Message(
         val author: User,
 
         @ManyToOne(fetch = FetchType.LAZY)
-        @JoinColumn(name = "purchase_request_id")
+        @JoinColumn(name = "purchaserequest_id")
         val purchaseRequest: PurchaseRequest
 )
