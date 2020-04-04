@@ -24,7 +24,7 @@ class GuideService(
 
     fun getGuideHistoryOffer(guideId: Long): List<BoughtOfferDto> {
         return boughtOfferRepository.findAllByOfferOwner(guideProfileRepository.findByIdOrThrow(guideId)).filter {
-            it.date <= Date()
+            it.plannedDate <= Date()
         }.map {
             BoughtOfferDto(it)
         }

@@ -23,7 +23,7 @@ class BoughtOfferService(
                 (questioningUser.guideProfile != null &&
                         purchaseRequestRepository.existsByTravelerAndOffer_Owner(user, questioningUser.guideProfile)))
             return user.boughtOffers.filter {
-                it.date <= Date()
+                it.plannedDate <= Date()
             }.map { BoughtOfferDto(it) }
         throw AuthException("You don't have permission to display users!")
     }
