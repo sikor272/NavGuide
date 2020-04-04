@@ -37,7 +37,7 @@ class UserService(
 
     fun getSelfHistoryOffer(user: User): List<BoughtOfferDto> {
         return user.boughtOffers.filter {
-            it.date <= Date()
+            it.plannedDate <= Date()
         }.map { BoughtOfferDto(it) }
 
     }
