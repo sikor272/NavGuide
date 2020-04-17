@@ -11,6 +11,7 @@ import pl.umk.mat.locals.utils.enumerations.Status
 import pl.umk.mat.locals.utils.exceptions.UserAuthException
 import pl.umk.mat.locals.utils.findByIdOrThrow
 import javax.transaction.Transactional
+import javax.validation.constraints.Null
 
 @Service
 class PurchaseRequestService(
@@ -41,7 +42,7 @@ class PurchaseRequestService(
                 oneSignalId = offer.owner.user.oneSignalId
         )) {
             it.messageProperties.headers["email"] = true
-            it.messageProperties.headers["push"] = true
+            it.messageProperties.headers["push"] = user.oneSignalId !== null
             it
         }
     }
@@ -85,7 +86,7 @@ class PurchaseRequestService(
                 oneSignalId = purchaseRequest.traveler.oneSignalId
         )) {
             it.messageProperties.headers["email"] = true
-            it.messageProperties.headers["push"] = true
+            it.messageProperties.headers["push"] = user.oneSignalId !== null
             it
         }
     }

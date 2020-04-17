@@ -104,7 +104,7 @@ class GuideRequestService(
                 oneSignalId = guideRequest.user.oneSignalId
         )) {
             it.messageProperties.headers["email"] = true
-            it.messageProperties.headers["push"] = true
+            it.messageProperties.headers["push"] = user.oneSignalId !== null
             it
         }
 
