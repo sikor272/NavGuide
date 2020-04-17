@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiModelProperty
 import pl.umk.mat.locals.offer.Offer
 import pl.umk.mat.locals.offer.tag.TagDto
 import pl.umk.mat.locals.utils.enumerations.PriceType
+import java.util.*
 
 @ApiModel(value = "Guest offer")
 data class GuestOfferDto(
@@ -31,7 +32,9 @@ data class GuestOfferDto(
         @field:ApiModelProperty(notes = "It's exactly what you expect.")
         val description: String,
         val averageMark: Double,
-        val inSearch: Long
+        val inSearch: Long,
+        val begin: Date,
+        val end: Date
 
 ) {
     constructor(offer: Offer) : this(
@@ -51,6 +54,8 @@ data class GuestOfferDto(
             averageMark = offer.feedbackOffers.map {
                 it.scoreOffer
             }.average(),
-            inSearch = offer.inSearch
+            inSearch = offer.inSearch,
+            begin = offer.begin,
+            end = offer.end
     )
 }

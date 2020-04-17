@@ -20,6 +20,15 @@ class GuestController(
         return guestService.getRandomOffers()
     }
 
+    @GetMapping("/offers/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    @ApiOperation("Get offer by id.")
+    fun getOfferById(
+            @PathVariable id: Long
+    ): GuestOfferDto {
+        return guestService.getOfferById(id)
+    }
+
     @GetMapping("/offers/geo")
     @ResponseStatus(HttpStatus.OK)
     @ApiOperation("Get all offers by geolocation and radius.")
