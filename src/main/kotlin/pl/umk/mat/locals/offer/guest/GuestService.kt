@@ -2,6 +2,7 @@ package pl.umk.mat.locals.offer.guest
 
 import org.springframework.stereotype.Service
 import pl.umk.mat.locals.offer.OfferRepository
+import pl.umk.mat.locals.utils.findByIdOrThrow
 import java.util.*
 
 @Service
@@ -30,6 +31,9 @@ class GuestService(
         }.map {
             GuestOfferDto(it)
         }.toList()
+    }
+    fun getOfferById(id: Long) : GuestOfferDto {
+        return GuestOfferDto(offerRepository.findByIdOrThrow(id))
     }
 
 }
