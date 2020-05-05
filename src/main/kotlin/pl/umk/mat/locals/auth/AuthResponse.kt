@@ -8,8 +8,9 @@ import pl.umk.mat.locals.utils.enumerations.Country
 import pl.umk.mat.locals.utils.enumerations.Gender
 
 
-@ApiModel(value = "Auth response")
+@ApiModel
 data class AuthResponse(
+        @field:ApiModelProperty(notes = "It's exactly what you expect.")
         val id: Long,
         @field:ApiModelProperty(notes = "This token will be use to authorization.")
         val token: String,
@@ -31,6 +32,8 @@ data class AuthResponse(
         val avatar: String,
         @field:ApiModelProperty(notes = "It's exactly what you expect.")
         val interests: List<InterestDto>,
+        @field:ApiModelProperty(notes = "It's exactly what you expect.")
         val gender: Gender,
+        @field:ApiModelProperty(notes = "It's exactly what you expect.")
         val age: Int?
 )

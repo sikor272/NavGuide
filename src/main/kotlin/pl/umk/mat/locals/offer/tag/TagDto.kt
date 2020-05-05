@@ -3,7 +3,7 @@ package pl.umk.mat.locals.offer.tag
 import io.swagger.annotations.ApiModel
 import io.swagger.annotations.ApiModelProperty
 
-@ApiModel(value = "Tag")
+@ApiModel
 data class TagDto(
         @field:ApiModelProperty(notes = "It's exactly what you expect.")
         val id: Long,

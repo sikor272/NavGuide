@@ -3,7 +3,7 @@ package pl.umk.mat.locals.user.interest
 import io.swagger.annotations.ApiModel
 import io.swagger.annotations.ApiModelProperty
 
-@ApiModel(value = "Interest")
+@ApiModel
 data class InterestDto(
         @field:ApiModelProperty(notes = "It's exactly what you expect.")
         val id: Long,

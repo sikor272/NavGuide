@@ -7,7 +7,7 @@ import pl.umk.mat.locals.utils.enumerations.Status
 import java.util.*
 
 
-@ApiModel(value = "Guide Request for Administrator")
+@ApiModel
 data class AdministratorGuideRequest(
         @field:ApiModelProperty(notes = "It's exactly what you expect.")
         val id: Long,

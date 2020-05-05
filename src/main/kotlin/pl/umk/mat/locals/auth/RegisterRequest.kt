@@ -7,33 +7,47 @@ import org.hibernate.validator.constraints.Range
 import pl.umk.mat.locals.utils.enumerations.Country
 import pl.umk.mat.locals.utils.enumerations.Gender
 import pl.umk.mat.locals.utils.validators.annotations.Telephone
-import javax.validation.constraints.Email
-import javax.validation.constraints.NotBlank
+import javax.validation.constraints.*
 
-@ApiModel(value = "Register with password request")
+@ApiModel
 data class RegisterRequest(
-        @field:ApiModelProperty(notes = "It's exactly what you expect.")
-        @field:Length(min = 8, max = 32, message = "wrong password")
+
+        @field:Size(min = 8, max = 32)
+        @field:ApiModelProperty(notes = "It's exactly what you expect.", required = true)
         val password: String,
-        @field:ApiModelProperty(notes = "It's exactly what you expect.")
+
         @field:Email
+        @field:ApiModelProperty(notes = "It's exactly what you expect.", required = true)
         val email: String,
-        @field:ApiModelProperty(notes = "It's exactly what you expect.")
-        @field:NotBlank(message = "First name cannot be empty!")
+
+        @field:NotBlank
+        @field:Size(min = 1, max = 200)
+        @field:ApiModelProperty(notes = "It's exactly what you expect.", required = true)
         val firstName: String,
-        @field:ApiModelProperty(notes = "It's exactly what you expect.")
-        @field:NotBlank(message = "Last name cannot be empty!")
+
+        @field:NotBlank
+        @field:Size(min = 1, max = 200)
+        @field:ApiModelProperty(notes = "It's exactly what you expect.", required = true)
         val lastName: String,
-        @field:ApiModelProperty(notes = "Country code ISO 3166-1 alpha-2")
+
+        @field:ApiModelProperty(notes = "Country code ISO 3166-1 alpha-2", required = true)
         val country: Country,
-        @field:ApiModelProperty(notes = "It's exactly what you expect.")
+
         @field:Telephone
+        @field:ApiModelProperty(notes = "It's exactly what you expect.", required = true)
         val telephone: String,
-        @field:ApiModelProperty(notes = "It's exactly what you expect.")
-        @field:Range(min = 1, max = 5)
+
+        @field:Min(1)
+        @field:Max(5)
+        @field:ApiModelProperty(notes = "It's exactly what you expect.", required = true)
         val experience: Int,
-        @field:ApiModelProperty(notes = "It's exactly what you expect.")
+
+        @field:ApiModelProperty(notes = "It's exactly what you expect.", required = true)
         val interests: List<Long>,
+
+        @field:ApiModelProperty(notes = "It's exactly what you expect.", required = true)
         val gender: Gender,
+
+        @field:ApiModelProperty(notes = "It's exactly what you expect.", required = false)
         val age: Int?
 )

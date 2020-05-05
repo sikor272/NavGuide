@@ -2,14 +2,17 @@ package pl.umk.mat.locals.auth
 
 import io.swagger.annotations.ApiModel
 import io.swagger.annotations.ApiModelProperty
+import org.hibernate.validator.constraints.URL
 import javax.validation.constraints.NotBlank
 
-@ApiModel(value = "Google code")
+@ApiModel
 data class GoogleCode(
-        @field:ApiModelProperty("One time code provided by Google.")
-        @field:NotBlank(message = "Code cannot blank!")
+        @field:NotBlank
+        @field:ApiModelProperty(notes = "It's exactly what you expect.", required = true)
         val code: String,
 
-        @field:ApiModelProperty("Url")
+        @field:URL
+        @field:ApiModelProperty(notes = "It's exactly what you expect.", required = true)
         val request: String
 )
+

@@ -1,10 +1,12 @@
 package pl.umk.mat.locals.guide.request
 
+import io.swagger.annotations.ApiModel
 import io.swagger.annotations.ApiModelProperty
 import pl.umk.mat.locals.utils.enumerations.Language
 import pl.umk.mat.locals.utils.enumerations.Status
 import java.util.*
 
+@ApiModel
 data class SelfGuideRequest(
         @field:ApiModelProperty(notes = "It's exactly what you expect.")
         val date: Date,

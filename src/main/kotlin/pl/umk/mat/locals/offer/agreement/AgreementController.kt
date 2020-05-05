@@ -20,7 +20,7 @@ class AgreementController(
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     @ApiOperation("Create new agreement.", authorizations = [Authorization("JWT Token")])
-    fun createNewOffer(
+    fun createNewAgreement(
             @AuthenticationPrincipal principal: UserPrincipal,
             @RequestBody @Valid newAgreement: NewAgreement
     ) {

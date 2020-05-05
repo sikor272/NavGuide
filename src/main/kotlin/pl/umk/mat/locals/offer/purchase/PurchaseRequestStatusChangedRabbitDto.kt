@@ -1,5 +1,6 @@
 package pl.umk.mat.locals.offer.purchase
 
+import io.swagger.annotations.ApiModel
 import pl.umk.mat.locals.utils.enumerations.Status
 import java.io.Serializable
 
