@@ -4,7 +4,7 @@ import io.swagger.annotations.ApiModel
 import io.swagger.annotations.ApiModelProperty
 import pl.umk.mat.locals.utils.enumerations.Country
 
-@ApiModel(value = "Google account info")
+@ApiModel
 data class GoogleAccountInfo(
         @field:ApiModelProperty(notes = "It's exactly what you expect.")
         val email: String,

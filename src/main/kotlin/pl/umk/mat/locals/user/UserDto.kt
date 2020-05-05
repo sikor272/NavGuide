@@ -6,7 +6,7 @@ import pl.umk.mat.locals.user.interest.InterestDto
 import pl.umk.mat.locals.utils.enumerations.Country
 import pl.umk.mat.locals.utils.enumerations.Gender
 
-@ApiModel(value = "Self User Info")
+@ApiModel
 data class UserDto(
         @field:ApiModelProperty(notes = "It's exactly what you expect.")
         val id: Long,
@@ -38,8 +38,10 @@ data class UserDto(
         @field:ApiModelProperty(notes = "It's exactly what you expect.")
         val interests: List<InterestDto> = emptyList(),
 
+        @field:ApiModelProperty(notes = "It's exactly what you expect.")
         val age: Int?,
 
+        @field:ApiModelProperty(notes = "It's exactly what you expect.")
         val gender: Gender
 
 

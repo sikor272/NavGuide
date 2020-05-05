@@ -5,7 +5,7 @@ import io.swagger.annotations.ApiModelProperty
 import pl.umk.mat.locals.user.UserDto
 import java.util.*
 
-@ApiModel(value = "Message")
+@ApiModel
 data class MessageDto(
         @field:ApiModelProperty(notes = "It's exactly what you expect.")
         val id: Long,

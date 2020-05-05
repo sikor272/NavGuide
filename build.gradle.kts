@@ -28,8 +28,12 @@ dependencies {
     implementation("com.auth0:java-jwt:3.3.0")
     implementation("com.google.api-client:google-api-client:1.30.5")
 
-    implementation ("io.springfox:springfox-swagger2:2.9.2")
+    implementation ("io.springfox:springfox-swagger2:2.9.2") {
+        exclude("io.swagger:swagger-models")
+    }
+    implementation("io.swagger:swagger-models:1.5.21")
     implementation ("io.springfox:springfox-swagger-ui:2.9.2")
+    implementation ("io.springfox:springfox-bean-validators:2.9.2")
 
     runtimeOnly("mysql:mysql-connector-java")
     testImplementation("org.springframework.boot:spring-boot-starter-test") {

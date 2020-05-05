@@ -14,6 +14,7 @@ class AuthController(
         private val authService: AuthService
 ) {
 
+    @Deprecated(message = "Only for dev's")
     @ApiOperation("Login with password.")
     @PostMapping("/local/login")
     @ResponseStatus(HttpStatus.OK)
@@ -23,9 +24,11 @@ class AuthController(
         return authService.localLogin(loginRequest)
     }
 
+
     @ApiOperation("Register with password.")
     @PostMapping("/local/register")
     @ResponseStatus(HttpStatus.CREATED)
+    @Deprecated(message = "Only for dev's")
     fun localRegister(
             @RequestBody @Valid registerRequest: RegisterRequest
     ): AuthResponse {

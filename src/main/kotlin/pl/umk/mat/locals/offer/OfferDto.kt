@@ -7,7 +7,7 @@ import pl.umk.mat.locals.offer.tag.TagDto
 import pl.umk.mat.locals.utils.enumerations.PriceType
 import java.util.*
 
-@ApiModel(value = "Offer")
+@ApiModel
 data class OfferDto(
         @field:ApiModelProperty(notes = "It's exactly what you expect.")
         val id: Long,
@@ -35,10 +35,15 @@ data class OfferDto(
         val radius: Long,
         @field:ApiModelProperty(notes = "It's exactly what you expect.")
         val description: String,
+        @field:ApiModelProperty(notes = "It's exactly what you expect.")
         val averageMark: Double,
+        @field:ApiModelProperty(notes = "It's exactly what you expect.")
         val inSearch: Long,
+        @field:ApiModelProperty(notes = "It's exactly what you expect.")
         val sold: Int,
+        @field:ApiModelProperty(notes = "It's exactly what you expect.")
         val begin: Date,
+        @field:ApiModelProperty(notes = "It's exactly what you expect.")
         val end: Date
 ) {
     constructor(offer: Offer) : this(

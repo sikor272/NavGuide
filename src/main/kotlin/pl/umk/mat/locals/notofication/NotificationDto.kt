@@ -4,7 +4,7 @@ import io.swagger.annotations.ApiModel
 import io.swagger.annotations.ApiModelProperty
 import java.util.*
 
-@ApiModel(value = "Notification")
+@ApiModel
 data class NotificationDto(
         @field:ApiModelProperty(notes = "It's exactly what you expect.")
         val id: Long,
