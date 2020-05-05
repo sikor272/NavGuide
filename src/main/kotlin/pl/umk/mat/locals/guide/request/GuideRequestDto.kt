@@ -2,7 +2,6 @@ package pl.umk.mat.locals.guide.request
 
 import io.swagger.annotations.ApiModel
 import io.swagger.annotations.ApiModelProperty
-import org.hibernate.validator.constraints.Range
 import pl.umk.mat.locals.utils.enumerations.Language
 import javax.validation.constraints.Max
 import javax.validation.constraints.Min

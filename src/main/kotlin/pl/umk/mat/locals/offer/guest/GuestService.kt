@@ -32,7 +32,8 @@ class GuestService(
             GuestOfferDto(it)
         }.toList()
     }
-    fun getOfferById(id: Long) : GuestOfferDto {
+
+    fun getOfferById(id: Long): GuestOfferDto {
         return GuestOfferDto(offerRepository.findByIdOrThrow(id))
     }
 

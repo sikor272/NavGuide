@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiModelProperty
 import pl.umk.mat.locals.user.interest.InterestDto
 import pl.umk.mat.locals.utils.enumerations.Country
 import pl.umk.mat.locals.utils.enumerations.Gender
+
 @ApiModel
 data class UserDto(
         @field:ApiModelProperty(notes = "It's exactly what you expect.")

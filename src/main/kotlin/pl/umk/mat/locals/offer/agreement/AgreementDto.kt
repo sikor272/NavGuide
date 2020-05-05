@@ -35,6 +35,6 @@ data class AgreementDto(
             status = agreement.status,
             plannedDate = agreement.plannedDate,
             price = agreement.price,
-            purchase =  PurchaseRequestDto(agreement.purchaseRequest)
+            purchase = PurchaseRequestDto(agreement.purchaseRequest)
     )
 }

@@ -16,6 +16,7 @@ interface OfferRepository : CrudRepository<Offer, Long> {
     fun findAllOffersNearByPoint(lat: Double, lon: Double, count: Int): List<Offer>
 
     fun findAllOffersByCity(city: String): List<Offer>
+
     @Query(value = "SELECT * FROM offer ORDER BY RAND() LIMIT 10",
             nativeQuery = true)
     fun findRandomOffers(): List<Offer>

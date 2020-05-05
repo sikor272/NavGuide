@@ -2,8 +2,8 @@ package pl.umk.mat.locals.offer.feedback
 
 import io.swagger.annotations.ApiModel
 import io.swagger.annotations.ApiModelProperty
-import java.util.*
 import pl.umk.mat.locals.offer.OfferDto
+import java.util.*
 
 @ApiModel
 data class FeedbackDto(

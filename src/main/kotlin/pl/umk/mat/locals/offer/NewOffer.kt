@@ -2,10 +2,12 @@ package pl.umk.mat.locals.offer
 
 import io.swagger.annotations.ApiModel
 import io.swagger.annotations.ApiModelProperty
-import org.hibernate.validator.constraints.Range
 import pl.umk.mat.locals.utils.enumerations.PriceType
 import java.util.*
-import javax.validation.constraints.*
+import javax.validation.constraints.Future
+import javax.validation.constraints.Min
+import javax.validation.constraints.NotBlank
+import javax.validation.constraints.Size
 
 @ApiModel
 data class NewOffer(
@@ -55,7 +57,7 @@ data class NewOffer(
         @field:ApiModelProperty(notes = "It's exactly what you expect.", required = true)
         val description: String
 ) {
-        @get:ApiModelProperty(hidden = true)
+    @get:ApiModelProperty(hidden = true)
     val tag: List<Long>
         get() = tags.split(",").map { it.toLong() }
 }

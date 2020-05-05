@@ -2,8 +2,6 @@ package pl.umk.mat.locals.auth
 
 import io.swagger.annotations.ApiModel
 import io.swagger.annotations.ApiModelProperty
-import org.hibernate.validator.constraints.Length
-import org.hibernate.validator.constraints.Range
 import pl.umk.mat.locals.utils.enumerations.Country
 import pl.umk.mat.locals.utils.enumerations.Gender
 import pl.umk.mat.locals.utils.validators.annotations.Telephone
